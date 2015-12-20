@@ -17,8 +17,6 @@ import java.awt.image.LookupTable;
 import java.awt.image.ShortLookupTable;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +24,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import util.Observable;
 import util.ObservableAdapter;
 import util.Observer;
 

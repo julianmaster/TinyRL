@@ -15,8 +15,8 @@ import util.Observer;
  */
 public class TinyRL implements Observer {
 	public static final String TITLE = "TinyRL";
-	public static final int WINDOW_WIDTH = 7;
-	public static final int WINDOW_HEIGHT = 7;
+	public static final int WINDOW_WIDTH = 15;
+	public static final int WINDOW_HEIGHT = 15;
 	public static final String TILESET_FILE = "src/assets/wanderlust.png";
 	public static final int CHARACTER_WIDTH = 12;
 	public static final int CHARACTER_HEIGHT = 12;
@@ -37,7 +37,8 @@ public class TinyRL implements Observer {
 			terminal.clear();
 			for(int i = 0; i < WINDOW_WIDTH; i++) {
 				for(int j = 0; j < WINDOW_HEIGHT; j++) {
-					terminal.write(i, j, (char) rand.nextInt(256), new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)), new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+//					terminal.write(i, j, (char) rand.nextInt(256), new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)), new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+					terminal.write(i, j, (char) rand.nextInt(256), new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)), Color.BLACK);
 				}
 			}
 			terminal.repaint();
