@@ -35,9 +35,11 @@ public class Terminal extends JPanel implements KeyListener {
 	private static final long serialVersionUID = 7552042213014894337L;
 	
 	private JFrame window;
-	private KeyEvent event;
 	
-	private ObservableAdapter eventHandler = new ObservableAdapter();
+	private KeyEvent event;
+	private ObservableAdapter keyTypedHandler = new ObservableAdapter();
+	private ObservableAdapter keyPressedHandler = new ObservableAdapter();
+	private ObservableAdapter keyReleasedHandler = new ObservableAdapter();
 	
     private Dimension m_size;
 
@@ -320,30 +322,46 @@ public class Terminal extends JPanel implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		event = e;
-		eventHandler.notifyObservers();
+		keyTypedHandler.notifyObservers();
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		event = e;
-		eventHandler.notifyObservers();
+		keyPressedHandler.notifyObservers();
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		event = e;
-		eventHandler.notifyObservers();
+		keyReleasedHandler.notifyObservers();
 	}
 	
 	public KeyEvent getEvent() {
 		return event;
 	}
 	
-	public void addObserver(Observer observer) {
-		eventHandler.addObserver(observer);
+	public void addKeyTypedObserver(Observer observer) {
+		keyTypedHandler.addObserver(observer);
 	}
 	
-	public void deleteObservers() {
-		eventHandler.deleteObservers();
+	public void deleteKeyTypedObservers() {
+		keyTypedHandler.deleteObservers();
+	}
+	
+	public void addKeyPressedObserver(Observer observer) {
+		keyPressedHandler.addObserver(observer);
+	}
+	
+	public void deleteKeyPressedObservers() {
+		keyPressedHandler.deleteObservers();
+	}
+	
+	public void addKeyReleasedObserver(Observer observer) {
+		keyReleasedHandler.addObserver(observer);
+	}
+	
+	public void deleteKeyReleasedObservers() {
+		keyReleasedHandler.deleteObservers();
 	}
 }

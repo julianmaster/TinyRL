@@ -13,7 +13,7 @@ public class ObservableAdapter implements Observable {
 
 	@Override
 	public void notifyObservers() {
-		for (Observer observer : this.observers) {
+		for (Observer observer : new ArrayList<>(observers)) {
 			observer.updateObserver(this);
 		}
 	}

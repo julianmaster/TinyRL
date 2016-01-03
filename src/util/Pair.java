@@ -18,4 +18,9 @@ public class Pair<K, V> {
 		Pair<?, ?> pair = (Pair<?, ?>) obj;
 		return key.equals(pair.key) && value.equals(pair.value);
 	}
+	
+	@Override
+	public String toString() {
+		return "(" + key.toString() + ", " + value.toString() + ")";
+	}
 }

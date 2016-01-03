@@ -3,8 +3,10 @@ package generator;
 import model.Cell;
 import model.Ground;
 import model.Room;
+import model.entities.Player;
+import model.entities.Wall;
 
-public class EmptyRoom extends BaseRoom {
+public class StartingRoom extends BaseRoom {
 
 	@Override
 	public void apply(Room room) {
@@ -12,13 +14,19 @@ public class EmptyRoom extends BaseRoom {
 			for(int y = 0; y < Room.ROOM_SIZE; y++) {
 				Cell cell = new Cell(null, null, Ground.DIRT);
 				
-				if(x = 0 && y = 0) {
+				if(x % (Room.ROOM_SIZE-1) == 0 || y % (Room.ROOM_SIZE-1) == 0) {
+					cell.setEntity(new Wall());
+				}
+				
+				if(x == 5 && y == 5) {
 					// Ajouter le joueur
-					cell.setEntity(entity);
+					cell.setEntity(new Player());
 				}
 				
 				room.setCell(x, y, cell);
 			}
 		}
+		
+		super.placeDoor(room);
 	}
 }
