@@ -1,18 +1,21 @@
 package model.entities;
 
-import util.Pair;
+import model.Direction;
 import model.Entity;
 import model.Openable;
 import model.RoomChanger;
 import model.Tile;
+import util.Pair;
 
 public class Door extends Entity implements Openable, RoomChanger {
 	private boolean open = false;
-	public Pair<Integer, Integer> nextRoom;
+	private Pair<Integer, Integer> nextRoom;
+	private Direction direction;
 	
-	public Door(Pair<Integer, Integer> nextRoom) {
+	public Door(Pair<Integer, Integer> nextRoom, Direction direction) {
 		super(Tile.CLOSE_DOOR, null, null);
 		this.nextRoom = nextRoom;
+		this.direction = direction;
 	}
 
 	@Override
@@ -33,5 +36,10 @@ public class Door extends Entity implements Openable, RoomChanger {
 	@Override
 	public Pair<Integer, Integer> changeRoom() {
 		return nextRoom;
+	}
+	
+	@Override
+	public Direction getDirection() {
+		return direction;
 	}
 }

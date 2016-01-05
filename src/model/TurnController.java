@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TurnController {
-	public List<Entity> entities = new ArrayList<>();
-	public int position = 0;
+	private List<Entity> entities = new ArrayList<>();
+	private int position = 0;
 	
 	public boolean addEntity(Entity entity) {
 		return entities.add(entity);
@@ -26,5 +26,9 @@ public class TurnController {
 			position++;
 			position = position % entities.size();
 		}
+	}
+	
+	public List<Entity> getEntities() {
+		return entities;
 	}
 }

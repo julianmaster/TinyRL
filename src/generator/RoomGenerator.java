@@ -10,7 +10,7 @@ public class RoomGenerator {
 	
 	private static Random rand = new Random();
 	private static ArrayList<BaseRoom> rooms = new ArrayList<BaseRoom>() {{
-		add(new StartingRoom());
+		add(new EmptyRoom());
 	}};
 	
 	public static Room generateRoom(Pair<Integer, Integer> position) {

@@ -5,6 +5,7 @@ import generator.RoomGenerator;
 import java.util.HashMap;
 import java.util.Map;
 
+import model.entities.Player;
 import util.Pair;
 
 public class World {
@@ -20,6 +21,7 @@ public class World {
 
 	private void init() {
 		loadRoom(0, 0);
+		currentRoom.getCell(4, 4).setEntity(new Player());
 	}
 	
 	public void run() {

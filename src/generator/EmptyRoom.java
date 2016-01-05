@@ -6,7 +6,7 @@ import model.Room;
 import model.entities.Player;
 import model.entities.Wall;
 
-public class StartingRoom extends BaseRoom {
+public class EmptyRoom extends BaseRoom {
 
 	@Override
 	public void apply(Room room) {
@@ -16,11 +16,6 @@ public class StartingRoom extends BaseRoom {
 				
 				if(x % (Room.ROOM_SIZE-1) == 0 || y % (Room.ROOM_SIZE-1) == 0) {
 					cell.setEntity(new Wall());
-				}
-				
-				if(x == 5 && y == 5) {
-					// Ajouter le joueur
-					cell.setEntity(new Player());
 				}
 				
 				room.setCell(x, y, cell);

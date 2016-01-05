@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.Point;
 import java.awt.event.KeyEvent;
 
 import main.TinyRL;
@@ -44,18 +43,18 @@ public class PlayerInputHandler implements InputHandler, Observer {
 	}
 	
 	public boolean moveActions(int dx, int dy) {
-		Point position = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
-		if(TinyRL.world.getCurrentRoom().getCell(position.x + dx, position.y + dy).getEntity() == null) {
+		Pair<Integer, Integer> position = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
+		if(TinyRL.world.getCurrentRoom().getCell(position.key + dx, position.value + dy).getEntity() == null) {
 			TinyRL.world.getCurrentRoom().getCellOfEntity(player).setEntity(null);
-			TinyRL.world.getCurrentRoom().getCell(position.x + dx, position.y + dy).setEntity(player);
+			TinyRL.world.getCurrentRoom().getCell(position.key + dx, position.value + dy).setEntity(player);
 			return true;
 		}
 		return open(dx, dy);
 	}
 	
 	public boolean open(int dx, int dy) {
-		Point position = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
-		Entity entity = TinyRL.world.getCurrentRoom().getCell(position.x + dx, position.y + dy).getEntity();
+		Pair<Integer, Integer> position = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
+		Entity entity = TinyRL.world.getCurrentRoom().getCell(position.key + dx, position.value + dy).getEntity();
 		if(entity instanceof Openable) {
 			Openable openable = (Openable)entity;
 			if(!openable.isOpen()) {
@@ -68,12 +67,31 @@ public class PlayerInputHandler implements InputHandler, Observer {
 	}
 	
 	public boolean changeRoom(int dx, int dy) {
-		Point position = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
-		Entity entity = TinyRL.world.getCurrentRoom().getCell(position.x + dx, position.y + dy).getEntity();
+		Pair<Integer, Integer> position = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
+		Entity entity = TinyRL.world.getCurrentRoom().getCell(position.key + dx, position.value + dy).getEntity();
 		if(entity instanceof RoomChanger) {
 			RoomChanger roomChanger = (RoomChanger)entity;
 			Pair<Integer, Integer> nextRoom = roomChanger.changeRoom();
+			
+			TinyRL.world.getCurrentRoom().getCell(position.key, position.value).setEntity(null);
+			
+			switch (roomChanger.getDirection()) {
+				case NORTH:
+					
+					break;
+					
+				case SOUTH:
+					break;
+					
+				case EAST:
+					break;
+					
+				case WEST:
+					break;
+			}
+			
 			TinyRL.world.loadRoom(nextRoom.key, nextRoom.value);
+			return true;
 		}
 		return false;
 	}

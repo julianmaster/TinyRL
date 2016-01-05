@@ -44,21 +44,19 @@ public class Room {
 	}
 	
 	public Cell getCellOfEntity(Entity entity) {
-		for(Cell[] cellLine : cells) {
-			for(Cell cell: cellLine) {
-				if(cell.getEntity() != null && cell.getEntity().equals(entity)) {
-					return cell;
-				}
-			}
+		Pair<Integer, Integer> position = getPositionOfEntity(entity);
+		if(position != null) {
+			return cells[position.key][position.value];
 		}
+		
 		return null;
 	}
 	
-	public Point getPositionOfEntity(Entity entity) {
+	public Pair<Integer, Integer> getPositionOfEntity(Entity entity) {
 		for(int x = 0; x < ROOM_SIZE; x++) {
 			for(int y = 0; y < ROOM_SIZE; y++) {
 				if(cells[x][y].getEntity() != null && cells[x][y].getEntity().equals(entity)) {
-					return new Point(x, y);
+					return new Pair<Integer, Integer>(x, y);
 				}
 			}
 		}
