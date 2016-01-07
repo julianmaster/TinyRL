@@ -72,9 +72,11 @@ public class PlayerInputHandler implements InputHandler, Observer {
 		if(entity instanceof RoomChanger) {
 			RoomChanger roomChanger = (RoomChanger)entity;
 			Pair<Integer, Integer> nextRoom = roomChanger.changeRoom();
-			
 			TinyRL.world.getCurrentRoom().getCell(position.key, position.value).setEntity(null);
 			
+			TinyRL.world.createRoom(nextRoom.key, nextRoom.value);
+			
+			// TODO get room
 			switch (roomChanger.getDirection()) {
 				case NORTH:
 					

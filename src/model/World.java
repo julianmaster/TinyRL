@@ -29,14 +29,24 @@ public class World {
 		currentRoom.draw();
 	}
 	
-	public void loadRoom(int x, int y) {
+	public boolean createRoom(int x, int y) {
+		Pair<Integer, Integer> position = new Pair<Integer, Integer>(x, y);
+		Room room = world.get(position);
+		if(room != null) {
+			return false;
+		}
+		
+		room = RoomGenerator.generateRoom(position);
+		world.put(new Pair<Integer, Integer>(x, y), room);
+		return true;
+	}
+	
+	public boolean loadRoom(int x, int y) {
 		Pair<Integer, Integer> position = new Pair<Integer, Integer>(x, y);
 		Room room = world.get(position);
 		if(room == null) {
-			room = RoomGenerator.generateRoom(position);
-			world.put(new Pair<Integer, Integer>(x, y), room);
+			return false;
 		}
-		currentRoom = room;
 		
 		// TurnController
 		controller.removeAllEntities();
@@ -48,6 +58,7 @@ public class World {
 				}
 			}
 		}
+		return true;
 	}
 	
 	public Room getCurrentRoom() {

@@ -1,7 +1,5 @@
 package model;
 
-import java.awt.Point;
-
 import main.TinyRL;
 import ui.Terminal;
 import util.Pair;
