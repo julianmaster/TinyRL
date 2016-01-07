@@ -17,6 +17,8 @@ public class Room {
 	}
 	
 	public void draw() {
+		System.out.println("Print");
+		
 		Terminal terminal = TinyRL.terminal;
 		terminal.clear();
 		for(int x = 0; x < ROOM_SIZE; x++) {

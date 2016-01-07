@@ -3,6 +3,7 @@ package model;
 import java.awt.event.KeyEvent;
 
 import main.TinyRL;
+import model.entities.Door;
 import util.Observable;
 import util.Observer;
 import util.Pair;
@@ -72,27 +73,37 @@ public class PlayerInputHandler implements InputHandler, Observer {
 		if(entity instanceof RoomChanger) {
 			RoomChanger roomChanger = (RoomChanger)entity;
 			Pair<Integer, Integer> nextRoom = roomChanger.changeRoom();
+			// Remove player of the current room
 			TinyRL.world.getCurrentRoom().getCell(position.key, position.value).setEntity(null);
 			
-			TinyRL.world.createRoom(nextRoom.key, nextRoom.value);
+			TinyRL.world.createRoom(nextRoom);
 			
-			// TODO get room
+			Room room = TinyRL.world.getRoom(nextRoom);
+			Door door = null;
 			switch (roomChanger.getDirection()) {
 				case NORTH:
-					
+					room.getCell((Room.ROOM_SIZE - 1) / 2, Room.ROOM_SIZE - 2).setEntity(player);
+					door = (Door)room.getCell((Room.ROOM_SIZE - 1) / 2, Room.ROOM_SIZE - 1).getEntity();
 					break;
 					
 				case SOUTH:
+					room.getCell((Room.ROOM_SIZE - 1) / 2, 1).setEntity(player);
+					door = (Door)room.getCell((Room.ROOM_SIZE - 1) / 2, 0).getEntity();
 					break;
 					
 				case EAST:
+					room.getCell(1, (Room.ROOM_SIZE - 1) / 2).setEntity(player);
+					door = (Door)room.getCell(0, (Room.ROOM_SIZE - 1) / 2).getEntity();
 					break;
 					
 				case WEST:
+					room.getCell(Room.ROOM_SIZE - 2, (Room.ROOM_SIZE - 1) / 2).setEntity(player);
+					door = (Door)room.getCell(Room.ROOM_SIZE - 1, (Room.ROOM_SIZE - 1) / 2).getEntity();
 					break;
 			}
+			door.open();
 			
-			TinyRL.world.loadRoom(nextRoom.key, nextRoom.value);
+			TinyRL.world.loadRoom(nextRoom);
 			return true;
 		}
 		return false;

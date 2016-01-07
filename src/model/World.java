@@ -20,8 +20,11 @@ public class World {
 	}
 
 	private void init() {
-		loadRoom(0, 0);
-		currentRoom.getCell(4, 4).setEntity(new Player());
+		Pair<Integer, Integer> position = new Pair<Integer, Integer>(0, 0);
+		createRoom(position);
+		Room room = getRoom(position);
+		room.getCell(4, 4).setEntity(new Player());
+		loadRoom(position);
 	}
 	
 	public void run() {
@@ -29,24 +32,23 @@ public class World {
 		currentRoom.draw();
 	}
 	
-	public boolean createRoom(int x, int y) {
-		Pair<Integer, Integer> position = new Pair<Integer, Integer>(x, y);
+	public boolean createRoom(Pair<Integer, Integer> position) {
 		Room room = world.get(position);
 		if(room != null) {
 			return false;
 		}
 		
 		room = RoomGenerator.generateRoom(position);
-		world.put(new Pair<Integer, Integer>(x, y), room);
+		world.put(position, room);
 		return true;
 	}
 	
-	public boolean loadRoom(int x, int y) {
-		Pair<Integer, Integer> position = new Pair<Integer, Integer>(x, y);
+	public boolean loadRoom(Pair<Integer, Integer> position) {
 		Room room = world.get(position);
 		if(room == null) {
 			return false;
 		}
+		currentRoom = room;
 		
 		// TurnController
 		controller.removeAllEntities();
@@ -63,5 +65,9 @@ public class World {
 	
 	public Room getCurrentRoom() {
 		return currentRoom;
+	}
+	
+	public Room getRoom(Pair<Integer, Integer> position) {
+		return world.get(position);
 	}
 }

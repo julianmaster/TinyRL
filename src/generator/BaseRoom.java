@@ -17,7 +17,7 @@ public abstract class BaseRoom {
 		
 		room.getCell((Room.ROOM_SIZE - 1) / 2, 0).setEntity(northDoor);
 		room.getCell((Room.ROOM_SIZE - 1) / 2, Room.ROOM_SIZE - 1).setEntity(southDoor);
-		room.getCell(0, (Room.ROOM_SIZE - 1) / 2).setEntity(eastDoor);
-		room.getCell(Room.ROOM_SIZE - 1, (Room.ROOM_SIZE - 1) / 2).setEntity(westDoor);
+		room.getCell(0, (Room.ROOM_SIZE - 1) / 2).setEntity(westDoor);
+		room.getCell(Room.ROOM_SIZE - 1, (Room.ROOM_SIZE - 1) / 2).setEntity(eastDoor);
 	}
 }

@@ -29,10 +29,6 @@ public class Door extends Entity implements Openable, RoomChanger {
 		return open;
 	}
 
-	public void setOpen(boolean open) {
-		this.open = open;
-	}
-
 	@Override
 	public Pair<Integer, Integer> changeRoom() {
 		return nextRoom;

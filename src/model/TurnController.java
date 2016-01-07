@@ -21,6 +21,7 @@ public class TurnController {
 			Entity current = entities.get(position);
 			boolean perform = current.getEnergy().tick();
 			if(perform) {
+				current.getEnergy().spend();
 				run = current.getInput().handleInput(current);
 			}
 			position++;

@@ -3,7 +3,6 @@ package generator;
 import model.Cell;
 import model.Ground;
 import model.Room;
-import model.entities.Player;
 import model.entities.Wall;
 
 public class EmptyRoom extends BaseRoom {
