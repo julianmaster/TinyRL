@@ -1,7 +1,6 @@
 package model.entities;
 
 import model.Direction;
-import model.Entity;
 import model.Openable;
 import model.RoomChanger;
 import model.Tile;

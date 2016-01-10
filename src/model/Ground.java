@@ -6,8 +6,10 @@ import ui.CustomColor;
 
 public class Ground {
 	public static final Ground DIRT = new Ground('.', "Dirt", CustomColor.DGRAY);
-	public static final Ground GRASS = new Ground(',', "Grass", CustomColor.LGREEN);
-	public static final Ground HIGH_GRASS = new Ground(',', "High grass", CustomColor.GREEN);
+	public static final Ground GRASS1 = new Ground('.', "Grass", CustomColor.LGREEN);
+	public static final Ground GRASS2 = new Ground(',', "Grass", CustomColor.LGREEN);
+	public static final Ground HIGH_GRASS1 = new Ground('.', "High grass", CustomColor.GREEN);
+	public static final Ground HIGH_GRASS2 = new Ground(',', "High grass", CustomColor.GREEN);
 	
 	public char tile;
 	public String name;

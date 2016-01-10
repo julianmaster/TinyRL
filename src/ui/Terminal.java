@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ui;
 
 import java.awt.Color;
@@ -75,20 +71,20 @@ public class Terminal extends JPanel implements KeyListener {
             m_character = new  BufferedImage[256];
             BufferedImage tilesets = ImageIO.read(new File(tilesetsFile));
 
-            // RÃ©cupÃ©ration de la couleur du background
+            // Récupération de la couleur du background
             BufferedImage imageBackgroundColor = tilesets.getSubimage(0, 0, 1, 1);
             int color = imageBackgroundColor.getRGB(0, 0);
             Color m_characterBackgroundColor = Color.getColor(null, color);
 
-            // On modifie le fond des caractÃ¨res
+            // On modifie le fond des caractères
             Image characterBackgroundColorModified = createImage(new FilteredImageSource(tilesets.getSource(), new BackgroundFilter(m_characterBackgroundColor)));
 
-            // CrÃ©ation du tileset dont on a modifier la couleur du background
+            // Création du tileset dont on a modifier la couleur du background
             BufferedImage tilesetsModified = new BufferedImage(tilesets.getWidth(), tilesets.getHeight(), BufferedImage.TYPE_INT_ARGB);
             Graphics graphicsTilesetsModified = tilesetsModified.getGraphics();
             graphicsTilesetsModified.setColor(Color.BLACK);
             graphicsTilesetsModified.fillRect(0, 0, tilesetsModified.getWidth(), tilesetsModified.getHeight());
-            // On dessine cela dans le bufferedImage finale duquel on va rÃ©cupÃ©rer les caractÃ¨res
+            // On dessine cela dans le bufferedImage finale duquel on va récupérer les caractères
             graphicsTilesetsModified.drawImage(characterBackgroundColorModified, 0, 0, this);
 
             for(int i = 0; i < 256; i++){
@@ -103,12 +99,12 @@ public class Terminal extends JPanel implements KeyListener {
         }
         
         
-        // Construction de la fenÃªtre
+        // Construction de la fenêtre
         window = new JFrame();
         
         window.setTitle(title);
         window.setResizable(false);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().add(this);
         window.pack();
         window.setLocationRelativeTo(null);
@@ -238,12 +234,12 @@ public class Terminal extends JPanel implements KeyListener {
         short[] blue = new short[256];
         short[] alpha = new short[256];
 
-        // RÃ©cupÃ©ration des composantes couleurs de la couleur du caractÃ¨re
+        // Récupération des composantes couleurs de la couleur du caractère
         short dcr = (short) fgColor.getRed();
         short dcg = (short) fgColor.getGreen();
         short dcb = (short) fgColor.getBlue();
 
-        // RÃ©cupÃ©ration des composantes couleurs de la couleur du caractÃ¨re
+        // Récupération des composantes couleurs de la couleur du caractère
         short bgr = (short) bgColor.getRed();
         short bgg = (short) bgColor.getGreen();
         short bgb = (short) bgColor.getBlue();
@@ -257,8 +253,8 @@ public class Terminal extends JPanel implements KeyListener {
                  * Produit en croix
                  * dcr = 180     255
                  *   j =  ?      50
-                 * Permet de rÃ©partir la couleur demandÃ© par l'utilisateur pour que de [0 a 255],
-                 * il y est la couleur du caractÃ¨re de [0 a X]
+                 * Permet de répartir la couleur demandé par l'utilisateur pour que de [0 a 255],
+                 * il y est la couleur du caractère de [0 a X]
                  */
                 // Rouge
                 if(dcr != 0){
@@ -339,6 +335,10 @@ public class Terminal extends JPanel implements KeyListener {
 	
 	public KeyEvent getEvent() {
 		return event;
+	}
+	
+	public JFrame getWindow() {
+		return window;
 	}
 	
 	public void addKeyTypedObserver(Observer observer) {

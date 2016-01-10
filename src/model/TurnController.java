@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.entities.Entity;
+
 public class TurnController {
 	private List<Entity> entities = new ArrayList<>();
 	private int position = 0;

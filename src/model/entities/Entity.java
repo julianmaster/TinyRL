@@ -1,4 +1,8 @@
-package model;
+package model.entities;
+
+import model.Energy;
+import model.InputHandler;
+import model.Tile;
 
 public class Entity {
 	private Tile tile;

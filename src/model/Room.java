@@ -1,6 +1,7 @@
 package model;
 
 import main.TinyRL;
+import model.entities.Entity;
 import ui.Terminal;
 import util.Pair;
 

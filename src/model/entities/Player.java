@@ -1,7 +1,6 @@
 package model.entities;
 
 import model.Energy;
-import model.Entity;
 import model.PlayerInputHandler;
 import model.Tile;
 

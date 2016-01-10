@@ -1,5 +1,7 @@
 package model;
 
+import model.entities.Entity;
+
 public class Cell {
 	private Entity entity;
 	private Item item;

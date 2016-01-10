@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 
 import main.TinyRL;
 import model.entities.Door;
+import model.entities.Entity;
 import util.Observable;
 import util.Observer;
 import util.Pair;
@@ -81,24 +82,39 @@ public class PlayerInputHandler implements InputHandler, Observer {
 			Room room = TinyRL.world.getRoom(nextRoom);
 			Door door = null;
 			switch (roomChanger.getDirection()) {
-				case NORTH:
+				case N:
 					room.getCell((Room.ROOM_SIZE - 1) / 2, Room.ROOM_SIZE - 2).setEntity(player);
 					door = (Door)room.getCell((Room.ROOM_SIZE - 1) / 2, Room.ROOM_SIZE - 1).getEntity();
 					break;
 					
-				case SOUTH:
+				case S:
 					room.getCell((Room.ROOM_SIZE - 1) / 2, 1).setEntity(player);
 					door = (Door)room.getCell((Room.ROOM_SIZE - 1) / 2, 0).getEntity();
 					break;
 					
-				case EAST:
+				case E:
 					room.getCell(1, (Room.ROOM_SIZE - 1) / 2).setEntity(player);
 					door = (Door)room.getCell(0, (Room.ROOM_SIZE - 1) / 2).getEntity();
 					break;
 					
-				case WEST:
+				case W:
 					room.getCell(Room.ROOM_SIZE - 2, (Room.ROOM_SIZE - 1) / 2).setEntity(player);
 					door = (Door)room.getCell(Room.ROOM_SIZE - 1, (Room.ROOM_SIZE - 1) / 2).getEntity();
+					break;
+				
+				case NE:
+					break;
+				
+				case NW:
+					break;
+				
+				case SE:
+					break;
+				
+				case SW:
+					break;
+				
+				default:
 					break;
 			}
 			door.open();
