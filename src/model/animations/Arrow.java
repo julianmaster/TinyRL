@@ -1,12 +1,11 @@
 package model.animations;
 
 
-public class Arrow implements Animation {
+public class Arrow extends Animation {
 
-	@Override
-	public boolean done() {
-		// TODO Auto-generated method stub
-		return false;
+	public Arrow(AnimationTile tile) {
+		super(tile);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -14,4 +13,11 @@ public class Arrow implements Animation {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public boolean done() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

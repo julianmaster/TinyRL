@@ -25,7 +25,7 @@ public class Room {
 			for(int y = 0; y < ROOM_SIZE; y++) {
 				Cell cell = cells[x][y];
 				if(cell.getAnimation() != null) {
-					terminal.write(x, y, cell.getAnimation().tile, cell.getAnimation().color);
+					terminal.write(x, y, cell.getAnimation().getTile().tile, cell.getAnimation().getTile().color);
 				}
 				else if(cell.getEntity() != null) {
 					terminal.write(x, y, cell.getEntity().getTile().tile, cell.getEntity().getTile().color);

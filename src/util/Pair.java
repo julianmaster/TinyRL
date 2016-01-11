@@ -1,6 +1,6 @@
 package util;
 
-public class Pair<K, V> {
+public class Pair<K, V> implements Cloneable {
 	public K key;
 	public V value;
 
@@ -27,5 +27,9 @@ public class Pair<K, V> {
 	@Override
 	public String toString() {
 		return "(" + key.toString() + ", " + value.toString() + ")";
+	}
+	
+	public Pair<K, V> clone() {
+		return new Pair<K, V>(key, value);
 	}
 }

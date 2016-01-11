@@ -15,9 +15,9 @@ public abstract class BaseRoom {
 		Door eastDoor = new Door(new Pair<Integer, Integer>(roomPosition.key - 1, roomPosition.value), Direction.E);
 		Door westDoor = new Door(new Pair<Integer, Integer>(roomPosition.key + 1, roomPosition.value), Direction.W);
 		
-		room.getCell((Room.ROOM_SIZE - 1) / 2, 0).setEntity(northDoor);
-		room.getCell((Room.ROOM_SIZE - 1) / 2, Room.ROOM_SIZE - 1).setEntity(southDoor);
-		room.getCell(0, (Room.ROOM_SIZE - 1) / 2).setEntity(westDoor);
-		room.getCell(Room.ROOM_SIZE - 1, (Room.ROOM_SIZE - 1) / 2).setEntity(eastDoor);
+		room.getCell(new Pair<Integer, Integer>((Room.ROOM_SIZE - 1) / 2, 0)).setEntity(northDoor);
+		room.getCell(new Pair<Integer, Integer>((Room.ROOM_SIZE - 1) / 2, Room.ROOM_SIZE - 1)).setEntity(southDoor);
+		room.getCell(new Pair<Integer, Integer>(0, (Room.ROOM_SIZE - 1) / 2)).setEntity(westDoor);
+		room.getCell(new Pair<Integer, Integer>(Room.ROOM_SIZE - 1, (Room.ROOM_SIZE - 1) / 2)).setEntity(eastDoor);
 	}
 }

@@ -20,30 +20,21 @@ public class AnimationController {
 	}
 	
 	public boolean update(double delta) {
-		boolean change = false;
-		for(Animation animation: animations) {
-			if(animation.update(delta)) {
-				change = true;
-			}
-		}
-		return change;
-	}
-	
-	public boolean done() {
-		boolean done = true;
+		boolean change = !animations.isEmpty();
 		List<Animation> finished = new ArrayList<>();
-		for(Animation animation : animations) {
+		for(Animation animation: animations) {
 			if(animation.done()) {
 				Pair<Integer, Integer> position = TinyRL.world.getCurrentRoom().getPositionOfAnimation(animation);
 				TinyRL.world.getCurrentRoom().getCell(position).setAnimation(null);
 				finished.add(animation);
+				continue;
 			}
-			else {
-				done = false;
+			
+			if(animation.update(delta)) {
+				change = true;
 			}
 		}
-		
 		animations.removeAll(finished);
-		return done;
+		return change;
 	}
 }

@@ -3,6 +3,8 @@ package generator;
 import java.util.ArrayList;
 import java.util.Random;
 
+import util.Pair;
+
 import model.Cell;
 import model.Ground;
 import model.Room;
@@ -23,13 +25,13 @@ public class LandRoom extends BaseRoom {
 		for(int x = 0; x < Room.ROOM_SIZE; x++) {
 			for(int y = 0; y < Room.ROOM_SIZE; y++) {
 				Ground ground = grounds.get(rand.nextInt(grounds.size()));
-				Cell cell = new Cell(null, null, ground);
+				Cell cell = new Cell(null, null, null, ground);
 				
 				if(x % (Room.ROOM_SIZE-1) == 0 || y % (Room.ROOM_SIZE-1) == 0) {
 					cell.setEntity(new Wall());
 				}
 				
-				room.setCell(x, y, cell);
+				room.setCell(new Pair<Integer, Integer>(x, y), cell);
 			}
 		}
 		

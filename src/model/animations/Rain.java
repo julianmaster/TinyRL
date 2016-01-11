@@ -5,17 +5,15 @@ import util.Pair;
 
 public class Rain extends Animation {
 	
-	private final static int FPS = 10;
+	private final static int FPS = 8;
 	private double elapseTime = 0;
 	
-	private Pair<Integer, Integer> position;
-	private int target;
+	private int life;
 	private boolean finished = false;
 	
-	public Rain(AnimationTile tile, Pair<Integer, Integer> position, int target) {
+	public Rain(AnimationTile tile, int life) {
 		super(tile);
-		this.position = position;
-		this.target = target;
+		this.life = life;
 	}
 
 	@Override
@@ -23,19 +21,22 @@ public class Rain extends Animation {
 		elapseTime += delta;
 		
 		if(elapseTime >= 60 / FPS) {
-			if(position.value.equals(target)) {
+			if(life == 0) {
 				finished = true;
 				return false;
 			}
 			
+			elapseTime = 0;
+			Pair<Integer, Integer> position = TinyRL.world.getCurrentRoom().getPositionOfAnimation(this);
+			TinyRL.world.getCurrentRoom().getCell(position).setAnimation(null);
 			position.value++;
-			if(position.value.equals(target)) {
+			
+			life--;
+			if(life == 0) {
 				this.tile = AnimationTile.RAIN2;
-//				TinyRL.world.getCurrentRoom().getCell(position.key, position.value).setAnimation(AnimationTile.RAIN2);
 			}
-			else {
-				TinyRL.world.getCurrentRoom().getCell(position.key, position.value).setAnimation(AnimationTile.RAIN1);
-			}
+			
+			TinyRL.world.getCurrentRoom().getCell(position).setAnimation(this);
 			return true;
 		}
 		

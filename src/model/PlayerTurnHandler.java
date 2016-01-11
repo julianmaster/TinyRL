@@ -45,18 +45,24 @@ public class PlayerTurnHandler implements TurnHandler {
 	}
 
 	public boolean moveActions(int dx, int dy) {
-		Pair<Integer, Integer> position = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
-		if(TinyRL.world.getCurrentRoom().getCell(position.key + dx, position.value + dy).getEntity() == null) {
-			TinyRL.world.getCurrentRoom().setCell(position.key, position.value, null);
-			TinyRL.world.getCurrentRoom().getCell(position.key + dx, position.value + dy).setEntity(player);
+		Pair<Integer, Integer> positionPlayer = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
+		Pair<Integer, Integer> positionTarget = positionPlayer.clone();
+		positionTarget.key += dx;
+		positionTarget.value += dy;
+		
+		if(TinyRL.world.getCurrentRoom().getCell(positionTarget).getEntity() == null) {
+			TinyRL.world.getCurrentRoom().getCell(positionPlayer).setEntity(null);
+			TinyRL.world.getCurrentRoom().getCell(positionTarget).setEntity(player);
 			return true;
 		}
 		return open(dx, dy);
 	}
 	
 	public boolean open(int dx, int dy) {
-		Pair<Integer, Integer> position = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
-		Entity entity = TinyRL.world.getCurrentRoom().getCell(position.key + dx, position.value + dy).getEntity();
+		Pair<Integer, Integer> positionTarget = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
+		positionTarget.key += dx;
+		positionTarget.value += dy;
+		Entity entity = TinyRL.world.getCurrentRoom().getCell(positionTarget).getEntity();
 		if(entity instanceof Openable) {
 			Openable openable = (Openable)entity;
 			if(!openable.isOpen()) {
@@ -69,13 +75,17 @@ public class PlayerTurnHandler implements TurnHandler {
 	}
 	
 	public boolean changeRoom(int dx, int dy) {
-		Pair<Integer, Integer> position = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
-		Entity entity = TinyRL.world.getCurrentRoom().getCell(position.key + dx, position.value + dy).getEntity();
+		Pair<Integer, Integer> positionPlayer = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
+		Pair<Integer, Integer> positionTarget = positionPlayer.clone();
+		positionTarget.key += dx;
+		positionTarget.value += dy;
+		
+		Entity entity = TinyRL.world.getCurrentRoom().getCell(positionTarget).getEntity();
 		if(entity instanceof RoomChanger) {
 			RoomChanger roomChanger = (RoomChanger)entity;
 			Pair<Integer, Integer> nextRoom = roomChanger.changeRoom();
 			// Remove player of the current room
-			TinyRL.world.getCurrentRoom().getCell(position.key, position.value).setEntity(null);
+			TinyRL.world.getCurrentRoom().getCell(positionPlayer).setEntity(null);
 			
 			TinyRL.world.createRoom(nextRoom);
 			
@@ -83,23 +93,23 @@ public class PlayerTurnHandler implements TurnHandler {
 			Door door = null;
 			switch (roomChanger.getDirection()) {
 				case N:
-					room.getCell((Room.ROOM_SIZE - 1) / 2, Room.ROOM_SIZE - 2).setEntity(player);
-					door = (Door)room.getCell((Room.ROOM_SIZE - 1) / 2, Room.ROOM_SIZE - 1).getEntity();
+					room.getCell(new Pair<Integer, Integer>((Room.ROOM_SIZE - 1) / 2, Room.ROOM_SIZE - 2)).setEntity(player);
+					door = (Door)room.getCell(new Pair<Integer, Integer>((Room.ROOM_SIZE - 1) / 2, Room.ROOM_SIZE - 1)).getEntity();
 					break;
 					
 				case S:
-					room.getCell((Room.ROOM_SIZE - 1) / 2, 1).setEntity(player);
-					door = (Door)room.getCell((Room.ROOM_SIZE - 1) / 2, 0).getEntity();
+					room.getCell(new Pair<Integer, Integer>((Room.ROOM_SIZE - 1) / 2, 1)).setEntity(player);
+					door = (Door)room.getCell(new Pair<Integer, Integer>((Room.ROOM_SIZE - 1) / 2, 0)).getEntity();
 					break;
 					
 				case E:
-					room.getCell(1, (Room.ROOM_SIZE - 1) / 2).setEntity(player);
-					door = (Door)room.getCell(0, (Room.ROOM_SIZE - 1) / 2).getEntity();
+					room.getCell(new Pair<Integer, Integer>(1, (Room.ROOM_SIZE - 1) / 2)).setEntity(player);
+					door = (Door)room.getCell(new Pair<Integer, Integer>(0, (Room.ROOM_SIZE - 1) / 2)).getEntity();
 					break;
 					
 				case W:
-					room.getCell(Room.ROOM_SIZE - 2, (Room.ROOM_SIZE - 1) / 2).setEntity(player);
-					door = (Door)room.getCell(Room.ROOM_SIZE - 1, (Room.ROOM_SIZE - 1) / 2).getEntity();
+					room.getCell(new Pair<Integer, Integer>(Room.ROOM_SIZE - 2, (Room.ROOM_SIZE - 1) / 2)).setEntity(player);
+					door = (Door)room.getCell(new Pair<Integer, Integer>(Room.ROOM_SIZE - 1, (Room.ROOM_SIZE - 1) / 2)).getEntity();
 					break;
 				
 				case NE:
