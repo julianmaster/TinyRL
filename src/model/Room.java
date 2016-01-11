@@ -1,6 +1,7 @@
 package model;
 
 import main.TinyRL;
+import model.animations.Animation;
 import model.entities.Entity;
 import ui.Terminal;
 import util.Pair;
@@ -18,14 +19,15 @@ public class Room {
 	}
 	
 	public void draw() {
-		System.out.println("Print");
-		
 		Terminal terminal = TinyRL.terminal;
 		terminal.clear();
 		for(int x = 0; x < ROOM_SIZE; x++) {
 			for(int y = 0; y < ROOM_SIZE; y++) {
 				Cell cell = cells[x][y];
-				if(cell.getEntity() != null) {
+				if(cell.getAnimation() != null) {
+					terminal.write(x, y, cell.getAnimation().tile, cell.getAnimation().color);
+				}
+				else if(cell.getEntity() != null) {
 					terminal.write(x, y, cell.getEntity().getTile().tile, cell.getEntity().getTile().color);
 				}
 				else {
@@ -36,27 +38,29 @@ public class Room {
 		terminal.repaint();
 	}
 	
-	public void setCell(int x, int y, Cell cell) {
-		cells[x][y] = cell;
+	public void setCell(Pair<Integer, Integer> position, Cell cell) {
+		cells[position.key][position.value] = cell;
 	}
 	
-	public Cell getCell(int x, int y) {
-		return cells[x][y];
-	}
-	
-	public Cell getCellOfEntity(Entity entity) {
-		Pair<Integer, Integer> position = getPositionOfEntity(entity);
-		if(position != null) {
-			return cells[position.key][position.value];
-		}
-		
-		return null;
+	public Cell getCell(Pair<Integer, Integer> position) {
+		return cells[position.key][position.value];
 	}
 	
 	public Pair<Integer, Integer> getPositionOfEntity(Entity entity) {
 		for(int x = 0; x < ROOM_SIZE; x++) {
 			for(int y = 0; y < ROOM_SIZE; y++) {
 				if(cells[x][y].getEntity() != null && cells[x][y].getEntity().equals(entity)) {
+					return new Pair<Integer, Integer>(x, y);
+				}
+			}
+		}
+		return null;
+	}
+	
+	public Pair<Integer, Integer> getPositionOfAnimation(Animation animation) {
+		for(int x = 0; x < ROOM_SIZE; x++) {
+			for(int y = 0; y < ROOM_SIZE; y++) {
+				if(cells[x][y].getAnimation() != null && cells[x][y].getAnimation().equals(animation)) {
 					return new Pair<Integer, Integer>(x, y);
 				}
 			}

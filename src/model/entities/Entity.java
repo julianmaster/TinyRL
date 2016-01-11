@@ -1,17 +1,17 @@
 package model.entities;
 
 import model.Energy;
-import model.InputHandler;
 import model.Tile;
+import model.TurnHandler;
 
 public class Entity {
 	private Tile tile;
-	private InputHandler input;
+	private TurnHandler turnHandler;
 	private Energy energy;
 
-	public Entity(Tile tile, InputHandler input, Energy energy) {
+	public Entity(Tile tile, TurnHandler turnHandler, Energy energy) {
 		this.tile = tile;
-		this.input = input;
+		this.turnHandler = turnHandler;
 		this.energy = energy;
 	}
 
@@ -23,12 +23,12 @@ public class Entity {
 		this.tile = tile;
 	}
 
-	public InputHandler getInput() {
-		return input;
+	public TurnHandler getTurnHandler() {
+		return turnHandler;
 	}
-
-	public void setInput(InputHandler input) {
-		this.input = input;
+	
+	public void setTurnHandler(TurnHandler turnHandler) {
+		this.turnHandler = turnHandler;
 	}
 
 	public Energy getEnergy() {

@@ -1,11 +1,18 @@
 package model.animations;
 
-import model.Direction;
 
-public interface Animation {
-	public int x();
-	public int y();
-	public Direction direction();
-	public boolean done();
-	public void update();
+public abstract class Animation {
+	protected AnimationTile tile;
+
+	public Animation(AnimationTile tile) {
+		this.tile = tile;
+	}
+	
+	public abstract boolean update(double delta);
+	
+	public abstract boolean done();
+	
+	public AnimationTile getTile() {
+		return tile;
+	}
 }

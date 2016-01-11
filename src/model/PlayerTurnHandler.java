@@ -5,24 +5,27 @@ import java.awt.event.KeyEvent;
 import main.TinyRL;
 import model.entities.Door;
 import model.entities.Entity;
-import util.Observable;
-import util.Observer;
 import util.Pair;
 
-public class PlayerInputHandler implements InputHandler, Observer {
+public class PlayerTurnHandler implements TurnHandler {
 	
 	public Entity player;
 
 	@Override
-	public boolean handleInput(Entity entity) {
+	public void init(Entity entity) {
 		player = entity;
-		TinyRL.terminal.addKeyPressedObserver(this);
-		return false;
 	}
-
+	
 	@Override
-	public void updateObserver(Observable observable) {
+	public boolean turn() {
 		KeyEvent event = TinyRL.terminal.getEvent();
+		
+		if(event == null) {
+			return false;
+		}
+		else {
+			TinyRL.terminal.setEvent(null);
+		}
 		
 		boolean action = false;
 		if(event.getKeyCode() == KeyEvent.VK_UP) {
@@ -38,16 +41,13 @@ public class PlayerInputHandler implements InputHandler, Observer {
 			action = moveActions(1, 0);
 		}
 		
-		if(action) {
-			TinyRL.terminal.deleteKeyPressedObservers();
-			TinyRL.world.run();
-		}
+		return action;
 	}
-	
+
 	public boolean moveActions(int dx, int dy) {
 		Pair<Integer, Integer> position = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
 		if(TinyRL.world.getCurrentRoom().getCell(position.key + dx, position.value + dy).getEntity() == null) {
-			TinyRL.world.getCurrentRoom().getCellOfEntity(player).setEntity(null);
+			TinyRL.world.getCurrentRoom().setCell(position.key, position.value, null);
 			TinyRL.world.getCurrentRoom().getCell(position.key + dx, position.value + dy).setEntity(player);
 			return true;
 		}

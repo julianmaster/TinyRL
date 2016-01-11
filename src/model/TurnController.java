@@ -9,6 +9,9 @@ public class TurnController {
 	private List<Entity> entities = new ArrayList<>();
 	private int position = 0;
 	
+	private boolean run = true;
+	private Entity currentEntity = null;
+	
 	public boolean addEntity(Entity entity) {
 		return entities.add(entity);
 	}
@@ -17,18 +20,30 @@ public class TurnController {
 		entities.clear();
 	}
 	
-	public void process() {
-		boolean run = true;
-		while(run) {
-			Entity current = entities.get(position);
-			boolean perform = current.getEnergy().tick();
-			if(perform) {
-				current.getEnergy().spend();
-				run = current.getInput().handleInput(current);
+	public boolean update() {
+		boolean changed = false;
+		do {
+			if(run) {
+				currentEntity = entities.get(position);
+				boolean perform = currentEntity.getEnergy().tick();
+				
+				if(perform) {
+					currentEntity.getEnergy().spend();
+					currentEntity.getTurnHandler().init(currentEntity);
+					run = false;
+					changed = true;
+				}
+				
+				position++;
+				position = position % entities.size();
 			}
-			position++;
-			position = position % entities.size();
-		}
+			
+			if(!run) {
+				run = currentEntity.getTurnHandler().turn();
+			}
+		} while(run);
+		
+		return changed;
 	}
 	
 	public List<Entity> getEntities() {

@@ -4,18 +4,18 @@ import java.awt.Color;
 
 import ui.CustomColor;
 
-public class Ground {
-	public static final Ground DIRT = new Ground('.', "Dirt", CustomColor.DGRAY);
-	public static final Ground GRASS1 = new Ground('.', "Grass", CustomColor.LGREEN);
-	public static final Ground GRASS2 = new Ground(',', "Grass", CustomColor.LGREEN);
-	public static final Ground HIGH_GRASS1 = new Ground('.', "High grass", CustomColor.GREEN);
-	public static final Ground HIGH_GRASS2 = new Ground(',', "High grass", CustomColor.GREEN);
+public enum Ground {
+	DIRT('.', "Dirt", CustomColor.DGRAY),
+	GRASS1('.', "Grass", CustomColor.LGREEN),
+	GRASS2(',', "Grass", CustomColor.LGREEN),
+	HIGH_GRASS1('.', "High grass", CustomColor.GREEN),
+	HIGH_GRASS2(',', "High grass", CustomColor.GREEN);
 	
 	public char tile;
 	public String name;
 	public Color color;
 
-	public Ground(char tile, String name, Color color) {
+	private Ground(char tile, String name, Color color) {
 		this.tile = tile;
 		this.name = name;
 		this.color = color;

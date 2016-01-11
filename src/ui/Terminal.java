@@ -20,9 +20,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import util.ObservableAdapter;
-import util.Observer;
-
 /**
  *
  * @author Julien MAITRE
@@ -33,9 +30,6 @@ public class Terminal extends JPanel implements KeyListener {
 	private JFrame window;
 	
 	private KeyEvent event;
-	private ObservableAdapter keyTypedHandler = new ObservableAdapter();
-	private ObservableAdapter keyPressedHandler = new ObservableAdapter();
-	private ObservableAdapter keyReleasedHandler = new ObservableAdapter();
 	
     private Dimension m_size;
 
@@ -71,20 +65,20 @@ public class Terminal extends JPanel implements KeyListener {
             m_character = new  BufferedImage[256];
             BufferedImage tilesets = ImageIO.read(new File(tilesetsFile));
 
-            // Récupération de la couleur du background
+            // RÃ©cupÃ©ration de la couleur du background
             BufferedImage imageBackgroundColor = tilesets.getSubimage(0, 0, 1, 1);
             int color = imageBackgroundColor.getRGB(0, 0);
             Color m_characterBackgroundColor = Color.getColor(null, color);
 
-            // On modifie le fond des caractères
+            // On modifie le fond des caractÃ¨res
             Image characterBackgroundColorModified = createImage(new FilteredImageSource(tilesets.getSource(), new BackgroundFilter(m_characterBackgroundColor)));
 
-            // Création du tileset dont on a modifier la couleur du background
+            // CrÃ©ation du tileset dont on a modifier la couleur du background
             BufferedImage tilesetsModified = new BufferedImage(tilesets.getWidth(), tilesets.getHeight(), BufferedImage.TYPE_INT_ARGB);
             Graphics graphicsTilesetsModified = tilesetsModified.getGraphics();
             graphicsTilesetsModified.setColor(Color.BLACK);
             graphicsTilesetsModified.fillRect(0, 0, tilesetsModified.getWidth(), tilesetsModified.getHeight());
-            // On dessine cela dans le bufferedImage finale duquel on va récupérer les caractères
+            // On dessine cela dans le bufferedImage finale duquel on va rÃ©cupÃ©rer les caractÃ©res
             graphicsTilesetsModified.drawImage(characterBackgroundColorModified, 0, 0, this);
 
             for(int i = 0; i < 256; i++){
@@ -99,12 +93,12 @@ public class Terminal extends JPanel implements KeyListener {
         }
         
         
-        // Construction de la fenêtre
+        // Construction de la fenÃªtre
         window = new JFrame();
         
         window.setTitle(title);
         window.setResizable(false);
-//        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().add(this);
         window.pack();
         window.setLocationRelativeTo(null);
@@ -234,12 +228,12 @@ public class Terminal extends JPanel implements KeyListener {
         short[] blue = new short[256];
         short[] alpha = new short[256];
 
-        // Récupération des composantes couleurs de la couleur du caractère
+        // RÃ©cupÃ©ration des composantes couleurs de la couleur du caractÃ¨re
         short dcr = (short) fgColor.getRed();
         short dcg = (short) fgColor.getGreen();
         short dcb = (short) fgColor.getBlue();
 
-        // Récupération des composantes couleurs de la couleur du caractère
+        // RÃ©cupÃ©ration des composantes couleurs de la couleur du caractÃ¨re
         short bgr = (short) bgColor.getRed();
         short bgg = (short) bgColor.getGreen();
         short bgb = (short) bgColor.getBlue();
@@ -253,8 +247,8 @@ public class Terminal extends JPanel implements KeyListener {
                  * Produit en croix
                  * dcr = 180     255
                  *   j =  ?      50
-                 * Permet de répartir la couleur demandé par l'utilisateur pour que de [0 a 255],
-                 * il y est la couleur du caractère de [0 a X]
+                 * Permet de rÃ©partir la couleur demandÃ© par l'utilisateur pour que de [0 a 255],
+                 * il y est la couleur du caractÃ¨re de [0 a X]
                  */
                 // Rouge
                 if(dcr != 0){
@@ -315,53 +309,30 @@ public class Terminal extends JPanel implements KeyListener {
         this.m_defaultCharacterBackgroundColor = defaultCharacterBackgroundColor;
     }
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		event = e;
-		keyTypedHandler.notifyObservers();
-	}
-
-	@Override
+    @Override
 	public void keyPressed(KeyEvent e) {
 		event = e;
-		keyPressedHandler.notifyObservers();
+	}
+    
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// Nothing
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		event = e;
-		keyReleasedHandler.notifyObservers();
+		// Nothing
 	}
 	
 	public KeyEvent getEvent() {
 		return event;
 	}
 	
-	public JFrame getWindow() {
-		return window;
+	public void setEvent(KeyEvent event) {
+		this.event = event;
 	}
 	
-	public void addKeyTypedObserver(Observer observer) {
-		keyTypedHandler.addObserver(observer);
-	}
-	
-	public void deleteKeyTypedObservers() {
-		keyTypedHandler.deleteObservers();
-	}
-	
-	public void addKeyPressedObserver(Observer observer) {
-		keyPressedHandler.addObserver(observer);
-	}
-	
-	public void deleteKeyPressedObservers() {
-		keyPressedHandler.deleteObservers();
-	}
-	
-	public void addKeyReleasedObserver(Observer observer) {
-		keyReleasedHandler.addObserver(observer);
-	}
-	
-	public void deleteKeyReleasedObservers() {
-		keyReleasedHandler.deleteObservers();
-	}
+//	public JFrame getWindow() {
+//		return window;
+//	}
 }

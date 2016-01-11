@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.image.RGBImageFilter;
 
 /**
- * Change la couleur du fond des caractères d'un tileset en noir.
+ * Change la couleur du fond des caractÃ¨res d'un tileset en noir.
  * @author Julien
  */
 public class BackgroundFilter extends RGBImageFilter {
@@ -12,8 +12,8 @@ public class BackgroundFilter extends RGBImageFilter {
     private Color m_BackgroundColor;
 
     public BackgroundFilter(Color m_BackgroundColor) {
-        // La transformation des couleurs ne dépend pas
-        // des coordonnées des points de l'image
+        // La transformation des couleurs ne dÃ©pend pas
+        // des coordonnÃ©es des points de l'image
         canFilterIndexColorModel = true;
         this.m_BackgroundColor = m_BackgroundColor;
     }
