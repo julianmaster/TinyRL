@@ -1,8 +1,8 @@
 package model.entities;
 
 import model.Energy;
-import model.PlayerTurnHandler;
 import model.Tile;
+import model.turns.PlayerTurnHandler;
 
 public class Player extends Entity {
 	public Player() {

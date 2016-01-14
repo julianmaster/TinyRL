@@ -1,8 +1,11 @@
-package model;
+package model.turns;
 
 import java.awt.event.KeyEvent;
 
 import main.TinyRL;
+import model.Openable;
+import model.Room;
+import model.RoomChanger;
 import model.entities.Door;
 import model.entities.Entity;
 import util.Pair;

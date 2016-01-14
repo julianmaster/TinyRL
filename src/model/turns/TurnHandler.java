@@ -1,4 +1,4 @@
-package model;
+package model.turns;
 
 import model.entities.Entity;
 

@@ -1,7 +1,11 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import main.TinyRL;
 import model.animations.Animation;
+import model.animations.AnimationHandler;
 import model.entities.Entity;
 import ui.Terminal;
 import util.Pair;
@@ -12,6 +16,7 @@ public class Room {
 	private Pair<Integer, Integer> position;
 	// [x][y]
 	private Cell[][] cells;
+	private List<AnimationHandler> animationHandlers = new ArrayList<>();
 	
 	public Room(Pair<Integer, Integer> position) {
 		this.cells = new Cell[ROOM_SIZE][ROOM_SIZE];
@@ -38,13 +43,7 @@ public class Room {
 		terminal.repaint();
 	}
 	
-	public void setCell(Pair<Integer, Integer> position, Cell cell) {
-		cells[position.key][position.value] = cell;
-	}
 	
-	public Cell getCell(Pair<Integer, Integer> position) {
-		return cells[position.key][position.value];
-	}
 	
 	public Pair<Integer, Integer> getPositionOfEntity(Entity entity) {
 		for(int x = 0; x < ROOM_SIZE; x++) {
@@ -67,9 +66,25 @@ public class Room {
 		}
 		return null;
 	}
-
+	
 	public Pair<Integer, Integer> getPosition() {
 		return position;
+	}
+	
+	public void setCell(Pair<Integer, Integer> position, Cell cell) {
+		cells[position.key][position.value] = cell;
+	}
+	
+	public Cell getCell(Pair<Integer, Integer> position) {
+		return cells[position.key][position.value];
+	}
+	
+	public void addAnimationHandler(AnimationHandler animationHandler) {
+		animationHandlers.add(animationHandler);
+	}
+	
+	public void clearAnimationHandlers() {
+		animationHandlers.clear();
 	}
 	
 	@Override

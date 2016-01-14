@@ -10,6 +10,7 @@ import model.animations.AnimationController;
 import model.animations.AnimationTile;
 import model.animations.Rain;
 import model.entities.Player;
+import model.turns.TurnController;
 import util.Pair;
 
 public class World {
@@ -86,6 +87,8 @@ public class World {
 			return false;
 		}
 		currentRoom = room;
+		
+		//TODO Load all AnimationHandler 
 		
 		// TurnController
 		turnController.removeAllEntities();

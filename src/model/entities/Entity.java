@@ -2,7 +2,7 @@ package model.entities;
 
 import model.Energy;
 import model.Tile;
-import model.TurnHandler;
+import model.turns.TurnHandler;
 
 public class Entity {
 	private Tile tile;

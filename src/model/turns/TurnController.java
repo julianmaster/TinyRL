@@ -1,4 +1,4 @@
-package model;
+package model.turns;
 
 import java.util.ArrayList;
 import java.util.List;
