@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import main.TinyRL;
@@ -29,8 +30,10 @@ public class Room {
 		for(int x = 0; x < ROOM_SIZE; x++) {
 			for(int y = 0; y < ROOM_SIZE; y++) {
 				Cell cell = cells[x][y];
-				if(cell.getAnimation() != null) {
-					terminal.write(x, y, cell.getAnimation().getTile().tile, cell.getAnimation().getTile().color);
+				if(!cell.getAnimations().isEmpty()) {
+					Collections.sort(cell.getAnimations());
+					Animation animation = cell.getAnimations().get(0);
+					terminal.write(x, y, animation.getTile().tile, animation.getTile().color);
 				}
 				else if(cell.getEntity() != null) {
 					terminal.write(x, y, cell.getEntity().getTile().tile, cell.getEntity().getTile().color);
@@ -59,7 +62,7 @@ public class Room {
 	public Pair<Integer, Integer> getPositionOfAnimation(Animation animation) {
 		for(int x = 0; x < ROOM_SIZE; x++) {
 			for(int y = 0; y < ROOM_SIZE; y++) {
-				if(cells[x][y].getAnimation() != null && cells[x][y].getAnimation().equals(animation)) {
+				if(cells[x][y].getAnimations().contains(animation)) {
 					return new Pair<Integer, Integer>(x, y);
 				}
 			}
@@ -79,12 +82,8 @@ public class Room {
 		return cells[position.key][position.value];
 	}
 	
-	public void addAnimationHandler(AnimationHandler animationHandler) {
-		animationHandlers.add(animationHandler);
-	}
-	
-	public void clearAnimationHandlers() {
-		animationHandlers.clear();
+	public List<AnimationHandler> getAnimationHandlers() {
+		return animationHandlers;
 	}
 	
 	@Override

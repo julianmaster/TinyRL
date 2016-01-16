@@ -3,12 +3,13 @@ package generator;
 import java.util.ArrayList;
 import java.util.Random;
 
-import util.Pair;
-
 import model.Cell;
 import model.Ground;
 import model.Room;
+import model.animations.RainHandler;
+import model.animations.RainHandler.RainType;
 import model.entities.Wall;
+import util.Pair;
 
 public class LandRoom extends BaseRoom {
 
@@ -25,7 +26,7 @@ public class LandRoom extends BaseRoom {
 		for(int x = 0; x < Room.ROOM_SIZE; x++) {
 			for(int y = 0; y < Room.ROOM_SIZE; y++) {
 				Ground ground = grounds.get(rand.nextInt(grounds.size()));
-				Cell cell = new Cell(null, null, null, ground);
+				Cell cell = new Cell(null, null, ground);
 				
 				if(x % (Room.ROOM_SIZE-1) == 0 || y % (Room.ROOM_SIZE-1) == 0) {
 					cell.setEntity(new Wall());
@@ -33,6 +34,23 @@ public class LandRoom extends BaseRoom {
 				
 				room.setCell(new Pair<Integer, Integer>(x, y), cell);
 			}
+		}
+		
+		if(rand.nextBoolean()) {
+			int rain = rand.nextInt(3);
+			RainType rainType = null;
+			switch (rain) {
+				case 0:
+					rainType = RainType.TINY_RAIN;
+					break;
+				case 1:
+					rainType = RainType.MEDIUM_RAIN;
+					break;
+				case 2:
+					rainType = RainType.BIG_RAIN;
+					break;
+			}
+			room.getAnimationHandlers().add(new RainHandler(rainType));
 		}
 		
 		super.placeDoor(room);

@@ -4,37 +4,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.TinyRL;
+import model.Cell;
+import model.Room;
 import util.Pair;
 
 
 public class AnimationController {
-	private List<Animation> animations;
 	
 	public AnimationController() {
-		animations = new ArrayList<>();
-	}
-	
-	public void addAnimation(Pair<Integer, Integer> position, Animation animation) {
-		TinyRL.world.getCurrentRoom().getCell(position).setAnimation(animation);
-		animations.add(animation);
 	}
 	
 	public boolean update(double delta) {
-		boolean change = !animations.isEmpty();
-		List<Animation> finished = new ArrayList<>();
-		for(Animation animation: animations) {
-			if(animation.done()) {
-				Pair<Integer, Integer> position = TinyRL.world.getCurrentRoom().getPositionOfAnimation(animation);
-				TinyRL.world.getCurrentRoom().getCell(position).setAnimation(null);
-				finished.add(animation);
-				continue;
+		Room room = TinyRL.world.getCurrentRoom();
+		
+		boolean change = false;
+		
+		// Animation Handlers
+		List<AnimationHandler> animationHandlersDone = new ArrayList<>();
+		for(AnimationHandler animationHandler : room.getAnimationHandlers()) {
+			if(animationHandler.done()) {
+				animationHandlersDone.add(animationHandler);
 			}
-			
-			if(animation.update(delta)) {
-				change = true;
+			else {
+				if(animationHandler.update(delta)) {
+					change = true;
+				}
 			}
 		}
-		animations.removeAll(finished);
+		room.getAnimationHandlers().removeAll(animationHandlersDone);
+		
+		
+		// Animations
+		for(int x = 0; x < Room.ROOM_SIZE; x++) {
+			for(int y = 0; y < Room.ROOM_SIZE; y++) {
+				Cell cell = room.getCell(new Pair<Integer, Integer>(x, y));
+				
+				if(!cell.getAnimations().isEmpty()) {
+					List<Animation> animationsIterator = new ArrayList<>(cell.getAnimations());
+					List<Animation> animationsDone = new ArrayList<>();
+					for(Animation animation : animationsIterator) {
+						if(!animation.done()) {
+							if(animation.update(delta)) {
+								change = true;
+							}
+						}
+						else {
+							animationsDone.add(animation);
+							change = true;
+						}
+					}
+					cell.getAnimations().removeAll(animationsDone);
+				}
+			}
+		}
 		return change;
 	}
 }

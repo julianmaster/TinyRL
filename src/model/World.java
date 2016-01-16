@@ -7,8 +7,7 @@ import java.util.Map;
 
 import main.TinyRL;
 import model.animations.AnimationController;
-import model.animations.AnimationTile;
-import model.animations.Rain;
+import model.animations.AnimationHandler;
 import model.entities.Player;
 import model.turns.TurnController;
 import util.Pair;
@@ -40,7 +39,7 @@ public class World {
 	public void run() {
 		long lastLoopTime = System.nanoTime();
 		
-		animationController.addAnimation(new Pair<Integer, Integer>(0, 0), new Rain(AnimationTile.RAIN1, 5));
+//		animationController.addAnimation(new Pair<Integer, Integer>(0, 0), new Rain(AnimationTile.RAIN1, 5));
 		
 		while(true) {
 			long now = System.nanoTime();
@@ -50,15 +49,19 @@ public class World {
 			
 			boolean changed = false;
 			
-			// TODO adding blocking system for specific animation
+			// TODO Adding the animation blocking turn system.
+			
+			// Animation update
 			if(animationController.update(delta)) {
 				changed = true;
 			}
 			
+			// Turn update
 			if(turnController.update()) {
 				changed = true;
 			}
 			
+			// Draw
 			if(changed) {
 				currentRoom.draw();
 			}
@@ -88,8 +91,6 @@ public class World {
 		}
 		currentRoom = room;
 		
-		//TODO Load all AnimationHandler 
-		
 		// TurnController
 		turnController.removeAllEntities();
 		for(int i = 0; i < Room.ROOM_SIZE; i++) {
@@ -98,6 +99,7 @@ public class World {
 				if(cell.getEntity() != null && cell.getEntity().getEnergy() != null) {
 					turnController.addEntity(cell.getEntity());
 				}
+				
 			}
 		}
 		return true;
@@ -109,5 +111,9 @@ public class World {
 	
 	public Room getRoom(Pair<Integer, Integer> position) {
 		return world.get(position);
+	}
+	
+	public AnimationController getAnimationController() {
+		return animationController;
 	}
 }

@@ -4,7 +4,7 @@ package model.animations;
 public class Arrow extends Animation {
 
 	public Arrow(AnimationTile tile) {
-		super(tile);
+		super(tile, 0);
 		// TODO Auto-generated constructor stub
 	}
 
