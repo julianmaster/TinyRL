@@ -8,7 +8,7 @@ import main.TinyRL;
 import model.animations.Animation;
 import model.animations.AnimationHandler;
 import model.entities.Entity;
-import ui.Terminal;
+import ui.AsciiPanel;
 import util.Pair;
 
 public class Room {
@@ -25,25 +25,24 @@ public class Room {
 	}
 	
 	public void draw() {
-		Terminal terminal = TinyRL.terminal;
-		terminal.clear();
+		AsciiPanel asciiPanel = TinyRL.getInstance().getAsciiPanel();
+		asciiPanel.clear();
 		for(int x = 0; x < ROOM_SIZE; x++) {
 			for(int y = 0; y < ROOM_SIZE; y++) {
 				Cell cell = cells[x][y];
 				if(!cell.getAnimations().isEmpty()) {
 					Collections.sort(cell.getAnimations());
 					Animation animation = cell.getAnimations().get(0);
-					terminal.write(x, y, animation.getTile().tile, animation.getTile().color);
+					asciiPanel.write(x, y, animation.getTile().tile, animation.getTile().color);
 				}
 				else if(cell.getEntity() != null) {
-					terminal.write(x, y, cell.getEntity().getTile().tile, cell.getEntity().getTile().color);
+					asciiPanel.write(x, y, cell.getEntity().getTile().tile, cell.getEntity().getTile().color);
 				}
 				else {
-					terminal.write(x, y, cell.getGround().tile, cell.getGround().color);
+					asciiPanel.write(x, y, cell.getGround().tile, cell.getGround().color);
 				}
 			}
 		}
-		terminal.repaint();
 	}
 	
 	

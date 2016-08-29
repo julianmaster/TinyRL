@@ -8,6 +8,7 @@ import model.Room;
 import model.RoomChanger;
 import model.entities.Door;
 import model.entities.Entity;
+import ui.CustomAsciiTerminal;
 import util.Pair;
 
 public class PlayerTurnHandler implements TurnHandler {
@@ -21,30 +22,31 @@ public class PlayerTurnHandler implements TurnHandler {
 	
 	@Override
 	public boolean turn() {
-		KeyEvent event = TinyRL.terminal.getEvent();
+		CustomAsciiTerminal asciiTerminal = TinyRL.getInstance().getAsciiTerminal();
+		KeyEvent event = asciiTerminal.getEvent();
 		
-		if(event == null) {
-			return false;
+		if(event != null) {
+			boolean action = false;
+			if(event.getKeyCode() == KeyEvent.VK_UP) {
+				action = moveActions(0, -1);
+			}
+			if(event.getKeyCode() == KeyEvent.VK_DOWN) {
+				action = moveActions(0, 1);
+			}
+			if(event.getKeyCode() == KeyEvent.VK_LEFT) {
+				action = moveActions(-1, 0);
+			}
+			if(event.getKeyCode() == KeyEvent.VK_RIGHT) {
+				action = moveActions(1, 0);
+			}
+			
+			asciiTerminal.setEvent(null);
+			
+			return action;
 		}
 		else {
-			TinyRL.terminal.setEvent(null);
+			return false;
 		}
-		
-		boolean action = false;
-		if(event.getKeyCode() == KeyEvent.VK_UP) {
-			action = moveActions(0, -1);
-		}
-		if(event.getKeyCode() == KeyEvent.VK_DOWN) {
-			action = moveActions(0, 1);
-		}
-		if(event.getKeyCode() == KeyEvent.VK_LEFT) {
-			action = moveActions(-1, 0);
-		}
-		if(event.getKeyCode() == KeyEvent.VK_RIGHT) {
-			action = moveActions(1, 0);
-		}
-		
-		return action;
 	}
 
 	public boolean moveActions(int dx, int dy) {

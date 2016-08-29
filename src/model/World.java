@@ -17,14 +17,11 @@ public class World {
 	private Room currentRoom;
 	private TurnController turnController;
 	private AnimationController animationController;
-//	private WindowCloseHandler windowCloseHandler;
 	
 	public World() {
 		world = new HashMap<>();
 		turnController = new TurnController();
 		animationController = new AnimationController();
-//		windowCloseHandler = new WindowCloseHandler();
-//		TinyRL.terminal.getWindow().addWindowListener(windowCloseHandler);
 		init();
 	}
 
@@ -66,8 +63,16 @@ public class World {
 				currentRoom.draw();
 			}
 			
+			TinyRL.getInstance().getAsciiTerminal().repaint();
+			
 			try {
-				Thread.sleep((lastLoopTime - System.nanoTime() + TinyRL.OPTIMAL_TIME) / 1000000);
+				long value = (lastLoopTime - System.nanoTime() + TinyRL.OPTIMAL_TIME) / 1000000;
+				if(value > 0) {
+					Thread.sleep(value);					
+				}
+				else {
+					Thread.sleep(5);
+				}
 			} catch (InterruptedException e) {
 			}
 		}
