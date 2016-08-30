@@ -15,6 +15,7 @@ public class TinyRL {
 	public static final int WINDOW_WIDTH = 9;
 	public static final int WINDOW_HEIGHT = 9;
 	public static final String TILESET_FILE = "/assets/wanderlust.png";
+	public static final String ICON_FILE = "/assets/icon.png";
 	public static final int CHARACTER_WIDTH = 12;
 	public static final int CHARACTER_HEIGHT = 12;
 	
@@ -28,7 +29,7 @@ public class TinyRL {
 	public static World world;
 	
 	private TinyRL() {
-		asciiTerminal = new CustomAsciiTerminal(TITLE, new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT), TILESET_FILE, CHARACTER_WIDTH, CHARACTER_HEIGHT, TILESET_FILE);
+		asciiTerminal = new CustomAsciiTerminal(TITLE, new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT), TILESET_FILE, CHARACTER_WIDTH, CHARACTER_HEIGHT, ICON_FILE);
 		asciiPanel = asciiTerminal.getAsciiPanel();
 		asciiPanel.setDefaultCharacterBackgroundColor(CustomColor.BLACK);
 		asciiPanel.setDefaultCharacterColor(CustomColor.WHITE);
