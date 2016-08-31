@@ -33,50 +33,7 @@ public class World {
 		loadRoom(position);
 	}
 	
-	public void run() {
-		long lastLoopTime = System.nanoTime();
-		
-//		animationController.addAnimation(new Pair<Integer, Integer>(0, 0), new Rain(AnimationTile.RAIN1, 5));
-		
-		while(true) {
-			long now = System.nanoTime();
-			double updateLength = now - lastLoopTime;
-			lastLoopTime = now;
-			double delta = updateLength / TinyRL.OPTIMAL_TIME;
-			
-			boolean changed = false;
-			
-			// TODO Adding the animation blocking turn system.
-			
-			// Animation update
-			if(animationController.update(delta)) {
-				changed = true;
-			}
-			
-			// Turn update
-			if(turnController.update()) {
-				changed = true;
-			}
-			
-			// Draw
-			if(changed) {
-				currentRoom.draw();
-			}
-			
-			TinyRL.getInstance().getAsciiTerminal().repaint();
-			
-			try {
-				long value = (lastLoopTime - System.nanoTime() + TinyRL.OPTIMAL_TIME) / 1000000;
-				if(value > 0) {
-					Thread.sleep(value);					
-				}
-				else {
-					Thread.sleep(5);
-				}
-			} catch (InterruptedException e) {
-			}
-		}
-	}
+	
 	
 	public boolean createRoom(Pair<Integer, Integer> position) {
 		Room room = world.get(position);
@@ -120,5 +77,9 @@ public class World {
 	
 	public AnimationController getAnimationController() {
 		return animationController;
+	}
+	
+	public TurnController getTurnController() {
+		return turnController;
 	}
 }

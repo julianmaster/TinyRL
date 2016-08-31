@@ -1,6 +1,7 @@
 package model.animations;
 
 import main.TinyRL;
+import model.World;
 import util.Pair;
 
 public class Rain extends Animation {
@@ -26,10 +27,11 @@ public class Rain extends Animation {
 			
 			elapseTime = 0;
 			if(life > 0) {
-				Pair<Integer, Integer> position = TinyRL.world.getCurrentRoom().getPositionOfAnimation(this);
-				TinyRL.world.getCurrentRoom().getCell(position).getAnimations().remove(this);
+				World world = TinyRL.getInstance().getWorld();
+				Pair<Integer, Integer> position = world.getCurrentRoom().getPositionOfAnimation(this);
+				world.getCurrentRoom().getCell(position).getAnimations().remove(this);
 				position.value++;
-				TinyRL.world.getCurrentRoom().getCell(position).getAnimations().add(this);
+				world.getCurrentRoom().getCell(position).getAnimations().add(this);
 				life--;
 				
 				if(life == 0) {

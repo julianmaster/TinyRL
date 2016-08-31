@@ -48,7 +48,7 @@ public class RainHandler implements AnimationHandler {
 				int rainLife = rand.nextInt(Room.ROOM_SIZE - 2) + 1;
 				
 				Rain rain = new Rain(rainLife, rainLife);
-				TinyRL.world.getCurrentRoom().getCell(new Pair<Integer, Integer>(xRainPosition, 0)).getAnimations().add(rain);
+				TinyRL.getInstance().getWorld().getCurrentRoom().getCell(new Pair<Integer, Integer>(xRainPosition, 0)).getAnimations().add(rain);
 				rains.add(rain);
 				changed = true;
 			}

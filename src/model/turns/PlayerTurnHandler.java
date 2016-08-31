@@ -6,6 +6,7 @@ import main.TinyRL;
 import model.Openable;
 import model.Room;
 import model.RoomChanger;
+import model.World;
 import model.entities.Door;
 import model.entities.Entity;
 import ui.CustomAsciiTerminal;
@@ -50,24 +51,26 @@ public class PlayerTurnHandler implements TurnHandler {
 	}
 
 	public boolean moveActions(int dx, int dy) {
-		Pair<Integer, Integer> positionPlayer = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
+		World world = TinyRL.getInstance().getWorld();
+		Pair<Integer, Integer> positionPlayer = world.getCurrentRoom().getPositionOfEntity(player);
 		Pair<Integer, Integer> positionTarget = positionPlayer.clone();
 		positionTarget.key += dx;
 		positionTarget.value += dy;
 		
-		if(TinyRL.world.getCurrentRoom().getCell(positionTarget).getEntity() == null) {
-			TinyRL.world.getCurrentRoom().getCell(positionPlayer).setEntity(null);
-			TinyRL.world.getCurrentRoom().getCell(positionTarget).setEntity(player);
+		if(world.getCurrentRoom().getCell(positionTarget).getEntity() == null) {
+			world.getCurrentRoom().getCell(positionPlayer).setEntity(null);
+			world.getCurrentRoom().getCell(positionTarget).setEntity(player);
 			return true;
 		}
 		return open(dx, dy);
 	}
 	
 	public boolean open(int dx, int dy) {
-		Pair<Integer, Integer> positionTarget = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
+		World world = TinyRL.getInstance().getWorld();
+		Pair<Integer, Integer> positionTarget = world.getCurrentRoom().getPositionOfEntity(player);
 		positionTarget.key += dx;
 		positionTarget.value += dy;
-		Entity entity = TinyRL.world.getCurrentRoom().getCell(positionTarget).getEntity();
+		Entity entity = world.getCurrentRoom().getCell(positionTarget).getEntity();
 		if(entity instanceof Openable) {
 			Openable openable = (Openable)entity;
 			if(!openable.isOpen()) {
@@ -80,21 +83,22 @@ public class PlayerTurnHandler implements TurnHandler {
 	}
 	
 	public boolean changeRoom(int dx, int dy) {
-		Pair<Integer, Integer> positionPlayer = TinyRL.world.getCurrentRoom().getPositionOfEntity(player);
+		World world = TinyRL.getInstance().getWorld();
+		Pair<Integer, Integer> positionPlayer = world.getCurrentRoom().getPositionOfEntity(player);
 		Pair<Integer, Integer> positionTarget = positionPlayer.clone();
 		positionTarget.key += dx;
 		positionTarget.value += dy;
 		
-		Entity entity = TinyRL.world.getCurrentRoom().getCell(positionTarget).getEntity();
+		Entity entity = world.getCurrentRoom().getCell(positionTarget).getEntity();
 		if(entity instanceof RoomChanger) {
 			RoomChanger roomChanger = (RoomChanger)entity;
 			Pair<Integer, Integer> nextRoom = roomChanger.changeRoom();
 			// Remove player of the current room
-			TinyRL.world.getCurrentRoom().getCell(positionPlayer).setEntity(null);
+			world.getCurrentRoom().getCell(positionPlayer).setEntity(null);
 			
-			TinyRL.world.createRoom(nextRoom);
+			world.createRoom(nextRoom);
 			
-			Room room = TinyRL.world.getRoom(nextRoom);
+			Room room = world.getRoom(nextRoom);
 			Door door = null;
 			switch (roomChanger.getDirection()) {
 				case N:
@@ -134,7 +138,7 @@ public class PlayerTurnHandler implements TurnHandler {
 			}
 			door.open();
 			
-			TinyRL.world.loadRoom(nextRoom);
+			world.loadRoom(nextRoom);
 			return true;
 		}
 		return false;

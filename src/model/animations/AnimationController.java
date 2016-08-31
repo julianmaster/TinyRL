@@ -15,7 +15,7 @@ public class AnimationController {
 	}
 	
 	public boolean update(double delta) {
-		Room room = TinyRL.world.getCurrentRoom();
+		Room room = TinyRL.getInstance().getWorld().getCurrentRoom();
 		
 		boolean change = false;
 		
