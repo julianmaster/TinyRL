@@ -17,6 +17,7 @@ import model.WindowCloseHandler;
 public class CustomAsciiTerminal extends AsciiTerminal {
 
 	private KeyEvent event;
+	private KeyEvent otherEvent;
 	
 	public CustomAsciiTerminal(String title, Dimension dimension, String tilesetFile, int characterWidth, int characterHeight, String frameIconPath) {
 		super(title, dimension, tilesetFile, characterWidth, characterHeight);
@@ -35,6 +36,12 @@ public class CustomAsciiTerminal extends AsciiTerminal {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				event = e;
+				otherEvent = e;
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				otherEvent = e;
 			}
 		});
 	}
@@ -45,5 +52,13 @@ public class CustomAsciiTerminal extends AsciiTerminal {
 	
 	public void setEvent(KeyEvent event) {
 		this.event = event;
+	}
+	
+	public KeyEvent getOtherEvent() {
+		return otherEvent;
+	}
+	
+	public void setOtherEvent(KeyEvent otherEvent) {
+		this.otherEvent = otherEvent;
 	}
 }

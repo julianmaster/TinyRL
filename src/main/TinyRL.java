@@ -13,7 +13,7 @@ import ui.CustomColor;
 
 public class TinyRL {
 	public static final String TITLE = "TinyRL";
-	public static final int WINDOW_WIDTH = 16;
+	public static final int WINDOW_WIDTH = 20;
 	public static final int WINDOW_HEIGHT = 9;
 	public static final String TILESET_FILE = "/assets/wanderlust.png";
 	public static final String ICON_FILE = "/assets/icon.png";
