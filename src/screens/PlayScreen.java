@@ -2,11 +2,13 @@ package screens;
 
 import java.awt.event.KeyEvent;
 
+import main.TinyRL;
+import model.Room;
+import model.World;
+import model.entities.Player;
 import ui.AsciiPanel;
 import ui.CustomColor;
-
-import main.TinyRL;
-import model.World;
+import util.Pair;
 
 public class PlayScreen implements Screen {
 	
@@ -38,12 +40,19 @@ public class PlayScreen implements Screen {
 
 	@Override
 	public void paint() {
-		TinyRL.getInstance().getWorld().getCurrentRoom().draw();
+		Room currentRoom = TinyRL.getInstance().getWorld().getCurrentRoom();
+		currentRoom.draw();
 		
 		AsciiPanel asciiPanel = TinyRL.getInstance().getAsciiPanel();
 		
 		if(pause) {
 			asciiPanel.writeString(10, 0, "PAUSE", CustomColor.LBLUE, CustomColor.GREEN);
+		}
+		else{
+			Pair<Integer, Integer> playerPosition = currentRoom.getPositionOfEntityType(Player.class).get(0);
+			Player player = (Player) currentRoom.getCell(playerPosition).getEntity();
+			
+			asciiPanel.writeString(10, 1, String.format("%.0f",player.getHpPoint()), CustomColor.RED);
 		}
 	}
 }

@@ -45,7 +45,17 @@ public class Room {
 		}
 	}
 	
-	
+	public <E extends Entity> List<Pair<Integer, Integer>> getPositionOfEntityType(Class<E> classEntity) {
+		List<Pair<Integer, Integer>> result = new ArrayList<>();
+		for(int x = 0; x < ROOM_SIZE; x++) {
+			for(int y = 0; y < ROOM_SIZE; y++) {
+				if(cells[x][y].getEntity() != null && cells[x][y].getEntity().getClass() == classEntity) {
+					result.add(new Pair<Integer, Integer>(x, y));
+				}
+			}
+		}
+		return result;
+	}
 	
 	public Pair<Integer, Integer> getPositionOfEntity(Entity entity) {
 		for(int x = 0; x < ROOM_SIZE; x++) {
