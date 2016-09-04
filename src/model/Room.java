@@ -7,6 +7,8 @@ import java.util.List;
 import main.TinyRL;
 import model.animations.Animation;
 import model.animations.AnimationHandler;
+import model.animations.AnimationTile;
+import model.animations.AnimationTileComponent;
 import model.entities.Entity;
 import ui.AsciiPanel;
 import util.Pair;
@@ -33,7 +35,8 @@ public class Room {
 				if(!cell.getAnimations().isEmpty()) {
 					Collections.sort(cell.getAnimations());
 					Animation animation = cell.getAnimations().get(0);
-					asciiPanel.write(x, y, animation.getTile().tile, animation.getTile().color);
+					AnimationTile animationTile = animation.getComponentByClass(AnimationTileComponent.class).getAnimationTile();
+					asciiPanel.write(x, y, animationTile.tile, animationTile.color);
 				}
 				else if(cell.getEntity() != null) {
 					asciiPanel.write(x, y, cell.getEntity().getTile().tile, cell.getEntity().getTile().color);

@@ -47,7 +47,7 @@ public class Engine implements Component {
 		}
 	}
 	
-	public void processEvent(Event event, double deltaTime) {
+	public void processEvent(Event event) {
 		eventsToProcess.add(event);
 	}
 	
@@ -60,7 +60,18 @@ public class Engine implements Component {
 		entities.remove(entity);
 	}
 	
-	public Entity getEntityByComponent(Class<? extends Component> component) {
+	public Entity getEntityByComponent(Component component) {
+		for(Entity entity : entities) {
+			for(Component c : entity) {
+				if(c == component) {
+					return entity;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public Entity getEntityByComponentClass(Class<? extends Component> component) {
 		for(Entity e : entities) {
 			for(Component c : e) {
 				if(c.getClass() == component) {
