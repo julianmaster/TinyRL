@@ -61,8 +61,6 @@ public class TinyRL {
 	public void run() {
 		long lastLoopTime = System.nanoTime();
 		
-//		animationController.addAnimation(new Pair<Integer, Integer>(0, 0), new Rain(AnimationTile.RAIN1, 5));
-		
 		while(true) {
 			long now = System.nanoTime();
 			double updateLength = now - lastLoopTime;

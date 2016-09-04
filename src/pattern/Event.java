@@ -1,5 +1,5 @@
 package pattern;
 
-public interface Event {
+public abstract interface Event {
 
 }

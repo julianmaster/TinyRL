@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 public class Engine implements Component {
 	
 	private static Engine instance = new Engine();
 	
+	private List<Entity> entities = new ArrayList<>();
 	private Map<Class<? extends Component>, List<Component>> components = new HashMap<>();
+	private Stack<Event> eventsToProcess = new Stack<>();
 	private Component start = null;
 	
 	private Engine() {
@@ -26,6 +29,7 @@ public class Engine implements Component {
 				components.put(component.getClass(), listComponents);
 			}
 		}
+		entities.add(entity);
 	}
 	
 	public void updateEntity(Entity entity) {
@@ -43,12 +47,8 @@ public class Engine implements Component {
 		}
 	}
 	
-	public void processEvent(Class<? extends Component> component, Event event, double deltaTime) {
-		if(components.containsKey(component)) {
-			for(Component c : components.get(component)) {
-				c.process(event, deltaTime);
-			}
-		}
+	public void processEvent(Event event, double deltaTime) {
+		eventsToProcess.add(event);
 	}
 	
 	public void removeEntity(Entity entity) {
@@ -57,12 +57,47 @@ public class Engine implements Component {
 				components.get(component.getClass()).remove(component);
 			}
 		}
+		entities.remove(entity);
+	}
+	
+	public Entity getEntityByComponent(Class<? extends Component> component) {
+		for(Entity e : entities) {
+			for(Component c : e) {
+				if(c.getClass() == component) {
+					return e;
+				}
+			}
+		}
+		return null;
 	}
 	
 	@Override
 	public void process(Event event, double deltaTime) {
 		if(start != null) {
 			start.process(event, deltaTime);
+		}
+		
+		while(!eventsToProcess.isEmpty()) {
+			Event nextEvent = eventsToProcess.pop();
+			
+			if(nextEvent instanceof EntityComponentEvent) {
+				EntityComponentEvent nextEntityComponentEvent = (EntityComponentEvent)nextEvent;
+				
+				for(Component component : nextEntityComponentEvent.getEntity()) {
+					if(component.getClass() == nextEntityComponentEvent.getComponent()) {
+						component.process(nextEntityComponentEvent, deltaTime);
+					}
+				}
+			}
+			else if(nextEvent instanceof ComponentEvent) {
+				ComponentEvent nextComponentEvent = (ComponentEvent)nextEvent;
+				
+				if(components.containsKey(nextComponentEvent.getComponent())) {
+					for(Component c : components.get(nextComponentEvent.getComponent())) {
+						c.process(nextComponentEvent, deltaTime);
+					}
+				}
+			}
 		}
 	}
 	
