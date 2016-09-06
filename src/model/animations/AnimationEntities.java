@@ -27,7 +27,7 @@ public class AnimationEntities {
 		int rainLife = rand.nextInt(Room.ROOM_SIZE - 2) + 1;
 		rain.add(new RainComponent(rainLife));
 		rain.add(new PositionComponent(position));
-		rain.add(new RainAnimationComponent());
+		rain.add(new RainAnimationTileComponent());
 		rain.add(new AnimationLevelComponent(rainLife));
 		
 		Engine.getInstance().addEntity(rain);

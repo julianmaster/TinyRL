@@ -21,7 +21,6 @@ public class AnimationController {
 		
 		boolean change = false;
 		
-		Engine.getInstance().processEvent(new RainEvent());
 		Engine.getInstance().processEvent(new RainHandlerEvent());
 		
 		// Animation Handlers

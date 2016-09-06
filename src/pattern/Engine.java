@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Stack;
 
 public class Engine implements Component {
@@ -11,6 +12,9 @@ public class Engine implements Component {
 	private static Engine instance = new Engine();
 	
 	private List<Entity> entities = new ArrayList<>();
+	private List<Entity> entitiesToAdd = new ArrayList<>();
+	private List<Entity> entitiesToRemove = new ArrayList<>();
+	
 	private Map<Class<? extends Component>, List<Component>> components = new HashMap<>();
 	private Stack<Event> eventsToProcess = new Stack<>();
 	private Component start = null;
@@ -19,17 +23,7 @@ public class Engine implements Component {
 	}
 	
 	public void addEntity(Entity entity) {
-		for(Component component : entity) {
-			if(components.containsKey(component.getClass())) {
-				components.get(component.getClass()).add(component);
-			}
-			else {
-				ArrayList<Component> listComponents = new ArrayList<>();
-				listComponents.add(component);
-				components.put(component.getClass(), listComponents);
-			}
-		}
-		entities.add(entity);
+		entitiesToAdd.add(entity);
 	}
 	
 	public void updateEntity(Entity entity) {
@@ -52,12 +46,7 @@ public class Engine implements Component {
 	}
 	
 	public void removeEntity(Entity entity) {
-		for(Component component : entity) {
-			if(components.containsKey(component.getClass())) {
-				components.get(component.getClass()).remove(component);
-			}
-		}
-		entities.remove(entity);
+		entitiesToRemove.add(entity);
 	}
 	
 	public Entity getEntityByComponent(Component component) {
@@ -95,22 +84,58 @@ public class Engine implements Component {
 			if(nextEvent instanceof EntityComponentEvent) {
 				EntityComponentEvent nextEntityComponentEvent = (EntityComponentEvent)nextEvent;
 				
-				for(Component component : nextEntityComponentEvent.getEntity()) {
-					if(component.getClass() == nextEntityComponentEvent.getComponent()) {
-						component.process(nextEntityComponentEvent, deltaTime);
+				int count = 0;
+				for(Component c : nextEntityComponentEvent.getEntity()) {
+					if(nextEntityComponentEvent.getComponent().isInstance(c)) {
+						c.process(nextEntityComponentEvent, deltaTime);
+						count++;
 					}
 				}
+				
+//				System.out.println(nextEntityComponentEvent.getComponent().getName()+" - "+count);
 			}
 			else if(nextEvent instanceof ComponentEvent) {
 				ComponentEvent nextComponentEvent = (ComponentEvent)nextEvent;
 				
-				if(components.containsKey(nextComponentEvent.getComponent())) {
-					for(Component c : components.get(nextComponentEvent.getComponent())) {
-						c.process(nextComponentEvent, deltaTime);
+				int count = 0;
+				for(Entry<Class<? extends Component>, List<Component>> entry : components.entrySet()) {
+					if(entry.getKey().isAssignableFrom(nextComponentEvent.getComponent())) {
+						for(Component c : entry.getValue()) {
+							c.process(nextComponentEvent, deltaTime);
+							count++;
+						}
 					}
+				}
+				
+//				System.out.println(nextComponentEvent.getComponent().getName()+" - "+count);
+			}
+		}
+		
+		for(Entity entity : entitiesToAdd) {
+			for(Component component : entity) {
+				if(components.containsKey(component.getClass())) {
+					components.get(component.getClass()).add(component);
+				}
+				else {
+					ArrayList<Component> listComponents = new ArrayList<>();
+					listComponents.add(component);
+					components.put(component.getClass(), listComponents);
 				}
 			}
 		}
+		entities.addAll(entitiesToAdd);
+		entitiesToAdd.clear();
+		
+		
+		for(Entity entity : entitiesToRemove) {
+			for(Component component : entity) {
+				if(components.containsKey(component.getClass())) {
+					components.get(component.getClass()).remove(component);
+				}
+			}
+		}
+		entities.removeAll(entitiesToRemove);
+		entitiesToRemove.clear();
 	}
 	
 	public static Engine getInstance() {

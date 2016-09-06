@@ -12,6 +12,7 @@ public class RainComponent implements Component {
 	private final static int FPS = 8;
 	private double elapseTime = 0;
 	private int life;
+	private int state = 1;
 //	private boolean finished = false;
 //	
 //	public Rain(int life, int level) {
@@ -72,9 +73,11 @@ public class RainComponent implements Component {
 	public void process(Event e, double deltaTime) {
 		elapseTime += deltaTime;
 		if(elapseTime >= 60 / FPS) {
-			if(life == 0) {
-				Animation rain = (Animation)Engine.getInstance().getEntityByComponent(this);
-				PositionComponent positionComponent = rain.getComponentByClass(PositionComponent.class);
+			Animation rain = (Animation)Engine.getInstance().getEntityByComponent(this);
+			PositionComponent positionComponent = rain.getComponentByClass(PositionComponent.class);
+			AnimationTileComponent animationTileComponent = rain.getComponentByClass(AnimationTileComponent.class);
+			
+			if(life == 0 && animationTileComponent.getAnimationTile() == AnimationTile.RAIN5) {
 				TinyRL.getInstance().getWorld().getCurrentRoom().getCell(positionComponent.getPosition()).getAnimations().remove(rain);
 				Engine.getInstance().removeEntity(rain);
 				return;
@@ -83,8 +86,6 @@ public class RainComponent implements Component {
 			elapseTime = 0;
 			if(life > 0) {
 				World world = TinyRL.getInstance().getWorld();
-				Animation rain = (Animation)Engine.getInstance().getEntityByComponent(this);
-				PositionComponent positionComponent = rain.getComponentByClass(PositionComponent.class);
 				
 				world.getCurrentRoom().getCell(positionComponent.getPosition()).getAnimations().remove(rain);
 				positionComponent.getPosition().value++;
@@ -92,20 +93,19 @@ public class RainComponent implements Component {
 				life--;
 				
 				if(life == 0) {
-//					tile = AnimationTile.RAIN2;
-					Engine.getInstance().processEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this)));
+					Engine.getInstance().processEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN2));
 				}
 			}
 			else {
-//				if(tile == AnimationTile.RAIN4) {
-//					tile = AnimationTile.RAIN5;
-//				}
-//				if(tile == AnimationTile.RAIN3) {
-//					tile = AnimationTile.RAIN4;
-//				}
-//				if(tile == AnimationTile.RAIN2) {
-//					tile = AnimationTile.RAIN3;
-//				}
+				if(animationTileComponent.getAnimationTile() == AnimationTile.RAIN4) {
+					Engine.getInstance().processEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN5));
+				}
+				if(animationTileComponent.getAnimationTile() == AnimationTile.RAIN3) {
+					Engine.getInstance().processEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN4));
+				}
+				if(animationTileComponent.getAnimationTile() == AnimationTile.RAIN2) {
+					Engine.getInstance().processEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN3));
+				}
 			}
 		}
 	}

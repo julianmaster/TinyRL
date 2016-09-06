@@ -37,6 +37,8 @@ public class RainHandlerComponent implements Component {
 					TinyRL.getInstance().getWorld().getCurrentRoom().getCell(position).getAnimations().add(AnimationEntities.newRain(position));
 				}
 			}
+			
+			Engine.getInstance().processEvent(new RainEvent());
 		}
 	}
 }

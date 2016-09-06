@@ -7,7 +7,7 @@ public class Entity extends ArrayList<Component> {
 	
 	public <E extends Component> E getComponentByClass(Class<E> componentClass) {
 		for(Component component : this) {
-			if(component.getClass() == componentClass) {
+			if(componentClass.isAssignableFrom(component.getClass())) {
 				return (E) component;
 			}
 		}
