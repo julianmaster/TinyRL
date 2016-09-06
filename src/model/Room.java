@@ -19,7 +19,7 @@ public class Room {
 	private Pair<Integer, Integer> position;
 	// [x][y]
 	private Cell[][] cells;
-	private List<AnimationHandler> animationHandlers = new ArrayList<>();
+	private List<pattern.Entity> animationHandlers = new ArrayList<>();
 	
 	public Room(Pair<Integer, Integer> position) {
 		this.cells = new Cell[ROOM_SIZE][ROOM_SIZE];
@@ -94,7 +94,7 @@ public class Room {
 		return cells[position.key][position.value];
 	}
 	
-	public List<AnimationHandler> getAnimationHandlers() {
+	public List<pattern.Entity> getAnimationHandlers() {
 		return animationHandlers;
 	}
 	

@@ -6,9 +6,11 @@ import java.util.Random;
 import model.Cell;
 import model.Ground;
 import model.Room;
-import model.animations.RainHandler;
+import model.animations.AnimationEntities;
 import model.animations.RainHandler.RainType;
 import model.entities.Wall;
+import pattern.Engine;
+import pattern.Entity;
 import util.Pair;
 
 public class LandRoom extends BaseRoom {
@@ -50,7 +52,8 @@ public class LandRoom extends BaseRoom {
 					rainType = RainType.BIG_RAIN;
 					break;
 			}
-			room.getAnimationHandlers().add(new RainHandler(rainType));
+			System.out.println("RainType: "+rainType);
+			room.getAnimationHandlers().add(AnimationEntities.newRainHandler(rainType));
 		}
 		
 		super.placeDoor(room);

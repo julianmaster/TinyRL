@@ -71,15 +71,16 @@ public class Engine implements Component {
 		return null;
 	}
 	
-	public Entity getEntityByComponentClass(Class<? extends Component> component) {
-		for(Entity e : entities) {
-			for(Component c : e) {
+	public List<Entity> getEntityByComponentClass(Class<? extends Component> component) {
+		List<Entity> entitiesOfComponentClass = new ArrayList<>();
+		for(Entity entity : entities) {
+			for(Component c : entity) {
 				if(c.getClass() == component) {
-					return e;
+					entitiesOfComponentClass.add(entity);
 				}
 			}
 		}
-		return null;
+		return entitiesOfComponentClass;
 	}
 	
 	@Override

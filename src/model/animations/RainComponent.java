@@ -73,19 +73,22 @@ public class RainComponent implements Component {
 		elapseTime += deltaTime;
 		if(elapseTime >= 60 / FPS) {
 			if(life == 0) {
-				Engine.getInstance().removeEntity(Engine.getInstance().getEntityByComponent(this));
+				Animation rain = (Animation)Engine.getInstance().getEntityByComponent(this);
+				PositionComponent positionComponent = rain.getComponentByClass(PositionComponent.class);
+				TinyRL.getInstance().getWorld().getCurrentRoom().getCell(positionComponent.getPosition()).getAnimations().remove(rain);
+				Engine.getInstance().removeEntity(rain);
+				return;
 			}
-			
-//			Engine.getInstance().processEvent(event, deltaTime)
 			
 			elapseTime = 0;
 			if(life > 0) {
 				World world = TinyRL.getInstance().getWorld();
 				Animation rain = (Animation)Engine.getInstance().getEntityByComponent(this);
-				Pair<Integer, Integer> position = world.getCurrentRoom().getPositionOfAnimation(rain);
-				world.getCurrentRoom().getCell(position).getAnimations().remove(rain);
-				position.value++;
-				world.getCurrentRoom().getCell(position).getAnimations().add(rain);
+				PositionComponent positionComponent = rain.getComponentByClass(PositionComponent.class);
+				
+				world.getCurrentRoom().getCell(positionComponent.getPosition()).getAnimations().remove(rain);
+				positionComponent.getPosition().value++;
+				world.getCurrentRoom().getCell(positionComponent.getPosition()).getAnimations().add(rain);
 				life--;
 				
 				if(life == 0) {

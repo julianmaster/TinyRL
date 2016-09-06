@@ -7,6 +7,6 @@ import pattern.EntityComponentEvent;
 public class AnimationTileEvent extends EntityComponentEvent {
 
 	public AnimationTileEvent(Entity entity) {
-		super(AnimationComponent.class, entity);
+		super(AnimationTileComponent.class, entity);
 	}
 }
