@@ -1,14 +1,18 @@
 package model.turns;
 
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import main.TinyRL;
 import model.Openable;
 import model.Room;
 import model.RoomChanger;
 import model.World;
+import model.animations.RainComponent;
+import model.animations.RainHandlerComponent;
 import model.entities.Door;
 import model.entities.Entity;
+import pattern.Engine;
 import ui.CustomAsciiTerminal;
 import util.Pair;
 
@@ -96,7 +100,14 @@ public class PlayerTurnHandler implements TurnHandler {
 			// Remove player of the current room
 			world.getCurrentRoom().getCell(positionPlayer).setEntity(null);
 			
-			world.createRoom(nextRoom);
+			Engine.getInstance().removeEntitiesByComponentClass(RainHandlerComponent.class);
+			Engine.getInstance().removeEntitiesByComponentClass(RainComponent.class);
+			
+			if(!world.createRoom(nextRoom)) {
+				Room room = world.getRoom(nextRoom);
+				Engine.getInstance().addEntities(room.getAnimationHandlers());
+				Engine.getInstance().addEntities(room.getAnimations());
+			}
 			
 			Room room = world.getRoom(nextRoom);
 			Door door = null;

@@ -98,6 +98,18 @@ public class Room {
 		return animationHandlers;
 	}
 	
+	public List<pattern.Entity> getAnimations() {
+		List<pattern.Entity> animations = new ArrayList<>();
+		for(int x = 0; x < ROOM_SIZE; x++) {
+			for(int y = 0; y < ROOM_SIZE; y++) {
+				if(cells[x][y].getAnimations() != null) {
+					animations.addAll(cells[x][y].getAnimations());
+				}
+			}
+		}
+		return animations;
+	}
+	
 	@Override
 	public String toString() {
 		String s = new String();

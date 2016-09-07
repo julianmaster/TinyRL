@@ -26,6 +26,10 @@ public class Engine implements Component {
 		entitiesToAdd.add(entity);
 	}
 	
+	public void addEntities(List<Entity> entities) {
+		entitiesToAdd.addAll(entities);
+	}
+	
 	public void updateEntity(Entity entity) {
 		for(Component component : entity) {
 			if(components.containsKey(component.getClass())) {
@@ -49,6 +53,18 @@ public class Engine implements Component {
 		entitiesToRemove.add(entity);
 	}
 	
+	public void removeEntitiesByComponentClass(Class<? extends Component> component) {
+		List<Entity> entitiesOfComponentClass = new ArrayList<>();
+		for(Entity entity : entities) {
+			for(Component c : entity) {
+				if(component.isAssignableFrom(c.getClass())) {
+					entitiesOfComponentClass.add(entity);
+				}
+			}
+		}
+		entitiesToRemove.addAll(entitiesOfComponentClass);
+	}
+	
 	public Entity getEntityByComponent(Component component) {
 		for(Entity entity : entities) {
 			for(Component c : entity) {
@@ -64,7 +80,7 @@ public class Engine implements Component {
 		List<Entity> entitiesOfComponentClass = new ArrayList<>();
 		for(Entity entity : entities) {
 			for(Component c : entity) {
-				if(c.getClass() == component) {
+				if(component.isAssignableFrom(c.getClass())) {
 					entitiesOfComponentClass.add(entity);
 				}
 			}
@@ -91,8 +107,6 @@ public class Engine implements Component {
 						count++;
 					}
 				}
-				
-//				System.out.println(nextEntityComponentEvent.getComponent().getName()+" - "+count);
 			}
 			else if(nextEvent instanceof ComponentEvent) {
 				ComponentEvent nextComponentEvent = (ComponentEvent)nextEvent;
@@ -106,8 +120,6 @@ public class Engine implements Component {
 						}
 					}
 				}
-				
-//				System.out.println(nextComponentEvent.getComponent().getName()+" - "+count);
 			}
 		}
 		
