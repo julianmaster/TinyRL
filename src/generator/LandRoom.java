@@ -7,10 +7,8 @@ import model.Cell;
 import model.Ground;
 import model.Room;
 import model.animations.AnimationEntities;
-import model.animations.RainHandler.RainType;
+import model.animations.rain.RainHandlerComponent.RainType;
 import model.entities.Wall;
-import pattern.Engine;
-import pattern.Entity;
 import util.Pair;
 
 public class LandRoom extends BaseRoom {

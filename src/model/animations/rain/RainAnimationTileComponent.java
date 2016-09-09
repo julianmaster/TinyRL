@@ -1,5 +1,8 @@
-package model.animations;
+package model.animations.rain;
 
+import model.animations.AnimationTile;
+import model.animations.AnimationTileComponent;
+import model.animations.AnimationTileEvent;
 import pattern.Event;
 
 public class RainAnimationTileComponent extends AnimationTileComponent {

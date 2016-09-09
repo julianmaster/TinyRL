@@ -17,7 +17,6 @@ public class Engine implements Component {
 	
 	private Map<Class<? extends Component>, List<Component>> components = new HashMap<>();
 	private Stack<Event> eventsToProcess = new Stack<>();
-	private Component start = null;
 	
 	private Engine() {
 	}
@@ -26,8 +25,8 @@ public class Engine implements Component {
 		entitiesToAdd.add(entity);
 	}
 	
-	public void addEntities(List<Entity> entities) {
-		entitiesToAdd.addAll(entities);
+	public void addEntities(List<Entity> entityList) {
+		entitiesToAdd.addAll(entityList);
 	}
 	
 	public void updateEntity(Entity entity) {
@@ -90,9 +89,7 @@ public class Engine implements Component {
 	
 	@Override
 	public void process(Event event, double deltaTime) {
-		if(start != null) {
-			start.process(event, deltaTime);
-		}
+		updateListsEngine();
 		
 		while(!eventsToProcess.isEmpty()) {
 			Event nextEvent = eventsToProcess.pop();
@@ -123,6 +120,10 @@ public class Engine implements Component {
 			}
 		}
 		
+		updateListsEngine();
+	}
+	
+	private void updateListsEngine() {
 		for(Entity entity : entitiesToAdd) {
 			for(Component component : entity) {
 				if(components.containsKey(component.getClass())) {

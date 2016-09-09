@@ -5,23 +5,19 @@ import generator.RoomGenerator;
 import java.util.HashMap;
 import java.util.Map;
 
-import main.TinyRL;
-import model.animations.AnimationController;
-import model.animations.AnimationHandler;
 import model.entities.Player;
 import model.turns.TurnController;
+import pattern.Engine;
 import util.Pair;
 
 public class World {
 	private Map<Pair<Integer, Integer>, Room> world;
 	private Room currentRoom;
 	private TurnController turnController;
-	private AnimationController animationController;
 	
 	public World() {
 		world = new HashMap<>();
 		turnController = new TurnController();
-		animationController = new AnimationController();
 		init();
 	}
 
@@ -29,11 +25,11 @@ public class World {
 		Pair<Integer, Integer> position = new Pair<Integer, Integer>(0, 0);
 		createRoom(position);
 		Room room = getRoom(position);
+		Engine.getInstance().addEntities(room.getAnimationHandlers());
+		Engine.getInstance().addEntities(room.getAnimations());
 		room.getCell(new Pair<Integer, Integer>(4, 4)).setEntity(new Player());
 		loadRoom(position);
 	}
-	
-	
 	
 	public boolean createRoom(Pair<Integer, Integer> position) {
 		Room room = world.get(position);
@@ -73,10 +69,6 @@ public class World {
 	
 	public Room getRoom(Pair<Integer, Integer> position) {
 		return world.get(position);
-	}
-	
-	public AnimationController getAnimationController() {
-		return animationController;
 	}
 	
 	public TurnController getTurnController() {

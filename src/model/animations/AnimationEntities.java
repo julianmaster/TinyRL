@@ -3,8 +3,10 @@ package model.animations;
 import java.util.Random;
 
 import model.Room;
-import model.animations.RainHandler.RainType;
-import pattern.Engine;
+import model.animations.rain.RainAnimationTileComponent;
+import model.animations.rain.RainComponent;
+import model.animations.rain.RainHandlerComponent;
+import model.animations.rain.RainHandlerComponent.RainType;
 import pattern.Entity;
 import util.Pair;
 
@@ -17,7 +19,6 @@ public class AnimationEntities {
 		
 		rainHandler.add(new RainHandlerComponent(rainType));
 
-		Engine.getInstance().addEntity(rainHandler);
 		return rainHandler;
 	}
 	
@@ -30,7 +31,6 @@ public class AnimationEntities {
 		rain.add(new RainAnimationTileComponent());
 		rain.add(new AnimationLevelComponent(rainLife));
 		
-		Engine.getInstance().addEntity(rain);
 		return rain;
 	}
 }

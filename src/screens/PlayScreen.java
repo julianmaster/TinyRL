@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 import pattern.Engine;
 
 import main.TinyRL;
+import model.GeneralComponent;
+import model.GeneralEvent;
 import model.Room;
 import model.World;
 import model.entities.Player;
@@ -71,7 +73,7 @@ public class PlayScreen implements Screen {
 		
 		if(!pause) {
 			// Animation update
-			world.getAnimationController().update(delta);
+			Engine.getInstance().processEvent(new GeneralEvent());
 			Engine.getInstance().process(null, delta);
 			
 			// Turn update

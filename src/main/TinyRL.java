@@ -2,6 +2,9 @@ package main;
 
 import java.awt.Dimension;
 
+import pattern.Engine;
+
+import model.GeneralEntity;
 import model.World;
 import screens.PlayScreen;
 import screens.Screen;
@@ -37,6 +40,8 @@ public class TinyRL {
 		asciiPanel.setDefaultCharacterBackgroundColor(CustomColor.BLACK);
 		asciiPanel.setDefaultCharacterColor(CustomColor.WHITE);
 		world = new World();
+		
+		Engine.getInstance().addEntity(GeneralEntity.newGeneral());
 		
 		currentScreen = new PlayScreen();
 		

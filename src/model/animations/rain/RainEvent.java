@@ -1,4 +1,4 @@
-package model.animations;
+package model.animations.rain;
 
 import pattern.Component;
 import pattern.ComponentEvent;

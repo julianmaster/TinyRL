@@ -6,7 +6,6 @@ import java.util.List;
 
 import main.TinyRL;
 import model.animations.Animation;
-import model.animations.AnimationHandler;
 import model.animations.AnimationTile;
 import model.animations.AnimationTileComponent;
 import model.entities.Entity;
@@ -102,7 +101,7 @@ public class Room {
 		List<pattern.Entity> animations = new ArrayList<>();
 		for(int x = 0; x < ROOM_SIZE; x++) {
 			for(int y = 0; y < ROOM_SIZE; y++) {
-				if(cells[x][y].getAnimations() != null) {
+				if(!cells[x][y].getAnimations().isEmpty()) {
 					animations.addAll(cells[x][y].getAnimations());
 				}
 			}

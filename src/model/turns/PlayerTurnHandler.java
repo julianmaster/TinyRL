@@ -8,8 +8,8 @@ import model.Openable;
 import model.Room;
 import model.RoomChanger;
 import model.World;
-import model.animations.RainComponent;
-import model.animations.RainHandlerComponent;
+import model.animations.rain.RainComponent;
+import model.animations.rain.RainHandlerComponent;
 import model.entities.Door;
 import model.entities.Entity;
 import pattern.Engine;
@@ -103,13 +103,11 @@ public class PlayerTurnHandler implements TurnHandler {
 			Engine.getInstance().removeEntitiesByComponentClass(RainHandlerComponent.class);
 			Engine.getInstance().removeEntitiesByComponentClass(RainComponent.class);
 			
-			if(!world.createRoom(nextRoom)) {
-				Room room = world.getRoom(nextRoom);
-				Engine.getInstance().addEntities(room.getAnimationHandlers());
-				Engine.getInstance().addEntities(room.getAnimations());
-			}
-			
+			world.createRoom(nextRoom);
 			Room room = world.getRoom(nextRoom);
+			Engine.getInstance().addEntities(room.getAnimationHandlers());
+			Engine.getInstance().addEntities(room.getAnimations());
+			
 			Door door = null;
 			switch (roomChanger.getDirection()) {
 				case N:
