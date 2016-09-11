@@ -2,12 +2,14 @@ package main;
 
 import java.awt.Dimension;
 
-import pattern.Engine;
-
 import model.GeneralEntity;
+import model.GeneralEvent;
 import model.World;
-import screens.PlayScreen;
-import screens.Screen;
+import pattern.Engine;
+import pattern.Entity;
+import pattern.Event;
+import screens.PlayScreenEvent;
+import screens.ScreenEntities;
 import ui.AsciiPanel;
 import ui.CustomAsciiTerminal;
 import ui.CustomColor;
@@ -32,7 +34,7 @@ public class TinyRL {
 	private AsciiPanel asciiPanel;
 	private World world;
 	
-	private Screen currentScreen;
+	private Event currentEvent;
 	
 	private TinyRL() {
 		asciiTerminal = new CustomAsciiTerminal(TITLE, new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT), TILESET_FILE, CHARACTER_WIDTH, CHARACTER_HEIGHT, ICON_FILE);
@@ -41,9 +43,7 @@ public class TinyRL {
 		asciiPanel.setDefaultCharacterColor(CustomColor.WHITE);
 		world = new World();
 		
-		Engine.getInstance().addEntity(GeneralEntity.newGeneral());
-		
-		currentScreen = new PlayScreen();
+		init();
 		
 //		asciiPanel.write(0, 0, 'A', CustomColor.BLUE);
 //		asciiPanel.write(0, 1, 'B', CustomColor.GREEN);
@@ -63,6 +63,15 @@ public class TinyRL {
 //		asciiTerminal.repaint();
 	}
 	
+	private void init() {
+		Engine.getInstance().addEntity(GeneralEntity.newGeneral());
+		
+		Entity playScreen = ScreenEntities.createPlayScreen();
+		Engine.getInstance().addEntity(playScreen);
+		
+		currentEvent = new PlayScreenEvent();
+	}
+	
 	public void run() {
 		long lastLoopTime = System.nanoTime();
 		
@@ -72,10 +81,14 @@ public class TinyRL {
 			lastLoopTime = now;
 			double delta = updateLength / TinyRL.OPTIMAL_TIME;
 			
-			currentScreen.update(delta);
+//			currentScreen.update(delta);
 			
 			// Paint
-			currentScreen.paint();
+//			currentScreen.paint();
+			
+			Engine.getInstance().processEvent(currentEvent);
+			Engine.getInstance().process(null, delta);
+			
 			asciiTerminal.repaint();
 			
 			try {
