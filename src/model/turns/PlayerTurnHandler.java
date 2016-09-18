@@ -102,7 +102,7 @@ public class PlayerTurnHandler implements TurnHandler {
 			
 			Engine.getInstance().removeEntitiesByComponentClass(RainHandlerComponent.class);
 			Engine.getInstance().removeEntitiesByComponentClass(RainComponent.class);
-			
+			Engine engine = Engine.getInstance();
 			world.createRoom(nextRoom);
 			Room room = world.getRoom(nextRoom);
 			Engine.getInstance().addEntities(room.getAnimationHandlers());

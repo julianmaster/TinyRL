@@ -29,6 +29,11 @@ public class RainComponent implements Component {
 			elapseTime += deltaTime;
 			if(elapseTime >= 60 / FPS) {
 				Animation rain = (Animation)Engine.getInstance().getEntityByComponent(this);
+				if(rain == null) {
+					System.out.println(this);
+					Engine engine = Engine.getInstance();
+					System.out.println("Error");
+				}
 				PositionComponent positionComponent = rain.getComponentByClass(PositionComponent.class);
 				AnimationTileComponent animationTileComponent = rain.getComponentByClass(AnimationTileComponent.class);
 				

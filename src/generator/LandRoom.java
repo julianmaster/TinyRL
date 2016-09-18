@@ -51,7 +51,8 @@ public class LandRoom extends BaseRoom {
 					break;
 			}
 			System.out.println("RainType: "+rainType);
-			room.getAnimationHandlers().add(AnimationEntities.newRainHandler(rainType));
+//			room.getAnimationHandlers().add(AnimationEntities.newRainHandler(rainType));
+			room.getAnimationHandlers().add(AnimationEntities.newRainHandler(RainType.TINY_RAIN));
 		}
 		
 		super.placeDoor(room);

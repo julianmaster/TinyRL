@@ -39,7 +39,9 @@ public class PlayScreenComponent implements Component {
 				if(event.getKeyCode() == KeyEvent.VK_SPACE) {
 					pause = !pause;
 					
+					Engine engine = Engine.getInstance();
 					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
+					System.out.println("error");
 				}
 				else if(event.getKeyCode() == KeyEvent.VK_A) {
 					Room currentRoom = TinyRL.getInstance().getWorld().getCurrentRoom();
