@@ -86,7 +86,7 @@ public class TinyRL {
 			// Paint
 //			currentScreen.paint();
 			
-			Engine.getInstance().processEvent(currentEvent);
+			Engine.getInstance().addTailEvent(currentEvent);
 			Engine.getInstance().process(null, delta);
 			
 			asciiTerminal.repaint();

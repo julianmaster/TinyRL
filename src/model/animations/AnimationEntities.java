@@ -3,6 +3,7 @@ package model.animations;
 import java.util.Random;
 
 import model.Room;
+import model.PositionComponent;
 import model.animations.rain.RainAnimationTileComponent;
 import model.animations.rain.RainComponent;
 import model.animations.rain.RainHandlerComponent;

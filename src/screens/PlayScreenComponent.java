@@ -41,7 +41,7 @@ public class PlayScreenComponent implements Component {
 					
 					Engine engine = Engine.getInstance();
 					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
-					System.out.println("error");
+					System.out.println("Error - "+this.getClass().getName());
 				}
 				else if(event.getKeyCode() == KeyEvent.VK_A) {
 					Room currentRoom = TinyRL.getInstance().getWorld().getCurrentRoom();
@@ -80,10 +80,10 @@ public class PlayScreenComponent implements Component {
 			
 			if(!pause) {
 				// Animation update
-				Engine.getInstance().processEvent(new GeneralEvent());
+				Engine.getInstance().addTailEvent(new GeneralEvent());
 				
 				// Turn update
-				world.getTurnController().update();
+//				world.getTurnController().update();
 			}
 			
 			
@@ -109,16 +109,16 @@ public class PlayScreenComponent implements Component {
 				asciiPanel.writeString(10, 3, ARMOR + " ARMOR", CustomColor.YELLOW);
 			}
 			// Paint player info
-			else{
-				Pair<Integer, Integer> playerPosition = currentRoom.getPositionOfEntityType(Player.class).get(0);
-				Player player = (Player) currentRoom.getCell(playerPosition).getEntity();
-				
-				asciiPanel.writeString(10, 1, HP + String.format(" %3.0f",player.getHp()) + "/" + String.format("%.0f",player.getHpMax()), CustomColor.RED);
-				asciiPanel.writeString(10, 2, MANA + String.format(" %3.0f",player.getMana()) + "/" + String.format("%.0f",player.getManaMax()), CustomColor.LBLUE);
-				asciiPanel.writeString(10, 3, ARMOR + String.format(" %3s",player.getArmor()), CustomColor.YELLOW);
-				asciiPanel.writeString(10, 8, "P:INV", CustomColor.WHITE);
-				asciiPanel.writeString(19, 8, "?", CustomColor.WHITE);
-			}
+//			else{
+//				Pair<Integer, Integer> playerPosition = currentRoom.getPositionOfEntityType(Player.class).get(0);
+//				Player player = (Player) currentRoom.getCell(playerPosition).getEntity();
+//				
+//				asciiPanel.writeString(10, 1, HP + String.format(" %3.0f",player.getHp()) + "/" + String.format("%.0f",player.getHpMax()), CustomColor.RED);
+//				asciiPanel.writeString(10, 2, MANA + String.format(" %3.0f",player.getMana()) + "/" + String.format("%.0f",player.getManaMax()), CustomColor.LBLUE);
+//				asciiPanel.writeString(10, 3, ARMOR + String.format(" %3s",player.getArmor()), CustomColor.YELLOW);
+//				asciiPanel.writeString(10, 8, "P:INV", CustomColor.WHITE);
+//				asciiPanel.writeString(19, 8, "?", CustomColor.WHITE);
+//			}
 		}
 	}
 }

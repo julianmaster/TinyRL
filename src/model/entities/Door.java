@@ -6,13 +6,13 @@ import model.RoomChanger;
 import model.Tile;
 import util.Pair;
 
-public class Door extends Entity implements Openable, RoomChanger {
+public class Door extends ModelEntity implements Openable, RoomChanger {
 	private boolean open = false;
 	private Pair<Integer, Integer> nextRoom;
 	private Direction direction;
 	
 	public Door(Pair<Integer, Integer> nextRoom, Direction direction) {
-		super(Tile.CLOSE_DOOR, null, null);
+		super(Tile.CLOSE_DOOR, null);
 		this.nextRoom = nextRoom;
 		this.direction = direction;
 	}

@@ -1,16 +1,15 @@
 package model.animations.rain;
 
 import main.TinyRL;
+import model.PositionComponent;
 import model.World;
 import model.animations.Animation;
 import model.animations.AnimationTile;
 import model.animations.AnimationTileComponent;
 import model.animations.AnimationTileEvent;
-import model.animations.PositionComponent;
 import pattern.Component;
 import pattern.Engine;
 import pattern.Event;
-import util.Pair;
 
 public class RainComponent implements Component {
 	
@@ -32,7 +31,7 @@ public class RainComponent implements Component {
 				if(rain == null) {
 					System.out.println(this);
 					Engine engine = Engine.getInstance();
-					System.out.println("Error");
+					System.out.println("Error - "+this.getClass().getName());
 				}
 				PositionComponent positionComponent = rain.getComponentByClass(PositionComponent.class);
 				AnimationTileComponent animationTileComponent = rain.getComponentByClass(AnimationTileComponent.class);
@@ -53,18 +52,18 @@ public class RainComponent implements Component {
 					life--;
 					
 					if(life == 0) {
-						Engine.getInstance().processEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN2));
+						Engine.getInstance().addHeadEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN2));
 					}
 				}
 				else {
 					if(animationTileComponent.getAnimationTile() == AnimationTile.RAIN4) {
-						Engine.getInstance().processEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN5));
+						Engine.getInstance().addHeadEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN5));
 					}
 					if(animationTileComponent.getAnimationTile() == AnimationTile.RAIN3) {
-						Engine.getInstance().processEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN4));
+						Engine.getInstance().addHeadEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN4));
 					}
 					if(animationTileComponent.getAnimationTile() == AnimationTile.RAIN2) {
-						Engine.getInstance().processEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN3));
+						Engine.getInstance().addHeadEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN3));
 					}
 				}
 			}

@@ -1,5 +1,6 @@
 package pattern;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,9 @@ public class Engine implements Component {
 	private List<Entity> entitiesToRemove = new ArrayList<>();
 	
 	private Map<Class<? extends Component>, List<Component>> components = new HashMap<>();
-	private Stack<Event> eventsToProcess = new Stack<>();
+	private ArrayDeque<Event> eventsToProcess = new ArrayDeque<>();
+	
+	public static boolean DEBUG = false;
 	
 	private Engine() {
 	}
@@ -44,8 +47,12 @@ public class Engine implements Component {
 		}
 	}
 	
-	public void processEvent(Event event) {
-		eventsToProcess.add(event);
+	public void addHeadEvent(Event event) {
+		eventsToProcess.addFirst(event);
+	}
+	
+	public void addTailEvent(Event event) {
+		eventsToProcess.addLast(event);
 	}
 	
 	public void removeEntity(Entity entity) {
@@ -92,7 +99,7 @@ public class Engine implements Component {
 		updateListsEngine();
 		
 		while(!eventsToProcess.isEmpty()) {
-			Event nextEvent = eventsToProcess.pop();
+			Event nextEvent = eventsToProcess.pollFirst();
 			
 			if(nextEvent instanceof EntityComponentEvent) {
 				EntityComponentEvent nextEntityComponentEvent = (EntityComponentEvent)nextEvent;

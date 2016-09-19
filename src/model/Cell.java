@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.animations.Animation;
-import model.entities.Entity;
+import model.entities.ModelEntity;
 
 public class Cell {
 	private List<Animation> animations = new ArrayList<>();
-	private Entity entity;
+	private ModelEntity entity;
 	private Item item;
 	private Ground ground;
 
-	public Cell(Entity entity, Item item, Ground ground) {
+	public Cell(ModelEntity entity, Item item, Ground ground) {
 		this.entity = entity;
 		this.item = item;
 		this.ground = ground;
@@ -26,11 +26,11 @@ public class Cell {
 		this.animations = animations;
 	}
 
-	public Entity getEntity() {
+	public ModelEntity getEntity() {
 		return entity;
 	}
 
-	public void setEntity(Entity entity) {
+	public void setEntity(ModelEntity entity) {
 		this.entity = entity;
 	}
 

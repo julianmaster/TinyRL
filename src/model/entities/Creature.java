@@ -6,7 +6,7 @@ import model.Tile;
 import model.Weapon;
 import model.turns.TurnHandler;
 
-public class Creature extends Entity {
+public class Creature extends ModelEntity {
 	
 	protected float hp = 0;
 	protected float hpBasic = 0;
@@ -27,8 +27,8 @@ public class Creature extends Entity {
 	protected Weapon weapon;
 	protected Item[] artifact = new Item[5];
 	
-	public Creature(Tile tile, TurnHandler turnHandler, Energy energy) {
-		super(tile, turnHandler, energy);
+	public Creature(Tile tile, Energy energy) {
+		super(tile, energy);
 	}
 	
 	public float getHp() {

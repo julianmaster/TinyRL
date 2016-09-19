@@ -5,19 +5,20 @@ import generator.RoomGenerator;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.entities.Player;
-import model.turns.TurnController;
+import model.entities.ModelEntities;
+import model.entities.ModelEntity;
+import model.turns.TurnControllerAddEntityEvent;
+import model.turns.TurnControllerEntity;
 import pattern.Engine;
 import util.Pair;
 
 public class World {
 	private Map<Pair<Integer, Integer>, Room> world;
 	private Room currentRoom;
-	private TurnController turnController;
 	
 	public World() {
 		world = new HashMap<>();
-		turnController = new TurnController();
+		Engine.getInstance().addEntity(TurnControllerEntity.newTurnController());
 		init();
 	}
 
@@ -27,7 +28,13 @@ public class World {
 		Room room = getRoom(position);
 		Engine.getInstance().addEntities(room.getAnimationHandlers());
 		Engine.getInstance().addEntities(room.getAnimations());
-		room.getCell(new Pair<Integer, Integer>(4, 4)).setEntity(new Player());
+
+		Pair<Integer, Integer> playerPosition = new Pair<Integer, Integer>(4, 4);
+		ModelEntity player = ModelEntities.newPlayer(playerPosition);
+		room.getCell(playerPosition).setEntity(player);
+		Engine.getInstance().addEntity(player);
+		Engine.getInstance().addHeadEvent(new TurnControllerAddEntityEvent(player));
+		
 		loadRoom(position);
 	}
 	
@@ -49,17 +56,6 @@ public class World {
 		}
 		currentRoom = room;
 		
-		// TurnController
-		turnController.removeAllEntities();
-		for(int i = 0; i < Room.ROOM_SIZE; i++) {
-			for(int j = 0; j < Room.ROOM_SIZE; j++) {
-				Cell cell = currentRoom.getCell(new Pair<Integer, Integer>(i, j));
-				if(cell.getEntity() != null && cell.getEntity().getEnergy() != null) {
-					turnController.addEntity(cell.getEntity());
-				}
-				
-			}
-		}
 		return true;
 	}
 	
@@ -69,9 +65,5 @@ public class World {
 	
 	public Room getRoom(Pair<Integer, Integer> position) {
 		return world.get(position);
-	}
-	
-	public TurnController getTurnController() {
-		return turnController;
 	}
 }

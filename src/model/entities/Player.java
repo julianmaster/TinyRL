@@ -6,7 +6,7 @@ import model.turns.PlayerTurnHandler;
 
 public class Player extends Creature {
 	public Player() {
-		super(Tile.PLAYER, new PlayerTurnHandler(), new Energy(60));
+		super(Tile.PLAYER, new Energy(60));
 		
 		this.hp = 100f;
 		this.hpBasic = 50f;

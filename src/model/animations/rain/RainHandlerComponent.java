@@ -41,6 +41,11 @@ public class RainHandlerComponent implements Component {
 	public void process(Event e, double deltaTime) {
 		if(e instanceof RainHandlerEvent) {
 			List<Entity> rains = Engine.getInstance().getEntityByComponentClass(RainComponent.class);
+			if(Engine.DEBUG) {
+				Engine engine = Engine.getInstance();
+				System.out.println("Error - "+this.getClass().getName());
+				Engine.DEBUG = false;
+			}
 
 			if(rains.size() < rainType.size) {
 				elapseTime += deltaTime;
@@ -55,7 +60,7 @@ public class RainHandlerComponent implements Component {
 				}
 			}
 			
-			Engine.getInstance().processEvent(new RainEvent());
+			Engine.getInstance().addTailEvent(new RainEvent());
 		}
 	}
 }

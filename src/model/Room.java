@@ -8,7 +8,7 @@ import main.TinyRL;
 import model.animations.Animation;
 import model.animations.AnimationTile;
 import model.animations.AnimationTileComponent;
-import model.entities.Entity;
+import model.entities.ModelEntity;
 import ui.AsciiPanel;
 import util.Pair;
 
@@ -47,7 +47,7 @@ public class Room {
 		}
 	}
 	
-	public <E extends Entity> List<Pair<Integer, Integer>> getPositionOfEntityType(Class<E> classEntity) {
+	public <E extends ModelEntity> List<Pair<Integer, Integer>> getPositionOfEntityType(Class<E> classEntity) {
 		List<Pair<Integer, Integer>> result = new ArrayList<>();
 		for(int x = 0; x < ROOM_SIZE; x++) {
 			for(int y = 0; y < ROOM_SIZE; y++) {
@@ -59,7 +59,7 @@ public class Room {
 		return result;
 	}
 	
-	public Pair<Integer, Integer> getPositionOfEntity(Entity entity) {
+	public Pair<Integer, Integer> getPositionOfEntity(ModelEntity entity) {
 		for(int x = 0; x < ROOM_SIZE; x++) {
 			for(int y = 0; y < ROOM_SIZE; y++) {
 				if(cells[x][y].getEntity() != null && cells[x][y].getEntity().equals(entity)) {

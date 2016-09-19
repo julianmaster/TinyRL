@@ -11,17 +11,17 @@ import model.World;
 import model.animations.rain.RainComponent;
 import model.animations.rain.RainHandlerComponent;
 import model.entities.Door;
-import model.entities.Entity;
+import model.entities.ModelEntity;
 import pattern.Engine;
 import ui.CustomAsciiTerminal;
 import util.Pair;
 
 public class PlayerTurnHandler implements TurnHandler {
 	
-	public Entity player;
+	public ModelEntity player;
 
 	@Override
-	public void init(Entity entity) {
+	public void init(ModelEntity entity) {
 		player = entity;
 	}
 	
@@ -74,7 +74,7 @@ public class PlayerTurnHandler implements TurnHandler {
 		Pair<Integer, Integer> positionTarget = world.getCurrentRoom().getPositionOfEntity(player);
 		positionTarget.key += dx;
 		positionTarget.value += dy;
-		Entity entity = world.getCurrentRoom().getCell(positionTarget).getEntity();
+		ModelEntity entity = world.getCurrentRoom().getCell(positionTarget).getEntity();
 		if(entity instanceof Openable) {
 			Openable openable = (Openable)entity;
 			if(!openable.isOpen()) {
@@ -93,7 +93,7 @@ public class PlayerTurnHandler implements TurnHandler {
 		positionTarget.key += dx;
 		positionTarget.value += dy;
 		
-		Entity entity = world.getCurrentRoom().getCell(positionTarget).getEntity();
+		ModelEntity entity = world.getCurrentRoom().getCell(positionTarget).getEntity();
 		if(entity instanceof RoomChanger) {
 			RoomChanger roomChanger = (RoomChanger)entity;
 			Pair<Integer, Integer> nextRoom = roomChanger.changeRoom();
@@ -148,6 +148,7 @@ public class PlayerTurnHandler implements TurnHandler {
 			door.open();
 			
 			world.loadRoom(nextRoom);
+			Engine.DEBUG = true;
 			return true;
 		}
 		return false;

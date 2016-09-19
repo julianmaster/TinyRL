@@ -2,16 +2,14 @@ package model.entities;
 
 import model.Energy;
 import model.Tile;
-import model.turns.TurnHandler;
+import pattern.Entity;
 
-public class Entity {
+public class ModelEntity extends Entity {
 	private Tile tile;
-	private TurnHandler turnHandler;
 	private Energy energy;
 
-	public Entity(Tile tile, TurnHandler turnHandler, Energy energy) {
+	public ModelEntity(Tile tile, Energy energy) {
 		this.tile = tile;
-		this.turnHandler = turnHandler;
 		this.energy = energy;
 	}
 
@@ -21,14 +19,6 @@ public class Entity {
 
 	public void setTile(Tile tile) {
 		this.tile = tile;
-	}
-
-	public TurnHandler getTurnHandler() {
-		return turnHandler;
-	}
-	
-	public void setTurnHandler(TurnHandler turnHandler) {
-		this.turnHandler = turnHandler;
 	}
 
 	public Energy getEnergy() {
