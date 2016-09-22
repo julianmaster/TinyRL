@@ -1,12 +1,11 @@
 package model.entities;
 
 import model.Energy;
-import model.Tile;
-import model.turns.PlayerTurnHandler;
 
 public class Player extends Creature {
+	
 	public Player() {
-		super(Tile.PLAYER, new Energy(60));
+		super(new Energy(60));
 		
 		this.hp = 100f;
 		this.hpBasic = 50f;

@@ -4,10 +4,13 @@ import java.awt.event.KeyEvent;
 
 import main.TinyRL;
 import model.PositionComponent;
-import model.World;
 import model.entities.ModelEntity;
+import model.turns.actions.ChangeRoomActionComponent;
+import model.turns.actions.ChangeRoomActionEvent;
 import model.turns.actions.MoveActionEvent;
 import model.turns.actions.NextActionEvent;
+import model.turns.actions.OpenActionComponent;
+import model.turns.actions.OpenActionEvent;
 import pattern.Engine;
 import pattern.Event;
 import ui.CustomAsciiTerminal;
@@ -40,8 +43,31 @@ public class PlayerTurnComponent extends TurnComponent {
 					dx = 1;
 				}
 				
-				if(nextActionEvent.getLastActionEvent() == null) {
+				if(nextActionEvent.getLastActionEvent() == null && (dx != 0 || dy != 0)) {
 					Engine.getInstance().addHeadEvent(new MoveActionEvent(player, dx, dy));
+					
+					asciiTerminal.setEvent(null);
+				}
+			}
+			
+			if(nextActionEvent.getLastActionEvent() != null) {
+				
+				if(nextActionEvent.getLastActionEvent() instanceof MoveActionEvent) {
+					MoveActionEvent moveActionEvent = (MoveActionEvent)nextActionEvent.getLastActionEvent();
+					
+					PositionComponent positionComponent = player.getComponentByClass(PositionComponent.class);
+					ModelEntity modelEntity = TinyRL.getInstance().getWorld().getCurrentRoom().getCell(new Pair<Integer, Integer>(positionComponent.getPosition().key + moveActionEvent.getDx(), positionComponent.getPosition().value + moveActionEvent.getDy())).getEntity();
+					
+					OpenActionComponent openActionComponent = modelEntity.getComponentByClass(OpenActionComponent.class);
+					
+					if(modelEntity.getComponentByClass(OpenActionComponent.class) != null && !openActionComponent.isOpen()) {
+						Engine.getInstance().addHeadEvent(new OpenActionEvent(modelEntity));
+					}
+					else if(modelEntity.getComponentByClass(OpenActionComponent.class) != null && openActionComponent.isOpen()) {
+						if(modelEntity.asComponentOfClass(ChangeRoomActionComponent.class)) {
+							Engine.getInstance().addHeadEvent(new ChangeRoomActionEvent(modelEntity, player));
+						}
+					}
 					
 					asciiTerminal.setEvent(null);
 				}

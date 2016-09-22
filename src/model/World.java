@@ -26,8 +26,10 @@ public class World {
 		Pair<Integer, Integer> position = new Pair<Integer, Integer>(0, 0);
 		createRoom(position);
 		Room room = getRoom(position);
+		
 		Engine.getInstance().addEntities(room.getAnimationHandlers());
 		Engine.getInstance().addEntities(room.getAnimations());
+		Engine.getInstance().addEntities(room.getModelEntities());
 
 		Pair<Integer, Integer> playerPosition = new Pair<Integer, Integer>(4, 4);
 		ModelEntity player = ModelEntities.newPlayer(playerPosition);

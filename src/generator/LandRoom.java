@@ -8,6 +8,7 @@ import model.Ground;
 import model.Room;
 import model.animations.AnimationEntities;
 import model.animations.rain.RainHandlerComponent.RainType;
+import model.entities.ModelEntities;
 import model.entities.Wall;
 import util.Pair;
 
@@ -29,7 +30,7 @@ public class LandRoom extends BaseRoom {
 				Cell cell = new Cell(null, null, ground);
 				
 				if(x % (Room.ROOM_SIZE-1) == 0 || y % (Room.ROOM_SIZE-1) == 0) {
-					cell.setEntity(new Wall());
+					cell.setEntity(ModelEntities.newWall());
 				}
 				
 				room.setCell(new Pair<Integer, Integer>(x, y), cell);

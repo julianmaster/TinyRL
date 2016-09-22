@@ -8,7 +8,9 @@ import main.TinyRL;
 import model.animations.Animation;
 import model.animations.AnimationTile;
 import model.animations.AnimationTileComponent;
+import model.entities.EntityTileComponent;
 import model.entities.ModelEntity;
+import pattern.Entity;
 import ui.AsciiPanel;
 import util.Pair;
 
@@ -18,7 +20,7 @@ public class Room {
 	private Pair<Integer, Integer> position;
 	// [x][y]
 	private Cell[][] cells;
-	private List<pattern.Entity> animationHandlers = new ArrayList<>();
+	private List<Entity> animationHandlers = new ArrayList<>();
 	
 	public Room(Pair<Integer, Integer> position) {
 		this.cells = new Cell[ROOM_SIZE][ROOM_SIZE];
@@ -38,7 +40,9 @@ public class Room {
 					asciiPanel.write(x, y, animationTile.tile, animationTile.color);
 				}
 				else if(cell.getEntity() != null) {
-					asciiPanel.write(x, y, cell.getEntity().getTile().tile, cell.getEntity().getTile().color);
+					ModelEntity modelEntity = cell.getEntity();
+					Tile entityTile = modelEntity.getComponentByClass(EntityTileComponent.class).getTile();
+					asciiPanel.write(x, y, entityTile.tile, entityTile.color);
 				}
 				else {
 					asciiPanel.write(x, y, cell.getGround().tile, cell.getGround().color);
@@ -93,12 +97,12 @@ public class Room {
 		return cells[position.key][position.value];
 	}
 	
-	public List<pattern.Entity> getAnimationHandlers() {
+	public List<Entity> getAnimationHandlers() {
 		return animationHandlers;
 	}
 	
-	public List<pattern.Entity> getAnimations() {
-		List<pattern.Entity> animations = new ArrayList<>();
+	public List<Entity> getAnimations() {
+		List<Entity> animations = new ArrayList<>();
 		for(int x = 0; x < ROOM_SIZE; x++) {
 			for(int y = 0; y < ROOM_SIZE; y++) {
 				if(!cells[x][y].getAnimations().isEmpty()) {
@@ -109,21 +113,15 @@ public class Room {
 		return animations;
 	}
 	
-	@Override
-	public String toString() {
-		String s = new String();
+	public List<ModelEntity> getModelEntities() {
+		List<ModelEntity> modelEntities = new ArrayList<>();
 		for(int x = 0; x < ROOM_SIZE; x++) {
 			for(int y = 0; y < ROOM_SIZE; y++) {
-				Cell cell = cells[x][y];
-				if(cell.getEntity() != null) {
-					s += cell.getEntity().getTile().tile;
-				}
-				else {
-					s += cell.getGround().tile;
+				if(cells[x][y].getEntity() != null) {
+					modelEntities.add(cells[x][y].getEntity());
 				}
 			}
-			s += '\n';
 		}
-		return s;
+		return modelEntities;
 	}
 }

@@ -1,6 +1,7 @@
 package model.animations.rain;
 
 import main.TinyRL;
+import model.ChangePositionEvent;
 import model.PositionComponent;
 import model.World;
 import model.animations.Animation;
@@ -10,6 +11,7 @@ import model.animations.AnimationTileEvent;
 import pattern.Component;
 import pattern.Engine;
 import pattern.Event;
+import util.Pair;
 
 public class RainComponent implements Component {
 	
@@ -46,9 +48,12 @@ public class RainComponent implements Component {
 				if(life > 0) {
 					World world = TinyRL.getInstance().getWorld();
 					
+					Pair<Integer, Integer> position = positionComponent.getPosition();
 					world.getCurrentRoom().getCell(positionComponent.getPosition()).getAnimations().remove(rain);
-					positionComponent.getPosition().value++;
-					world.getCurrentRoom().getCell(positionComponent.getPosition()).getAnimations().add(rain);
+					position.value++;
+					world.getCurrentRoom().getCell(position).getAnimations().add(rain);
+					Engine.getInstance().addHeadEvent(new ChangePositionEvent(rain, position));
+					
 					life--;
 					
 					if(life == 0) {

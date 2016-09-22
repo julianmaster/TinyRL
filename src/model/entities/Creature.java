@@ -2,9 +2,7 @@ package model.entities;
 
 import model.Energy;
 import model.Item;
-import model.Tile;
 import model.Weapon;
-import model.turns.TurnHandler;
 
 public class Creature extends ModelEntity {
 	
@@ -27,8 +25,8 @@ public class Creature extends ModelEntity {
 	protected Weapon weapon;
 	protected Item[] artifact = new Item[5];
 	
-	public Creature(Tile tile, Energy energy) {
-		super(tile, energy);
+	public Creature(Energy energy) {
+		super(energy);
 	}
 	
 	public float getHp() {

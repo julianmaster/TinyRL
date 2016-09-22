@@ -24,11 +24,11 @@ public class Engine implements Component {
 	private Engine() {
 	}
 	
-	public void addEntity(Entity entity) {
+	public <E extends Entity> void addEntity(E entity) {
 		entitiesToAdd.add(entity);
 	}
 	
-	public void addEntities(List<Entity> entityList) {
+	public <E extends Entity> void addEntities(List<E> entityList) {
 		entitiesToAdd.addAll(entityList);
 	}
 	
@@ -104,23 +104,19 @@ public class Engine implements Component {
 			if(nextEvent instanceof EntityComponentEvent) {
 				EntityComponentEvent nextEntityComponentEvent = (EntityComponentEvent)nextEvent;
 				
-				int count = 0;
 				for(Component c : nextEntityComponentEvent.getEntity()) {
 					if(nextEntityComponentEvent.getComponent().isInstance(c)) {
 						c.process(nextEntityComponentEvent, deltaTime);
-						count++;
 					}
 				}
 			}
 			else if(nextEvent instanceof ComponentEvent) {
 				ComponentEvent nextComponentEvent = (ComponentEvent)nextEvent;
 				
-				int count = 0;
 				for(Entry<Class<? extends Component>, List<Component>> entry : components.entrySet()) {
 					if(entry.getKey().isAssignableFrom(nextComponentEvent.getComponent())) {
 						for(Component c : entry.getValue()) {
 							c.process(nextComponentEvent, deltaTime);
-							count++;
 						}
 					}
 				}
@@ -131,6 +127,16 @@ public class Engine implements Component {
 	}
 	
 	private void updateListsEngine() {
+		for(Entity entity : entitiesToRemove) {
+			for(Component component : entity) {
+				if(components.containsKey(component.getClass())) {
+					components.get(component.getClass()).remove(component);
+				}
+			}
+		}
+		entities.removeAll(entitiesToRemove);
+		entitiesToRemove.clear();
+		
 		for(Entity entity : entitiesToAdd) {
 			for(Component component : entity) {
 				if(components.containsKey(component.getClass())) {
@@ -145,17 +151,6 @@ public class Engine implements Component {
 		}
 		entities.addAll(entitiesToAdd);
 		entitiesToAdd.clear();
-		
-		
-		for(Entity entity : entitiesToRemove) {
-			for(Component component : entity) {
-				if(components.containsKey(component.getClass())) {
-					components.get(component.getClass()).remove(component);
-				}
-			}
-		}
-		entities.removeAll(entitiesToRemove);
-		entitiesToRemove.clear();
 	}
 	
 	public static Engine getInstance() {

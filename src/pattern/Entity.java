@@ -14,4 +14,14 @@ public class Entity extends ArrayList<Component> {
 		
 		return null;
 	}
+	
+	public <E extends Component> boolean asComponentOfClass(Class<E> componentClass) {
+		for(Component component : this) {
+			if(componentClass.isAssignableFrom(component.getClass())) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

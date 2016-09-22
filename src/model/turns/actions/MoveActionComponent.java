@@ -1,6 +1,7 @@
 package model.turns.actions;
 
 import main.TinyRL;
+import model.ChangePositionEvent;
 import model.PositionComponent;
 import model.World;
 import model.entities.ModelEntity;
@@ -30,10 +31,9 @@ public class MoveActionComponent implements Component {
 			if(world.getCurrentRoom().getCell(positionTarget).getEntity() == null) {
 				world.getCurrentRoom().getCell(positionPlayer).setEntity(null);
 				world.getCurrentRoom().getCell(positionTarget).setEntity(player);
-				positionComponent.getPosition().key = positionTarget.key;
-				positionComponent.getPosition().value = positionTarget.value;
 				
 				Engine.getInstance().addHeadEvent(new TurnControllerNextTurnEvent());
+				Engine.getInstance().addHeadEvent(new ChangePositionEvent(player, positionTarget));
 			}
 			else {
 				Engine.getInstance().addHeadEvent(new NextActionEvent(player, moveActionEvent));
