@@ -15,7 +15,7 @@ public class RoomGenerator {
 	}};
 	
 	public static Room generateRoom(Pair<Integer, Integer> position) {
-		Room room = new Room(position);
+		Room room = EntityGenerator.newRoom(position);
 		int index = rand.nextInt(rooms.size());
 		rooms.get(index).apply(room);
 		return room;

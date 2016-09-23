@@ -1,20 +1,19 @@
 package model;
 
-import generator.RoomGenerator;
-
 import java.util.HashMap;
 import java.util.Map;
 
-import model.entities.ModelEntities;
+import generator.EntityGenerator;
+import generator.RoomGenerator;
 import model.entities.ModelEntity;
 import model.turns.TurnControllerAddEntityEvent;
 import model.turns.TurnControllerEntity;
 import pattern.Engine;
+import pattern.Entity;
 import util.Pair;
 
-public class World {
+public class World extends Entity {
 	private Map<Pair<Integer, Integer>, Room> world;
-	private Room currentRoom;
 	
 	public World() {
 		world = new HashMap<>();
@@ -27,17 +26,16 @@ public class World {
 		createRoom(position);
 		Room room = getRoom(position);
 		
+		Engine.getInstance().addEntity(room);
 		Engine.getInstance().addEntities(room.getAnimationHandlers());
 		Engine.getInstance().addEntities(room.getAnimations());
 		Engine.getInstance().addEntities(room.getModelEntities());
 
 		Pair<Integer, Integer> playerPosition = new Pair<Integer, Integer>(4, 4);
-		ModelEntity player = ModelEntities.newPlayer(playerPosition);
+		ModelEntity player = EntityGenerator.newPlayer(playerPosition);
 		room.getCell(playerPosition).setEntity(player);
 		Engine.getInstance().addEntity(player);
 		Engine.getInstance().addHeadEvent(new TurnControllerAddEntityEvent(player));
-		
-		loadRoom(position);
 	}
 	
 	public boolean createRoom(Pair<Integer, Integer> position) {
@@ -49,20 +47,6 @@ public class World {
 		room = RoomGenerator.generateRoom(position);
 		world.put(position, room);
 		return true;
-	}
-	
-	public boolean loadRoom(Pair<Integer, Integer> position) {
-		Room room = world.get(position);
-		if(room == null) {
-			return false;
-		}
-		currentRoom = room;
-		
-		return true;
-	}
-	
-	public Room getCurrentRoom() {
-		return currentRoom;
 	}
 	
 	public Room getRoom(Pair<Integer, Integer> position) {

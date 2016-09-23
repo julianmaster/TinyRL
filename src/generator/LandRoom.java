@@ -6,10 +6,7 @@ import java.util.Random;
 import model.Cell;
 import model.Ground;
 import model.Room;
-import model.animations.AnimationEntities;
 import model.animations.rain.RainHandlerComponent.RainType;
-import model.entities.ModelEntities;
-import model.entities.Wall;
 import util.Pair;
 
 public class LandRoom extends BaseRoom {
@@ -30,7 +27,7 @@ public class LandRoom extends BaseRoom {
 				Cell cell = new Cell(null, null, ground);
 				
 				if(x % (Room.ROOM_SIZE-1) == 0 || y % (Room.ROOM_SIZE-1) == 0) {
-					cell.setEntity(ModelEntities.newWall());
+					cell.setEntity(EntityGenerator.newWall());
 				}
 				
 				room.setCell(new Pair<Integer, Integer>(x, y), cell);
@@ -52,7 +49,7 @@ public class LandRoom extends BaseRoom {
 					break;
 			}
 			System.out.println("RainType: "+rainType);
-			room.getAnimationHandlers().add(AnimationEntities.newRainHandler(rainType));
+			room.getAnimationHandlers().add(EntityGenerator.newRainHandler(rainType));
 		}
 		
 		super.placeDoor(room);

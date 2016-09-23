@@ -6,11 +6,11 @@ import pattern.Component;
 import pattern.Engine;
 import pattern.Event;
 
-public class GeneralComponent implements Component {
+public class WorldTickComponent implements Component {
 
 	@Override
 	public void process(Event e, double deltaTime) {
-		if(e instanceof GeneralEvent) {
+		if(e instanceof WorldTickEvent) {
 			Engine.getInstance().addTailEvent(new RainHandlerEvent());
 			Engine.getInstance().addTailEvent(new TurnControllerEvent());
 		}

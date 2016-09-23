@@ -3,10 +3,10 @@ package model.animations.rain;
 import java.util.List;
 import java.util.Random;
 
-import main.TinyRL;
+import generator.EntityGenerator;
 import model.Room;
+import model.RoomComponent;
 import model.animations.Animation;
-import model.animations.AnimationEntities;
 import pattern.Component;
 import pattern.Engine;
 import pattern.Entity;
@@ -40,12 +40,8 @@ public class RainHandlerComponent implements Component {
 	@Override
 	public void process(Event e, double deltaTime) {
 		if(e instanceof RainHandlerEvent) {
-			List<Entity> rains = Engine.getInstance().getEntityByComponentClass(RainComponent.class);
-			if(Engine.DEBUG) {
-				Engine engine = Engine.getInstance();
-				System.out.println("Error - "+this.getClass().getName());
-				Engine.DEBUG = false;
-			}
+			List<Entity> rains = Engine.getInstance().getEntitiesByComponentClass(RainComponent.class);
+			Room room = (Room)Engine.getInstance().getEntityByComponentClass(RoomComponent.class);
 
 			if(rains.size() < rainType.size) {
 				elapseTime += deltaTime;
@@ -54,9 +50,9 @@ public class RainHandlerComponent implements Component {
 					
 					int xRainPosition = rand.nextInt(Room.ROOM_SIZE - 2) + 1;
 					Pair<Integer, Integer> position = new Pair<Integer, Integer>(xRainPosition, 0);
-					Animation animation = AnimationEntities.newRain(position);
+					Animation animation = EntityGenerator.newRain(position);
 					Engine.getInstance().addEntity(animation);
-					TinyRL.getInstance().getWorld().getCurrentRoom().getCell(position).getAnimations().add(animation);
+					room.getCell(position).getAnimations().add(animation);
 				}
 			}
 			

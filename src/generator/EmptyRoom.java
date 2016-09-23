@@ -1,12 +1,9 @@
 package generator;
 
-import util.Pair;
 import model.Cell;
 import model.Ground;
 import model.Room;
-import model.entities.ModelEntities;
-import model.entities.ModelEntity;
-import model.entities.Wall;
+import util.Pair;
 
 public class EmptyRoom extends BaseRoom {
 
@@ -17,7 +14,7 @@ public class EmptyRoom extends BaseRoom {
 				Cell cell = new Cell(null, null, Ground.DIRT);
 				
 				if(x % (Room.ROOM_SIZE-1) == 0 || y % (Room.ROOM_SIZE-1) == 0) {
-					cell.setEntity(ModelEntities.newWall());
+					cell.setEntity(EntityGenerator.newWall());
 				}
 				
 				room.setCell(new Pair<Integer, Integer>(x, y), cell);

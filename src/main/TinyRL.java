@@ -2,14 +2,12 @@ package main;
 
 import java.awt.Dimension;
 
-import model.GeneralEntity;
-import model.GeneralEvent;
+import generator.EntityGenerator;
 import model.World;
 import pattern.Engine;
 import pattern.Entity;
 import pattern.Event;
 import screens.PlayScreenEvent;
-import screens.ScreenEntities;
 import ui.AsciiPanel;
 import ui.CustomAsciiTerminal;
 import ui.CustomColor;
@@ -41,7 +39,9 @@ public class TinyRL {
 		asciiPanel = asciiTerminal.getAsciiPanel();
 		asciiPanel.setDefaultCharacterBackgroundColor(CustomColor.BLACK);
 		asciiPanel.setDefaultCharacterColor(CustomColor.WHITE);
-		world = new World();
+		
+		world = EntityGenerator.newWorld();
+		Engine.getInstance().addEntity(world);
 		
 		init();
 		
@@ -64,9 +64,7 @@ public class TinyRL {
 	}
 	
 	private void init() {
-		Engine.getInstance().addEntity(GeneralEntity.newGeneral());
-		
-		Entity playScreen = ScreenEntities.createPlayScreen();
+		Entity playScreen = EntityGenerator.newPlayScreen();
 		Engine.getInstance().addEntity(playScreen);
 		
 		currentEvent = new PlayScreenEvent();

@@ -3,16 +3,13 @@ package screens;
 import java.awt.event.KeyEvent;
 
 import main.TinyRL;
-import model.GeneralEvent;
-import model.Room;
-import model.World;
-import model.entities.Player;
+import model.RenderRoomEvent;
+import model.WorldTickEvent;
 import pattern.Component;
 import pattern.Engine;
 import pattern.Event;
 import ui.AsciiPanel;
 import ui.CustomColor;
-import util.Pair;
 
 public class PlayScreenComponent implements Component {
 	
@@ -30,8 +27,6 @@ public class PlayScreenComponent implements Component {
 			 * UPDATE
 			 */
 			
-			World world = TinyRL.getInstance().getWorld();
-			
 			// TODO Adding the animation blocking turn system.
 			
 			KeyEvent event = TinyRL.getInstance().getAsciiTerminal().getEvent();
@@ -41,26 +36,25 @@ public class PlayScreenComponent implements Component {
 					
 					Engine engine = Engine.getInstance();
 					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
-					System.out.println("Error - "+this.getClass().getName());
 				}
-				else if(event.getKeyCode() == KeyEvent.VK_A) {
-					Room currentRoom = TinyRL.getInstance().getWorld().getCurrentRoom();
-					Pair<Integer, Integer> playerPosition = currentRoom.getPositionOfEntityType(Player.class).get(0);
-					Player player = (Player) currentRoom.getCell(playerPosition).getEntity();
-					
-					player.setHp(player.getHp()+1);
-					
-					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
-				}
-				else if(event.getKeyCode() == KeyEvent.VK_Z) {
-					Room currentRoom = TinyRL.getInstance().getWorld().getCurrentRoom();
-					Pair<Integer, Integer> playerPosition = currentRoom.getPositionOfEntityType(Player.class).get(0);
-					Player player = (Player) currentRoom.getCell(playerPosition).getEntity();
-					
-					player.setHp(player.getHp()+1);
-					
-					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
-				}
+//				else if(event.getKeyCode() == KeyEvent.VK_A) {
+//					Room currentRoom = TinyRL.getInstance().getWorld().getCurrentRoom();
+//					Pair<Integer, Integer> playerPosition = currentRoom.getPositionOfEntityType(Player.class).get(0);
+//					Player player = (Player) currentRoom.getCell(playerPosition).getEntity();
+//					
+//					player.setHp(player.getHp()+1);
+//					
+//					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
+//				}
+//				else if(event.getKeyCode() == KeyEvent.VK_Z) {
+//					Room currentRoom = TinyRL.getInstance().getWorld().getCurrentRoom();
+//					Pair<Integer, Integer> playerPosition = currentRoom.getPositionOfEntityType(Player.class).get(0);
+//					Player player = (Player) currentRoom.getCell(playerPosition).getEntity();
+//					
+//					player.setHp(player.getHp()+1);
+//					
+//					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
+//				}
 			}
 			
 			KeyEvent otherEvent = TinyRL.getInstance().getAsciiTerminal().getOtherEvent();
@@ -80,10 +74,7 @@ public class PlayScreenComponent implements Component {
 			
 			if(!pause) {
 				// Animation update
-				Engine.getInstance().addTailEvent(new GeneralEvent());
-				
-				// Turn update
-//				world.getTurnController().update();
+				Engine.getInstance().addTailEvent(new WorldTickEvent());
 			}
 			
 			
@@ -93,8 +84,9 @@ public class PlayScreenComponent implements Component {
 			 * DRAW
 			 */
 			
-			Room currentRoom = TinyRL.getInstance().getWorld().getCurrentRoom();
-			currentRoom.draw();
+//			Room currentRoom = TinyRL.getInstance().getWorld().getCurrentRoom();
+//			currentRoom.draw();
+			Engine.getInstance().addTailEvent(new RenderRoomEvent());
 			
 			AsciiPanel asciiPanel = TinyRL.getInstance().getAsciiPanel();
 			

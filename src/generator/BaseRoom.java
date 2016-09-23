@@ -1,10 +1,9 @@
 package generator;
 
-import util.Pair;
 import model.Direction;
 import model.Room;
 import model.entities.Door;
-import model.entities.ModelEntities;
+import util.Pair;
 
 public abstract class BaseRoom {
 	public abstract void apply(Room room);
@@ -17,15 +16,10 @@ public abstract class BaseRoom {
 		Pair<Integer, Integer> eastDoorPosition = new Pair<Integer, Integer>(0, (Room.ROOM_SIZE - 1) / 2);
 		Pair<Integer, Integer> westDoorPosition = new Pair<Integer, Integer>(Room.ROOM_SIZE - 1, (Room.ROOM_SIZE - 1) / 2);
 		
-//		Door northDoor = new Door(new Pair<Integer, Integer>(roomPosition.key, roomPosition.value - 1), Direction.N);
-//		Door southDoor = new Door(new Pair<Integer, Integer>(roomPosition.key, roomPosition.value + 1), Direction.S);
-//		Door eastDoor = new Door(new Pair<Integer, Integer>(roomPosition.key - 1, roomPosition.value), Direction.E);
-//		Door westDoor = new Door(new Pair<Integer, Integer>(roomPosition.key + 1, roomPosition.value), Direction.W);
-		
-		Door northDoor = ModelEntities.newDoor(northDoorPosition, new Pair<Integer, Integer>(roomPosition.key, roomPosition.value - 1), Direction.N);
-		Door southDoor = ModelEntities.newDoor(southDoorPosition, new Pair<Integer, Integer>(roomPosition.key, roomPosition.value + 1), Direction.S);
-		Door eastDoor = ModelEntities.newDoor(eastDoorPosition, new Pair<Integer, Integer>(roomPosition.key - 1, roomPosition.value), Direction.E);
-		Door westDoor = ModelEntities.newDoor(westDoorPosition, new Pair<Integer, Integer>(roomPosition.key + 1, roomPosition.value), Direction.W);
+		Door northDoor = EntityGenerator.newDoor(northDoorPosition, new Pair<Integer, Integer>(roomPosition.key, roomPosition.value - 1), Direction.N);
+		Door southDoor = EntityGenerator.newDoor(southDoorPosition, new Pair<Integer, Integer>(roomPosition.key, roomPosition.value + 1), Direction.S);
+		Door eastDoor = EntityGenerator.newDoor(eastDoorPosition, new Pair<Integer, Integer>(roomPosition.key - 1, roomPosition.value), Direction.E);
+		Door westDoor = EntityGenerator.newDoor(westDoorPosition, new Pair<Integer, Integer>(roomPosition.key + 1, roomPosition.value), Direction.W);
 		
 		room.getCell(northDoorPosition).setEntity(northDoor);
 		room.getCell(southDoorPosition).setEntity(southDoor);

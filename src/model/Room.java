@@ -14,7 +14,7 @@ import pattern.Entity;
 import ui.AsciiPanel;
 import util.Pair;
 
-public class Room {
+public class Room extends Entity {
 	public final static int ROOM_SIZE = 9;
 
 	private Pair<Integer, Integer> position;
@@ -25,30 +25,6 @@ public class Room {
 	public Room(Pair<Integer, Integer> position) {
 		this.cells = new Cell[ROOM_SIZE][ROOM_SIZE];
 		this.position = position;
-	}
-	
-	public void draw() {
-		AsciiPanel asciiPanel = TinyRL.getInstance().getAsciiPanel();
-		asciiPanel.clear();
-		for(int x = 0; x < ROOM_SIZE; x++) {
-			for(int y = 0; y < ROOM_SIZE; y++) {
-				Cell cell = cells[x][y];
-				if(!cell.getAnimations().isEmpty()) {
-					Collections.sort(cell.getAnimations());
-					Animation animation = cell.getAnimations().get(0);
-					AnimationTile animationTile = animation.getComponentByClass(AnimationTileComponent.class).getAnimationTile();
-					asciiPanel.write(x, y, animationTile.tile, animationTile.color);
-				}
-				else if(cell.getEntity() != null) {
-					ModelEntity modelEntity = cell.getEntity();
-					Tile entityTile = modelEntity.getComponentByClass(EntityTileComponent.class).getTile();
-					asciiPanel.write(x, y, entityTile.tile, entityTile.color);
-				}
-				else {
-					asciiPanel.write(x, y, cell.getGround().tile, cell.getGround().color);
-				}
-			}
-		}
 	}
 	
 	public <E extends ModelEntity> List<Pair<Integer, Integer>> getPositionOfEntityType(Class<E> classEntity) {

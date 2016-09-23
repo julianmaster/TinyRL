@@ -6,7 +6,7 @@ public class ForestRoom extends BaseRoom {
 
 	@Override
 	public void apply(Room room) {
-		// TODO Auto-generated method stub
+		// TODO Implement forest room
 		
 	}
 }

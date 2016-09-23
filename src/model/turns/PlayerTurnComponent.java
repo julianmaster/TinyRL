@@ -4,6 +4,8 @@ import java.awt.event.KeyEvent;
 
 import main.TinyRL;
 import model.PositionComponent;
+import model.Room;
+import model.RoomComponent;
 import model.entities.ModelEntity;
 import model.turns.actions.ChangeRoomActionComponent;
 import model.turns.actions.ChangeRoomActionEvent;
@@ -54,9 +56,10 @@ public class PlayerTurnComponent extends TurnComponent {
 				
 				if(nextActionEvent.getLastActionEvent() instanceof MoveActionEvent) {
 					MoveActionEvent moveActionEvent = (MoveActionEvent)nextActionEvent.getLastActionEvent();
+					Room room = (Room)Engine.getInstance().getEntityByComponentClass(RoomComponent.class);
 					
 					PositionComponent positionComponent = player.getComponentByClass(PositionComponent.class);
-					ModelEntity modelEntity = TinyRL.getInstance().getWorld().getCurrentRoom().getCell(new Pair<Integer, Integer>(positionComponent.getPosition().key + moveActionEvent.getDx(), positionComponent.getPosition().value + moveActionEvent.getDy())).getEntity();
+					ModelEntity modelEntity = room.getCell(new Pair<Integer, Integer>(positionComponent.getPosition().key + moveActionEvent.getDx(), positionComponent.getPosition().value + moveActionEvent.getDy())).getEntity();
 					
 					OpenActionComponent openActionComponent = modelEntity.getComponentByClass(OpenActionComponent.class);
 					
@@ -65,7 +68,7 @@ public class PlayerTurnComponent extends TurnComponent {
 					}
 					else if(modelEntity.getComponentByClass(OpenActionComponent.class) != null && openActionComponent.isOpen()) {
 						if(modelEntity.asComponentOfClass(ChangeRoomActionComponent.class)) {
-							Engine.getInstance().addHeadEvent(new ChangeRoomActionEvent(modelEntity, player));
+							Engine.getInstance().addTailEvent(new ChangeRoomActionEvent(modelEntity, player));
 						}
 					}
 					

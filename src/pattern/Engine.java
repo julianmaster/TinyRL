@@ -18,6 +18,7 @@ public class Engine implements Component {
 	
 	private Map<Class<? extends Component>, List<Component>> components = new HashMap<>();
 	private ArrayDeque<Event> eventsToProcess = new ArrayDeque<>();
+	private List<Event> eventsToProcessNextTurn = new ArrayList<>();
 	
 	public static boolean DEBUG = false;
 	
@@ -55,6 +56,10 @@ public class Engine implements Component {
 		eventsToProcess.addLast(event);
 	}
 	
+	public void addNextTurnEvent(Event event) {
+		eventsToProcessNextTurn.add(event);
+	}
+	
 	public void removeEntity(Entity entity) {
 		entitiesToRemove.add(entity);
 	}
@@ -82,7 +87,18 @@ public class Engine implements Component {
 		return null;
 	}
 	
-	public List<Entity> getEntityByComponentClass(Class<? extends Component> component) {
+	public Entity getEntityByComponentClass(Class<? extends Component> component) {
+		for(Entity entity : entities) {
+			for(Component c : entity) {
+				if(component.isAssignableFrom(c.getClass())) {
+					return entity;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public List<Entity> getEntitiesByComponentClass(Class<? extends Component> component) {
 		List<Entity> entitiesOfComponentClass = new ArrayList<>();
 		for(Entity entity : entities) {
 			for(Component c : entity) {
@@ -97,6 +113,10 @@ public class Engine implements Component {
 	@Override
 	public void process(Event event, double deltaTime) {
 		updateListsEngine();
+		for(Event e : eventsToProcessNextTurn) {
+			eventsToProcess.addFirst(e);
+		}
+		eventsToProcessNextTurn.clear();
 		
 		while(!eventsToProcess.isEmpty()) {
 			Event nextEvent = eventsToProcess.pollFirst();

@@ -7,7 +7,6 @@ import util.Pair;
 
 public class PositionComponent implements Component {
 	
-//	private Pair<Integer, Integer> position;
 	private int x = 0;
 	private int y = 0;
 	

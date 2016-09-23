@@ -3,6 +3,8 @@ package model.animations.rain;
 import main.TinyRL;
 import model.ChangePositionEvent;
 import model.PositionComponent;
+import model.Room;
+import model.RoomComponent;
 import model.World;
 import model.animations.Animation;
 import model.animations.AnimationTile;
@@ -30,28 +32,23 @@ public class RainComponent implements Component {
 			elapseTime += deltaTime;
 			if(elapseTime >= 60 / FPS) {
 				Animation rain = (Animation)Engine.getInstance().getEntityByComponent(this);
-				if(rain == null) {
-					System.out.println(this);
-					Engine engine = Engine.getInstance();
-					System.out.println("Error - "+this.getClass().getName());
-				}
 				PositionComponent positionComponent = rain.getComponentByClass(PositionComponent.class);
 				AnimationTileComponent animationTileComponent = rain.getComponentByClass(AnimationTileComponent.class);
 				
+				Room room = (Room)Engine.getInstance().getEntityByComponentClass(RoomComponent.class);
+				
 				if(life == 0 && animationTileComponent.getAnimationTile() == AnimationTile.RAIN5) {
-					TinyRL.getInstance().getWorld().getCurrentRoom().getCell(positionComponent.getPosition()).getAnimations().remove(rain);
+					room.getCell(positionComponent.getPosition()).getAnimations().remove(rain);
 					Engine.getInstance().removeEntity(rain);
 					return;
 				}
 				
 				elapseTime = 0;
 				if(life > 0) {
-					World world = TinyRL.getInstance().getWorld();
-					
 					Pair<Integer, Integer> position = positionComponent.getPosition();
-					world.getCurrentRoom().getCell(positionComponent.getPosition()).getAnimations().remove(rain);
+					room.getCell(positionComponent.getPosition()).getAnimations().remove(rain);
 					position.value++;
-					world.getCurrentRoom().getCell(position).getAnimations().add(rain);
+					room.getCell(position).getAnimations().add(rain);
 					Engine.getInstance().addHeadEvent(new ChangePositionEvent(rain, position));
 					
 					life--;
