@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 import main.TinyRL;
 import model.RenderRoomEvent;
 import model.WorldTickEvent;
+import model.entities.Player;
+import model.turns.PlayerTurnComponent;
 import pattern.Component;
 import pattern.Engine;
 import pattern.Event;
@@ -89,6 +91,7 @@ public class PlayScreenComponent implements Component {
 			Engine.getInstance().addTailEvent(new RenderRoomEvent());
 			
 			AsciiPanel asciiPanel = TinyRL.getInstance().getAsciiPanel();
+			asciiPanel.clear();
 			
 			// Paint pause
 			if(pause) {
@@ -101,16 +104,15 @@ public class PlayScreenComponent implements Component {
 				asciiPanel.writeString(10, 3, ARMOR + " ARMOR", CustomColor.YELLOW);
 			}
 			// Paint player info
-//			else{
-//				Pair<Integer, Integer> playerPosition = currentRoom.getPositionOfEntityType(Player.class).get(0);
-//				Player player = (Player) currentRoom.getCell(playerPosition).getEntity();
-//				
-//				asciiPanel.writeString(10, 1, HP + String.format(" %3.0f",player.getHp()) + "/" + String.format("%.0f",player.getHpMax()), CustomColor.RED);
-//				asciiPanel.writeString(10, 2, MANA + String.format(" %3.0f",player.getMana()) + "/" + String.format("%.0f",player.getManaMax()), CustomColor.LBLUE);
-//				asciiPanel.writeString(10, 3, ARMOR + String.format(" %3s",player.getArmor()), CustomColor.YELLOW);
-//				asciiPanel.writeString(10, 8, "P:INV", CustomColor.WHITE);
-//				asciiPanel.writeString(19, 8, "?", CustomColor.WHITE);
-//			}
+			else{
+				Player player = (Player)Engine.getInstance().getEntityByComponentClass(PlayerTurnComponent.class);
+				
+				asciiPanel.writeString(10, 1, HP + String.format(" %3.0f",player.getHp()) + "/" + String.format("%.0f",player.getHpMax()), CustomColor.RED);
+				asciiPanel.writeString(10, 2, MANA + String.format(" %3.0f",player.getMana()) + "/" + String.format("%.0f",player.getManaMax()), CustomColor.LBLUE);
+				asciiPanel.writeString(10, 3, ARMOR + String.format(" %3s",player.getArmor()), CustomColor.YELLOW);
+				asciiPanel.writeString(10, 8, "P:INV", CustomColor.WHITE);
+				asciiPanel.writeString(19, 8, "?", CustomColor.WHITE);
+			}
 		}
 	}
 }

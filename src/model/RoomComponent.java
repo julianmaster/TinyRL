@@ -20,7 +20,6 @@ public class RoomComponent implements Component {
 	public void process(Event e, double deltaTime) {
 		if(e instanceof RenderRoomEvent) {
 			AsciiPanel asciiPanel = TinyRL.getInstance().getAsciiPanel();
-			asciiPanel.clear();
 			for(int x = 0; x < Room.ROOM_SIZE; x++) {
 				for(int y = 0; y < Room.ROOM_SIZE; y++) {
 					
