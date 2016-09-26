@@ -2,7 +2,7 @@ package model.animations.rain;
 
 import model.animations.AnimationTile;
 import model.animations.AnimationTileComponent;
-import model.animations.AnimationTileEvent;
+import model.animations.ChangeAnimationTileEvent;
 import pattern.Event;
 
 public class RainAnimationTileComponent extends AnimationTileComponent {
@@ -13,8 +13,8 @@ public class RainAnimationTileComponent extends AnimationTileComponent {
 	
 	@Override
 	public void process(Event e, double deltaTime) {
-		if(e instanceof AnimationTileEvent) {
-			AnimationTileEvent animationTileEvent = (AnimationTileEvent)e;
+		if(e instanceof ChangeAnimationTileEvent) {
+			ChangeAnimationTileEvent animationTileEvent = (ChangeAnimationTileEvent)e;
 			animationTile = animationTileEvent.getAnimationTile();
 		}
 	}

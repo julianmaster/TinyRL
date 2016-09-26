@@ -35,16 +35,13 @@ public class LandRoom extends BaseRoom {
 		}
 		
 		if(rand.nextBoolean()) {
-			int rain = rand.nextInt(3);
+			int rain = rand.nextInt(2);
 			RainType rainType = null;
 			switch (rain) {
 				case 0:
 					rainType = RainType.TINY_RAIN;
 					break;
 				case 1:
-					rainType = RainType.MEDIUM_RAIN;
-					break;
-				case 2:
 					rainType = RainType.BIG_RAIN;
 					break;
 			}

@@ -1,15 +1,13 @@
 package model.animations.rain;
 
-import main.TinyRL;
 import model.ChangePositionEvent;
 import model.PositionComponent;
 import model.Room;
 import model.RoomComponent;
-import model.World;
 import model.animations.Animation;
 import model.animations.AnimationTile;
 import model.animations.AnimationTileComponent;
-import model.animations.AnimationTileEvent;
+import model.animations.ChangeAnimationTileEvent;
 import pattern.Component;
 import pattern.Engine;
 import pattern.Event;
@@ -54,18 +52,18 @@ public class RainComponent implements Component {
 					life--;
 					
 					if(life == 0) {
-						Engine.getInstance().addHeadEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN2));
+						Engine.getInstance().addHeadEvent(new ChangeAnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN2));
 					}
 				}
 				else {
 					if(animationTileComponent.getAnimationTile() == AnimationTile.RAIN4) {
-						Engine.getInstance().addHeadEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN5));
+						Engine.getInstance().addHeadEvent(new ChangeAnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN5));
 					}
 					if(animationTileComponent.getAnimationTile() == AnimationTile.RAIN3) {
-						Engine.getInstance().addHeadEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN4));
+						Engine.getInstance().addHeadEvent(new ChangeAnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN4));
 					}
 					if(animationTileComponent.getAnimationTile() == AnimationTile.RAIN2) {
-						Engine.getInstance().addHeadEvent(new AnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN3));
+						Engine.getInstance().addHeadEvent(new ChangeAnimationTileEvent(Engine.getInstance().getEntityByComponent(this), AnimationTile.RAIN3));
 					}
 				}
 			}

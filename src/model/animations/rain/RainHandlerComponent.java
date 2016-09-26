@@ -16,9 +16,8 @@ import util.Pair;
 public class RainHandlerComponent implements Component {
 	
 	public enum RainType {
-		TINY_RAIN(5, 6),
-		MEDIUM_RAIN(15, 3.2),
-		BIG_RAIN(30, 1.5);
+		TINY_RAIN(4, 6),
+		BIG_RAIN(12, 3.2);
 		
 		public int size;
 		public double waitTime;
