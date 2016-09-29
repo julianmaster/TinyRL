@@ -22,6 +22,7 @@ import model.entities.ModelEntity;
 import model.entities.Player;
 import model.entities.Wall;
 import model.turns.PlayerTurnComponent;
+import model.turns.TurnControllerComponent;
 import model.turns.actions.ChangeRoomActionComponent;
 import model.turns.actions.MoveActionComponent;
 import model.turns.actions.OpenActionComponent;
@@ -67,6 +68,9 @@ public class EntityGenerator {
 	
 	
 	
+	
+		
+	
 	/**
 	 * Room
 	 */
@@ -79,6 +83,25 @@ public class EntityGenerator {
 		return room;
 	}
 	
+	
+	
+	
+		
+	
+	/**
+	 * Turn Controller
+	 */
+	
+	public static Entity newTurnController() {
+		Entity turnController = new Entity();
+		
+		turnController.add(new TurnControllerComponent());
+		
+		return turnController;
+	}
+	
+	
+		
 	
 	
 	

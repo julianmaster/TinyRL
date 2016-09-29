@@ -7,7 +7,6 @@ import generator.EntityGenerator;
 import generator.RoomGenerator;
 import model.entities.ModelEntity;
 import model.turns.TurnControllerAddEntityEvent;
-import model.turns.TurnControllerEntity;
 import pattern.Engine;
 import pattern.Entity;
 import util.Pair;
@@ -17,7 +16,7 @@ public class World extends Entity {
 	
 	public World() {
 		world = new HashMap<>();
-		Engine.getInstance().addEntity(TurnControllerEntity.newTurnController());
+		Engine.getInstance().addEntity(EntityGenerator.newTurnController());
 		init();
 	}
 
