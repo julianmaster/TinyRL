@@ -5,7 +5,6 @@ import java.util.Map;
 
 import generator.EntityGenerator;
 import generator.RoomGenerator;
-import model.entities.ModelEntity;
 import model.turns.TurnControllerAddEntityEvent;
 import pattern.Engine;
 import pattern.Entity;
@@ -31,7 +30,7 @@ public class World extends Entity {
 		Engine.getInstance().addEntities(room.getModelEntities());
 
 		Pair<Integer, Integer> playerPosition = new Pair<Integer, Integer>(4, 4);
-		ModelEntity player = EntityGenerator.newPlayer(playerPosition);
+		Entity player = EntityGenerator.newPlayer(playerPosition);
 		room.getCell(playerPosition).setEntity(player);
 		Engine.getInstance().addEntity(player);
 		Engine.getInstance().addHeadEvent(new TurnControllerAddEntityEvent(player));

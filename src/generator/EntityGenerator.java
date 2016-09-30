@@ -16,11 +16,9 @@ import model.animations.rain.RainAnimationTileComponent;
 import model.animations.rain.RainComponent;
 import model.animations.rain.RainHandlerComponent;
 import model.animations.rain.RainHandlerComponent.RainType;
-import model.entities.Door;
+import model.entities.AttributesComponent;
+import model.entities.DoorComponent;
 import model.entities.EntityTileComponent;
-import model.entities.ModelEntity;
-import model.entities.Player;
-import model.entities.Wall;
 import model.turns.PlayerTurnComponent;
 import model.turns.TurnControllerComponent;
 import model.turns.actions.ChangeRoomActionComponent;
@@ -145,20 +143,22 @@ public class EntityGenerator {
 	 * Model Entities
 	 */
 	
-	public static ModelEntity newPlayer(Pair<Integer, Integer> position) {
-		Player player = new Player();
+	public static Entity newPlayer(Pair<Integer, Integer> position) {
+		Entity player = new Entity();
 		
 		player.add(new PositionComponent(position));
+		player.add(new AttributesComponent(5, 5, 5));
 		player.add(new EntityTileComponent(Tile.PLAYER));
-		player.add(new PlayerTurnComponent());
+		player.add(new PlayerTurnComponent(60));
 		player.add(new MoveActionComponent());
 		
 		return player;
 	}
 	
-	public static Door newDoor(Pair<Integer, Integer> position, Pair<Integer, Integer> nextRoom, Direction direction) {
-		Door door = new Door();
+	public static Entity newDoor(Pair<Integer, Integer> position, Pair<Integer, Integer> nextRoom, Direction direction) {
+		Entity door = new Entity();
 		
+		door.add(new DoorComponent());
 		door.add(new PositionComponent(position));
 		door.add(new EntityTileComponent(Tile.CLOSE_DOOR));
 		door.add(new OpenActionComponent());
@@ -167,11 +167,19 @@ public class EntityGenerator {
 		return door;
 	}
 	
-	public static Wall newWall() {
-		Wall wall = new Wall();
+	public static Entity newWall() {
+		Entity wall = new Entity();
 		
 		wall.add(new EntityTileComponent(Tile.WALL));
 		
 		return wall;
+	}
+	
+	public static Entity newTree() {
+		Entity tree = new Entity();
+		
+		
+		
+		return tree;
 	}
 }

@@ -79,11 +79,6 @@ public class TinyRL {
 			lastLoopTime = now;
 			double delta = updateLength / TinyRL.OPTIMAL_TIME;
 			
-//			currentScreen.update(delta);
-			
-			// Paint
-//			currentScreen.paint();
-			
 			Engine.getInstance().addTailEvent(currentEvent);
 			Engine.getInstance().process(null, delta);
 			

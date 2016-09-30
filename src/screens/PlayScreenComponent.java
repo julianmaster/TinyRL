@@ -5,10 +5,11 @@ import java.awt.event.KeyEvent;
 import main.TinyRL;
 import model.RenderRoomEvent;
 import model.WorldTickEvent;
-import model.entities.Player;
+import model.entities.AttributesComponent;
 import model.turns.PlayerTurnComponent;
 import pattern.Component;
 import pattern.Engine;
+import pattern.Entity;
 import pattern.Event;
 import ui.AsciiPanel;
 import ui.CustomColor;
@@ -105,11 +106,12 @@ public class PlayScreenComponent implements Component {
 			}
 			// Paint player info
 			else{
-				Player player = (Player)Engine.getInstance().getEntityByComponentClass(PlayerTurnComponent.class);
+				Entity player = Engine.getInstance().getEntityByComponentClass(PlayerTurnComponent.class);
+				AttributesComponent attributesComponent = player.getComponentByClass(AttributesComponent.class);
 				
-				asciiPanel.writeString(10, 1, HP + String.format(" %3.0f",player.getHp()) + "/" + String.format("%.0f",player.getHpMax()), CustomColor.RED);
-				asciiPanel.writeString(10, 2, MANA + String.format(" %3.0f",player.getMana()) + "/" + String.format("%.0f",player.getManaMax()), CustomColor.LBLUE);
-				asciiPanel.writeString(10, 3, ARMOR + String.format(" %3s",player.getArmor()), CustomColor.YELLOW);
+				asciiPanel.writeString(10, 1, HP + String.format(" %3.0f",attributesComponent.getHp()) + "/" + String.format("%.0f",attributesComponent.getHpMax()), CustomColor.RED);
+				asciiPanel.writeString(10, 2, MANA + String.format(" %3.0f",attributesComponent.getMana()) + "/" + String.format("%.0f",attributesComponent.getManaMax()), CustomColor.LBLUE);
+				asciiPanel.writeString(10, 3, ARMOR + String.format(" %3s",attributesComponent.getArmor()), CustomColor.YELLOW);
 				asciiPanel.writeString(10, 8, "P:INV", CustomColor.WHITE);
 				asciiPanel.writeString(19, 8, "?", CustomColor.WHITE);
 			}

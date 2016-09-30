@@ -120,6 +120,9 @@ public class Engine implements Component {
 		
 		while(!eventsToProcess.isEmpty()) {
 			Event nextEvent = eventsToProcess.pollFirst();
+			if(DEBUG) {
+				System.out.println(nextEvent.getClass().getName());
+			}
 			
 			if(nextEvent instanceof EntityComponentEvent) {
 				EntityComponentEvent nextEntityComponentEvent = (EntityComponentEvent)nextEvent;

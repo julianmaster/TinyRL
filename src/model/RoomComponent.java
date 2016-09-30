@@ -7,9 +7,9 @@ import model.animations.Animation;
 import model.animations.AnimationTile;
 import model.animations.AnimationTileComponent;
 import model.entities.EntityTileComponent;
-import model.entities.ModelEntity;
 import pattern.Component;
 import pattern.Engine;
+import pattern.Entity;
 import pattern.Event;
 import ui.AsciiPanel;
 import util.Pair;
@@ -34,8 +34,8 @@ public class RoomComponent implements Component {
 						asciiPanel.write(x, y, animationTile.tile, animationTile.color);
 					}
 					else if(cell.getEntity() != null) {
-						ModelEntity modelEntity = cell.getEntity();
-						Tile entityTile = modelEntity.getComponentByClass(EntityTileComponent.class).getTile();
+						Entity entity = cell.getEntity();
+						Tile entityTile = entity.getComponentByClass(EntityTileComponent.class).getTile();
 						asciiPanel.write(x, y, entityTile.tile, entityTile.color);
 					}
 					else {

@@ -21,16 +21,13 @@ public class LandRoom extends BaseRoom {
 	
 	@Override
 	public void apply(Room room) {
+		super.initRoom(room, Ground.DIRT);
+		super.placeWall(room);
+		
 		for(int x = 0; x < Room.ROOM_SIZE; x++) {
 			for(int y = 0; y < Room.ROOM_SIZE; y++) {
 				Ground ground = grounds.get(rand.nextInt(grounds.size()));
-				Cell cell = new Cell(null, null, ground);
-				
-				if(x % (Room.ROOM_SIZE-1) == 0 || y % (Room.ROOM_SIZE-1) == 0) {
-					cell.setEntity(EntityGenerator.newWall());
-				}
-				
-				room.setCell(new Pair<Integer, Integer>(x, y), cell);
+				room.getCell(new Pair<Integer, Integer>(x, y)).setGround(ground);
 			}
 		}
 		

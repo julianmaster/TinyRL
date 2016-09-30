@@ -1,17 +1,10 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import main.TinyRL;
 import model.animations.Animation;
-import model.animations.AnimationTile;
-import model.animations.AnimationTileComponent;
-import model.entities.EntityTileComponent;
-import model.entities.ModelEntity;
 import pattern.Entity;
-import ui.AsciiPanel;
 import util.Pair;
 
 public class Room extends Entity {
@@ -27,7 +20,7 @@ public class Room extends Entity {
 		this.position = position;
 	}
 	
-	public <E extends ModelEntity> List<Pair<Integer, Integer>> getPositionOfEntityType(Class<E> classEntity) {
+	public <E extends Entity> List<Pair<Integer, Integer>> getPositionOfEntityType(Class<E> classEntity) {
 		List<Pair<Integer, Integer>> result = new ArrayList<>();
 		for(int x = 0; x < ROOM_SIZE; x++) {
 			for(int y = 0; y < ROOM_SIZE; y++) {
@@ -39,7 +32,7 @@ public class Room extends Entity {
 		return result;
 	}
 	
-	public Pair<Integer, Integer> getPositionOfEntity(ModelEntity entity) {
+	public Pair<Integer, Integer> getPositionOfEntity(Entity entity) {
 		for(int x = 0; x < ROOM_SIZE; x++) {
 			for(int y = 0; y < ROOM_SIZE; y++) {
 				if(cells[x][y].getEntity() != null && cells[x][y].getEntity().equals(entity)) {
@@ -89,8 +82,8 @@ public class Room extends Entity {
 		return animations;
 	}
 	
-	public List<ModelEntity> getModelEntities() {
-		List<ModelEntity> modelEntities = new ArrayList<>();
+	public List<Entity> getModelEntities() {
+		List<Entity> modelEntities = new ArrayList<>();
 		for(int x = 0; x < ROOM_SIZE; x++) {
 			for(int y = 0; y < ROOM_SIZE; y++) {
 				if(cells[x][y].getEntity() != null) {
