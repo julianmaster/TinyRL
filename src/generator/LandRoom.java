@@ -23,6 +23,7 @@ public class LandRoom extends BaseRoom {
 	public void apply(Room room) {
 		super.initRoom(room, Ground.DIRT);
 		super.placeWall(room);
+		super.placeDoor(room);
 		
 		for(int x = 0; x < Room.ROOM_SIZE; x++) {
 			for(int y = 0; y < Room.ROOM_SIZE; y++) {
@@ -45,7 +46,5 @@ public class LandRoom extends BaseRoom {
 			System.out.println("RainType: "+rainType);
 			room.getAnimationHandlers().add(EntityGenerator.newRainHandler(rainType));
 		}
-		
-		super.placeDoor(room);
 	}
 }

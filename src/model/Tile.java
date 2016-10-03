@@ -7,7 +7,8 @@ import ui.CustomColor;
 public enum Tile {
 	PLAYER('@', "You", CustomColor.WHITE),
 	WALL('#', "A wall", CustomColor.BROWN),
-	TREE1((char)6, "A tree", CustomColor.GREEN),
+	TREE1((char)6, "A tree", CustomColor.LGREEN),
+	TREE2((char)6, "A tree", CustomColor.GREEN),
 	CLOSE_DOOR('+', "A close door", CustomColor.LGRAY),
 	OPEN_DOOR('/', "A open door", CustomColor.DGRAY);
 	

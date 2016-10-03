@@ -12,6 +12,7 @@ public class RoomGenerator {
 	private static ArrayList<BaseRoom> rooms = new ArrayList<BaseRoom>() {{
 		add(new EmptyRoom());
 		add(new LandRoom());
+		add(new ForestRoom());
 	}};
 	
 	public static Room generateRoom(Pair<Integer, Integer> position) {

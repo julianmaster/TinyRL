@@ -175,10 +175,10 @@ public class EntityGenerator {
 		return wall;
 	}
 	
-	public static Entity newTree() {
+	public static Entity newTree(Tile tile) {
 		Entity tree = new Entity();
 		
-		
+		tree.add(new EntityTileComponent(tile));
 		
 		return tree;
 	}

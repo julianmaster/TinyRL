@@ -7,7 +7,7 @@ import ui.CustomColor;
 public enum Ground {
 	STONE('.', "Stone", CustomColor.DGRAY),
 	DIRT('.', "Dirt", CustomColor.BROWN),
-	GRASS1('.', "Grass", CustomColor.LGREEN),
+	GRASS1('.', "Grass", CustomColor.GREEN),
 	GRASS2(',', "Grass", CustomColor.LGREEN),
 	HIGH_GRASS1('.', "High grass", CustomColor.GREEN),
 	HIGH_GRASS2(',', "High grass", CustomColor.GREEN);

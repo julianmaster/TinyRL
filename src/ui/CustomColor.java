@@ -4,6 +4,8 @@ import java.awt.Color;
 
 public class CustomColor {
 	// Dawnbringer
+	// https://github.com/geoffb/dawnbringer-palettes
+	// http://hem.bredband.net/ricfha/pic/db32.gpl
 	public static Color BLACK = new Color(20, 12, 28);
 	public static Color BLUE = new Color(48, 52, 109);
 	public static Color GREEN = new Color(52, 101, 36);
