@@ -22,6 +22,7 @@ public class ForestRoom extends BaseRoom {
 	private static ArrayList<Tile> trees = new ArrayList<Tile>() {{
 		add(Tile.TREE1);
 		add(Tile.TREE2);
+		add(Tile.TREE3);
 	}};
 
 	@Override

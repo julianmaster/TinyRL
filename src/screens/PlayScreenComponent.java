@@ -96,22 +96,22 @@ public class PlayScreenComponent implements Component {
 			
 			// Paint pause
 			if(pause) {
-				asciiPanel.writeString(12, 0, "PAUSE", CustomColor.LBLUE, CustomColor.GREEN);
+				asciiPanel.writeString(12, 0, "PAUSE", CustomColor.VIKING, CustomColor.ELF_GREEN);
 			}
 			// Paint help info
 			else if(info) {
-				asciiPanel.writeString(10, 1, HP + " HP", CustomColor.RED);
-				asciiPanel.writeString(10, 2, MANA + " MANA", CustomColor.LBLUE);
-				asciiPanel.writeString(10, 3, ARMOR + " ARMOR", CustomColor.YELLOW);
+				asciiPanel.writeString(10, 1, HP + " HP", CustomColor.BROWN);
+				asciiPanel.writeString(10, 2, MANA + " MANA", CustomColor.ROYAL_BLUE);
+				asciiPanel.writeString(10, 3, ARMOR + " ARMOR", CustomColor.GOLDEN_FIZZ);
 			}
 			// Paint player info
 			else{
 				Entity player = Engine.getInstance().getEntityByComponentClass(PlayerTurnComponent.class);
 				AttributesComponent attributesComponent = player.getComponentByClass(AttributesComponent.class);
 				
-				asciiPanel.writeString(10, 1, HP + String.format(" %3.0f",attributesComponent.getHp()) + "/" + String.format("%.0f",attributesComponent.getHpMax()), CustomColor.RED);
-				asciiPanel.writeString(10, 2, MANA + String.format(" %3.0f",attributesComponent.getMana()) + "/" + String.format("%.0f",attributesComponent.getManaMax()), CustomColor.LBLUE);
-				asciiPanel.writeString(10, 3, ARMOR + String.format(" %3s",attributesComponent.getArmor()), CustomColor.YELLOW);
+				asciiPanel.writeString(10, 1, HP + String.format(" %3.0f",attributesComponent.getHp()) + "/" + String.format("%.0f",attributesComponent.getHpMax()), CustomColor.BROWN);
+				asciiPanel.writeString(10, 2, MANA + String.format(" %3.0f",attributesComponent.getMana()) + "/" + String.format("%.0f",attributesComponent.getManaMax()), CustomColor.ROYAL_BLUE);
+				asciiPanel.writeString(10, 3, ARMOR + String.format(" %3s",attributesComponent.getArmor()), CustomColor.GOLDEN_FIZZ);
 				asciiPanel.writeString(10, 8, "P:INV", CustomColor.WHITE);
 				asciiPanel.writeString(19, 8, "?", CustomColor.WHITE);
 			}

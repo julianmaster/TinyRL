@@ -60,6 +60,39 @@ public class TinyRL {
 //		asciiPanel.write(2, 2, 'M', CustomColor.LMAGENTA);
 //		asciiPanel.write(2, 3, 'N', CustomColor.YELLOW);
 //		asciiPanel.write(2, 4, 'O', CustomColor.WHITE);
+		
+//		asciiPanel.write(0, 0, 'A', CustomColor.BLACK);
+//		asciiPanel.write(0, 1, 'B', CustomColor.VALHALLA);
+//		asciiPanel.write(0, 2, 'C', CustomColor.LOULOU);
+//		asciiPanel.write(0, 3, 'D', CustomColor.OILED_CEDAR);
+//		asciiPanel.write(0, 4, 'E', CustomColor.ROPE);
+//		asciiPanel.write(0, 5, 'F', CustomColor.TAHITI_GOLD);
+//		asciiPanel.write(0, 6, 'G', CustomColor.TWINE);
+//		asciiPanel.write(0, 7, 'H', CustomColor.PANCHO);
+//		asciiPanel.write(1, 0, 'I', CustomColor.GOLDEN_FIZZ);
+//		asciiPanel.write(1, 1, 'J', CustomColor.ATLANTIS);
+//		asciiPanel.write(1, 2, 'K', CustomColor.CHRISTI);
+//		asciiPanel.write(1, 3, 'L', CustomColor.ELF_GREEN);
+//		asciiPanel.write(1, 4, 'M', CustomColor.DELL);
+//		asciiPanel.write(1, 5, 'N', CustomColor.VERDIGRIS);
+//		asciiPanel.write(1, 6, 'O', CustomColor.OPAL);
+//		asciiPanel.write(1, 7, 'P', CustomColor.DEEP_KOAMARU);
+//		asciiPanel.write(2, 0, 'Q', CustomColor.VENICE_BLUE);
+//		asciiPanel.write(2, 1, 'R', CustomColor.ROYAL_BLUE);
+//		asciiPanel.write(2, 2, 'S', CustomColor.CORNFLOWER);
+//		asciiPanel.write(2, 3, 'T', CustomColor.VIKING);
+//		asciiPanel.write(2, 4, 'U', CustomColor.LIGHT_STEEL_BLUE);
+//		asciiPanel.write(2, 5, 'V', CustomColor.WHITE);
+//		asciiPanel.write(2, 6, 'W', CustomColor.HEATHER);
+//		asciiPanel.write(2, 7, 'X', CustomColor.TOPAZ);
+//		asciiPanel.write(3, 0, 'Y', CustomColor.DIM_GRAY);
+//		asciiPanel.write(3, 1, 'Z', CustomColor.SMOKEY_ASH);
+//		asciiPanel.write(3, 2, '@', CustomColor.CLAIRVOYANT);
+//		asciiPanel.write(3, 3, '&', CustomColor.BROWN);
+//		asciiPanel.write(3, 4, '#', CustomColor.MANDY);
+//		asciiPanel.write(3, 5, '$', CustomColor.PLUM);
+//		asciiPanel.write(3, 6, (char)224, CustomColor.RAIN_FOREST);
+//		asciiPanel.write(3, 7, (char)225, CustomColor.STINGER);
 //		asciiTerminal.repaint();
 	}
 	

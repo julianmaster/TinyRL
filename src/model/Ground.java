@@ -5,12 +5,12 @@ import java.awt.Color;
 import ui.CustomColor;
 
 public enum Ground {
-	STONE('.', "Stone", CustomColor.DGRAY),
-	DIRT('.', "Dirt", CustomColor.BROWN),
-	GRASS1('.', "Grass", CustomColor.GREEN),
-	GRASS2(',', "Grass", CustomColor.LGREEN),
-	HIGH_GRASS1('.', "High grass", CustomColor.GREEN),
-	HIGH_GRASS2(',', "High grass", CustomColor.GREEN);
+	STONE('.', "Stone", CustomColor.DIM_GRAY),
+	DIRT('.', "Dirt", CustomColor.ROPE),
+	GRASS1('.', "Grass", CustomColor.ELF_GREEN),
+	GRASS2(',', "Grass", CustomColor.ELF_GREEN),
+	HIGH_GRASS1('.', "High grass", CustomColor.DELL),
+	HIGH_GRASS2(',', "High grass", CustomColor.DELL);
 	
 	public char tile;
 	public String name;

@@ -5,11 +5,11 @@ import java.awt.Color;
 import ui.CustomColor;
 
 public enum AnimationTile {
-	RAIN1('|', CustomColor.LBLUE),
-	RAIN2((char)249, CustomColor.LBLUE),
-	RAIN3('o', CustomColor.LBLUE),
-	RAIN4((char)248, CustomColor.LBLUE),
-	RAIN5((char)250, CustomColor.LBLUE);
+	RAIN1('|', CustomColor.VIKING),
+	RAIN2((char)249, CustomColor.VIKING),
+	RAIN3('o', CustomColor.VIKING),
+	RAIN4((char)248, CustomColor.VIKING),
+	RAIN5((char)250, CustomColor.VIKING);
 	
 	public char tile;
 	public Color color;
