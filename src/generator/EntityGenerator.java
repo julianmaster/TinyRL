@@ -182,4 +182,27 @@ public class EntityGenerator {
 		
 		return tree;
 	}
+	
+	public static Entity newRandomTree() {
+		Entity tree = new Entity();
+		
+		Tile tile = null;
+		switch (rand.nextInt(3)) {
+			case 0:
+			tile = Tile.TREE1;
+			break;
+			
+			case 1:
+			tile = Tile.TREE2;
+			break;
+			
+			case 2:
+			tile = Tile.TREE3;
+			break;
+		}
+		
+		tree.add(new EntityTileComponent(tile));
+		
+		return tree;
+	}
 }

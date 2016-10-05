@@ -5,7 +5,7 @@ import java.awt.Color;
 import ui.CustomColor;
 
 public enum Ground {
-	STONE('.', "Stone", CustomColor.DIM_GRAY),
+	STONE('.', "Stone", CustomColor.SMOKEY_ASH),
 	DIRT('.', "Dirt", CustomColor.ROPE),
 	GRASS1('.', "Grass", CustomColor.ELF_GREEN),
 	GRASS2(',', "Grass", CustomColor.ELF_GREEN),
