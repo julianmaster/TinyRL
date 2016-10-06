@@ -84,13 +84,20 @@ public class RoomGenerator {
 			break;
 			
 			case 1:
+			room.getCell(new Pair<Integer, Integer>(3, 3)).setEntity(extraEntity2);
+			room.getCell(new Pair<Integer, Integer>(3, 5)).setEntity(extraEntity2);
+			room.getCell(new Pair<Integer, Integer>(5, 5)).setEntity(extraEntity2);
+			room.getCell(new Pair<Integer, Integer>(5, 3)).setEntity(extraEntity2);
+			break;
+			
+			case 2:
 			room.getCell(new Pair<Integer, Integer>(2, 4)).setEntity(extraEntity2);
 			room.getCell(new Pair<Integer, Integer>(6, 4)).setEntity(extraEntity2);
 			room.getCell(new Pair<Integer, Integer>(4, 6)).setEntity(extraEntity2);
 			room.getCell(new Pair<Integer, Integer>(4, 2)).setEntity(extraEntity2);
 			break;
 				
-			case 2:
+			case 3:
 			room.getCell(new Pair<Integer, Integer>(2, 2)).setEntity(extraEntity2);
 			room.getCell(new Pair<Integer, Integer>(6, 2)).setEntity(extraEntity2);
 			room.getCell(new Pair<Integer, Integer>(6, 6)).setEntity(extraEntity2);
@@ -102,13 +109,6 @@ public class RoomGenerator {
 				room.getCell(new Pair<Integer, Integer>(4, 6)).setEntity(extraEntity2);
 				room.getCell(new Pair<Integer, Integer>(4, 2)).setEntity(extraEntity2);
 			}
-			break;
-				
-			case 3:
-			room.getCell(new Pair<Integer, Integer>(3, 3)).setEntity(extraEntity2);
-			room.getCell(new Pair<Integer, Integer>(3, 5)).setEntity(extraEntity2);
-			room.getCell(new Pair<Integer, Integer>(5, 5)).setEntity(extraEntity2);
-			room.getCell(new Pair<Integer, Integer>(5, 3)).setEntity(extraEntity2);
 			break;
 		}
 	}
