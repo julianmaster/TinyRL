@@ -20,11 +20,11 @@ public class RoomGenerator {
 		Room room = EntityGenerator.newRoom(position);
 		int index = rand.nextInt(rooms.size());
 		rooms.get(index).apply(room);
-		addArchitecture(room);
+		addExtraArchitecture(room);
 		return room;
 	}
 	
-	public static void addArchitecture(Room room) {
+	public static void addExtraArchitecture(Room room) {
 		Entity extraEntity = rand.nextFloat() < 0.15 ? EntityGenerator.newRandomTree() : EntityGenerator.newWall();
 		
 		// North
@@ -76,6 +76,40 @@ public class RoomGenerator {
 			room.getCell(new Pair<Integer, Integer>(6, 1)).setEntity(extraEntity2);
 			room.getCell(new Pair<Integer, Integer>(7, 2)).setEntity(extraEntity2);
 			return;
+		}
+		
+		switch (rand.nextInt(4)) {
+			case 0:
+			room.getCell(new Pair<Integer, Integer>(4, 4)).setEntity(extraEntity2);
+			break;
+			
+			case 1:
+			room.getCell(new Pair<Integer, Integer>(2, 4)).setEntity(extraEntity2);
+			room.getCell(new Pair<Integer, Integer>(6, 4)).setEntity(extraEntity2);
+			room.getCell(new Pair<Integer, Integer>(4, 6)).setEntity(extraEntity2);
+			room.getCell(new Pair<Integer, Integer>(4, 2)).setEntity(extraEntity2);
+			break;
+				
+			case 2:
+			room.getCell(new Pair<Integer, Integer>(2, 2)).setEntity(extraEntity2);
+			room.getCell(new Pair<Integer, Integer>(6, 2)).setEntity(extraEntity2);
+			room.getCell(new Pair<Integer, Integer>(6, 6)).setEntity(extraEntity2);
+			room.getCell(new Pair<Integer, Integer>(2, 6)).setEntity(extraEntity2);
+			
+			if(rand.nextFloat() < 0.25) {
+				room.getCell(new Pair<Integer, Integer>(2, 4)).setEntity(extraEntity2);
+				room.getCell(new Pair<Integer, Integer>(6, 4)).setEntity(extraEntity2);
+				room.getCell(new Pair<Integer, Integer>(4, 6)).setEntity(extraEntity2);
+				room.getCell(new Pair<Integer, Integer>(4, 2)).setEntity(extraEntity2);
+			}
+			break;
+				
+			case 3:
+			room.getCell(new Pair<Integer, Integer>(3, 3)).setEntity(extraEntity2);
+			room.getCell(new Pair<Integer, Integer>(3, 5)).setEntity(extraEntity2);
+			room.getCell(new Pair<Integer, Integer>(5, 5)).setEntity(extraEntity2);
+			room.getCell(new Pair<Integer, Integer>(5, 3)).setEntity(extraEntity2);
+			break;
 		}
 	}
 }
