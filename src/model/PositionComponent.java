@@ -10,9 +10,6 @@ public class PositionComponent implements Component {
 	private int x = 0;
 	private int y = 0;
 	
-	public PositionComponent() {
-	}
-	
 	public PositionComponent(int x, int y) {
 		this.x = x;
 		this.y = y;

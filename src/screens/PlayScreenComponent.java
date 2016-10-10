@@ -6,7 +6,7 @@ import main.TinyRL;
 import model.RenderRoomEvent;
 import model.WorldTickEvent;
 import model.entities.AttributesComponent;
-import model.turns.PlayerTurnComponent;
+import model.turns.entities.PlayerTurnComponent;
 import pattern.Component;
 import pattern.Engine;
 import pattern.Entity;

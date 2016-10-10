@@ -39,6 +39,7 @@ public class ChangeRoomActionComponent implements Component {
 			World world = TinyRL.getInstance().getWorld();
 			world.createRoom(nextRoomPosition);
 			Room nextRoom = world.getRoom(nextRoomPosition);
+			Engine.getInstance().addHeadEvent(new ChangeCurrentRoomEvent(nextRoomPosition));
 			
 			Entity door = null;
 			switch (direction) {
@@ -75,7 +76,6 @@ public class ChangeRoomActionComponent implements Component {
 			}
 			
 			Engine.getInstance().addHeadEvent(new NextTickTurnControllerEvent());
-			Engine.getInstance().addHeadEvent(new ChangeCurrentRoomEvent(nextRoomPosition));
 			Engine.getInstance().addNextTurnEvent(new OpenActionEvent(door));
 		}
 	}

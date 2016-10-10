@@ -17,24 +17,9 @@ public class TurnControllerComponent implements Component {
 
 	@Override
 	public void process(Event e, double deltaTime) {
-//		if(e instanceof TurnControllerEvent) {
-//			processTurn();
-//		}
-//		else if(e instanceof TurnControllerAddEntityEvent) {
-//			TurnControllerAddEntityEvent turnControllerAddEntityEvent = (TurnControllerAddEntityEvent)e;
-//			entities.add(turnControllerAddEntityEvent.getEntity());
-//		}
-//		else if(e instanceof TurnControllerNextTurnEvent) {
-//			processTurn();
-//		}
-		
-		
+		// Turn
 		if(e instanceof TurnControllerEvent) {
 			processTurn();
-		}
-		else if(e instanceof TurnControllerAddEntityEvent) {
-			TurnControllerAddEntityEvent turnControllerAddEntityEvent = (TurnControllerAddEntityEvent)e;
-			entities.add(turnControllerAddEntityEvent.getEntity());
 		}
 		else if(e instanceof NextTickTurnControllerEvent) {
 			nextTickTurn();
@@ -43,30 +28,17 @@ public class TurnControllerComponent implements Component {
 		else if(e instanceof PerformTurnControllerEvent) {
 			performEvent();
 		}
+		
+		// Management
+		else if(e instanceof TurnControllerAddEntityEvent) {
+			TurnControllerAddEntityEvent turnControllerAddEntityEvent = (TurnControllerAddEntityEvent)e;
+			entities.add(turnControllerAddEntityEvent.getEntity());
+		}
+		else if(e instanceof TurnControllerClearEntitiesEvent) {
+			position = 0;
+			entities.clear();
+		}
 	}
-	
-//	private void processTurn() {
-//		do {
-//			if(run) {
-//				currentEntity = entities.get(position);
-//				boolean perform = currentEntity.getEnergy().tick();
-//				
-//				if(perform) {
-//					currentEntity.getEnergy().spend();
-//					run = false;
-//				}
-//				
-//				position++;
-//				position = position % entities.size();
-//			}
-//			
-//			if(!run) {
-//				Engine.getInstance().addHeadEvent(new NextActionEvent(currentEntity, null));
-//			}
-//		} while(run);
-//		
-//		
-//	}
 	
 	private void nextTickTurn() {
 		run = true;

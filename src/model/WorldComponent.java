@@ -1,11 +1,16 @@
 package model;
 
+import java.util.List;
+
 import main.TinyRL;
 import model.animations.rain.RainComponent;
 import model.animations.rain.RainHandlerComponent;
 import model.entities.EntityTileComponent;
+import model.turns.TurnControllerAddEntityEvent;
+import model.turns.TurnControllerClearEntitiesEvent;
 import pattern.Component;
 import pattern.Engine;
+import pattern.Entity;
 import pattern.Event;
 
 public class WorldComponent implements Component {
@@ -25,7 +30,12 @@ public class WorldComponent implements Component {
 			Engine.getInstance().addEntity(room);
 			Engine.getInstance().addEntities(room.getAnimationHandlers());
 			Engine.getInstance().addEntities(room.getAnimations());
-			Engine.getInstance().addEntities(room.getModelEntities());
+			Engine.getInstance().addEntities(room.getEntities());
+			
+			for(Entity entity : room.getEntitiesWithTurn()) {
+				Engine.getInstance().addHeadEvent(new TurnControllerAddEntityEvent(entity));
+			}
+			Engine.getInstance().addHeadEvent(new TurnControllerClearEntitiesEvent());
 		}
 	}
 }

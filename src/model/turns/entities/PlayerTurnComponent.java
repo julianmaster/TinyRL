@@ -1,4 +1,4 @@
-package model.turns;
+package model.turns.entities;
 
 import java.awt.event.KeyEvent;
 
@@ -6,6 +6,7 @@ import main.TinyRL;
 import model.PositionComponent;
 import model.Room;
 import model.RoomComponent;
+import model.turns.TurnComponent;
 import model.turns.actions.ChangeRoomActionComponent;
 import model.turns.actions.ChangeRoomActionEvent;
 import model.turns.actions.MoveActionEvent;

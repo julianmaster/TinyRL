@@ -19,11 +19,12 @@ import model.animations.rain.RainHandlerComponent.RainType;
 import model.entities.AttributesComponent;
 import model.entities.DoorComponent;
 import model.entities.EntityTileComponent;
-import model.turns.PlayerTurnComponent;
 import model.turns.TurnControllerComponent;
 import model.turns.actions.ChangeRoomActionComponent;
 import model.turns.actions.MoveActionComponent;
 import model.turns.actions.OpenActionComponent;
+import model.turns.entities.PlayerTurnComponent;
+import model.turns.entities.SkeletonTurnComponent;
 import pattern.Entity;
 import screens.PlayScreenComponent;
 import util.Pair;
@@ -204,5 +205,16 @@ public class EntityGenerator {
 		tree.add(new EntityTileComponent(tile));
 		
 		return tree;
+	}
+	
+	public static Entity newSkeleton(Pair<Integer, Integer> position) {
+		Entity skeleton = new Entity();
+		
+		skeleton.add(new PositionComponent(position));
+		skeleton.add(new EntityTileComponent(Tile.SKELETON));
+		skeleton.add(new AttributesComponent(5, 5, 5));
+		skeleton.add(new SkeletonTurnComponent(100));
+		
+		return skeleton;
 	}
 }

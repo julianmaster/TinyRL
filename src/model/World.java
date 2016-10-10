@@ -27,7 +27,7 @@ public class World extends Entity {
 		Engine.getInstance().addEntity(room);
 		Engine.getInstance().addEntities(room.getAnimationHandlers());
 		Engine.getInstance().addEntities(room.getAnimations());
-		Engine.getInstance().addEntities(room.getModelEntities());
+		Engine.getInstance().addEntities(room.getEntities());
 
 		Pair<Integer, Integer> playerPosition = new Pair<Integer, Integer>(4, 4);
 		Entity player = EntityGenerator.newPlayer(playerPosition);
