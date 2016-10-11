@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import model.animations.Animation;
-import model.entities.AttributesComponent;
 import model.turns.TurnComponent;
 import pattern.Entity;
 import util.Pair;
@@ -123,13 +122,19 @@ public class Room extends Entity {
 		return entities;
 	}
 	
-	public ArrayList<Pair<Integer, Integer>> pathTo(Pair<Integer, Integer> start, Pair<Integer, Integer> goal) {
+	public ArrayList<Pair<Integer, Integer>> pathTo(final Pair<Integer, Integer> start, final Pair<Integer, Integer> goal) {
 		int[][] ranges = new int[ROOM_SIZE][ROOM_SIZE];
 		for(int i = 0; i < ROOM_SIZE; i++) {
 			for(int j = 0; j < ROOM_SIZE; j++) {
 				ranges[i][j] = -1;
 			}
 		}
+		
+		List<Pair<Integer, Integer>> passable = new ArrayList<Pair<Integer, Integer>>() {{
+			this.add(start);
+			this.add(goal);
+		}};
+		
 		ArrayDeque<Pair<Integer, Integer>> cellToProcess = new ArrayDeque<>();
 		cellToProcess.add(start);
 		ranges[start.key][start.value] = 0;
@@ -137,11 +142,11 @@ public class Room extends Entity {
 		while(!cellToProcess.isEmpty()) {
 			Pair<Integer, Integer> cell = cellToProcess.pollFirst();
 			
-			ArrayList<Pair<Integer, Integer>> neighbours = getNeighbours(cell, NEIGHBOURS_LOCATION_LIST);
+			ArrayList<Pair<Integer, Integer>> neighbours = getNeighbours(cell, passable, NEIGHBOURS_LOCATION_LIST);
 			for(Pair<Integer, Integer> neighbour : neighbours) {
 				if(neighbour.key == goal.key && neighbour.value == goal.value) {
 					ranges[neighbour.key][neighbour.value] = ranges[cell.key][cell.value] + 1;
-					return buildPath(ranges, neighbour);
+					return buildPath(ranges, neighbour, passable);
 				}
 				
 				if(ranges[neighbour.key][neighbour.value] == -1 || ranges[neighbour.key][neighbour.value] > ranges[cell.key][cell.value] + 1) {
@@ -154,16 +159,14 @@ public class Room extends Entity {
 		return null;
 	}
 	
-	private ArrayList<Pair<Integer, Integer>> getNeighbours(Pair<Integer, Integer> position, List<Pair<Integer, Integer>> neighboursLocation) {
+	private ArrayList<Pair<Integer, Integer>> getNeighbours(Pair<Integer, Integer> position, List<Pair<Integer, Integer>> passable, List<Pair<Integer, Integer>> neighboursLocation) {
 		ArrayList<Pair<Integer, Integer>> neighbours = new ArrayList<>();
 		
 		for(Pair<Integer, Integer> neighbourLocation: neighboursLocation) {
 			int i = position.key + neighbourLocation.key;
 			int j = position.value + neighbourLocation.value;
 			
-			Entity entity = cells[i][j].getEntity();
-			// FIXME : Change from all AttributesComponent Entity to only the Entity position you need to go (Other Entities isn't passable)
-			if(i >= 0 && i < ROOM_SIZE && j >= 0 && j < ROOM_SIZE && (entity == null || entity.getComponentByClass(AttributesComponent.class) != null)) {
+			if(i >= 0 && i < ROOM_SIZE && j >= 0 && j < ROOM_SIZE && (cells[i][j].getEntity() == null || passable.contains(new Pair<Integer, Integer>(i, j)))) {
 				neighbours.add(new Pair<Integer, Integer>(i, j));
 			}
 		}
@@ -171,7 +174,8 @@ public class Room extends Entity {
 		return neighbours;
 	}
 	
-	private ArrayList<Pair<Integer, Integer>> buildPath(int[][] ranges, Pair<Integer, Integer> position) {
+	private ArrayList<Pair<Integer, Integer>> buildPath(int[][] ranges, Pair<Integer, Integer> position, List<Pair<Integer, Integer>> passable) {
+		System.out.println("Range: "+ranges[position.key][position.value]+" - "+position);
 		if(ranges[position.key][position.value] == 0) {
 			ArrayList<Pair<Integer, Integer>> path = new ArrayList<>();
 			path.add(position);
@@ -179,13 +183,13 @@ public class Room extends Entity {
 		}
 		else {
 			Pair<Integer, Integer> mostNear = position;
-			for(Pair<Integer, Integer> neighbour : getNeighbours(position, NEIGHBOURS_LOCATION_LIST)) {
+			for(Pair<Integer, Integer> neighbour : getNeighbours(position, passable, NEIGHBOURS_LOCATION_LIST)) {
 				if(ranges[neighbour.key][neighbour.value] < ranges[mostNear.key][mostNear.value] && ranges[neighbour.key][neighbour.value] != -1) {
 					mostNear = neighbour;
 				}
 			}
 			
-			ArrayList<Pair<Integer, Integer>> path = buildPath(ranges, mostNear);
+			ArrayList<Pair<Integer, Integer>> path = buildPath(ranges, mostNear, passable);
 			path.add(position);
 			return path;
 		}
