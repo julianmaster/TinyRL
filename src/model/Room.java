@@ -175,7 +175,6 @@ public class Room extends Entity {
 	}
 	
 	private ArrayList<Pair<Integer, Integer>> buildPath(int[][] ranges, Pair<Integer, Integer> position, List<Pair<Integer, Integer>> passable) {
-		System.out.println("Range: "+ranges[position.key][position.value]+" - "+position);
 		if(ranges[position.key][position.value] == 0) {
 			ArrayList<Pair<Integer, Integer>> path = new ArrayList<>();
 			path.add(position);
