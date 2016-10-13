@@ -1,14 +1,18 @@
 package model.turns.entities;
 
+import java.util.ArrayList;
+
 import model.PositionComponent;
 import model.Room;
 import model.RoomComponent;
 import model.turns.NextTickTurnControllerEvent;
 import model.turns.TurnComponent;
+import model.turns.actions.MoveActionEvent;
 import model.turns.actions.NextActionEvent;
 import pattern.Engine;
 import pattern.Entity;
 import pattern.Event;
+import util.Pair;
 
 public class SkeletonTurnComponent extends TurnComponent {
 
@@ -29,8 +33,16 @@ public class SkeletonTurnComponent extends TurnComponent {
 			
 			Room currentRoom = (Room)Engine.getInstance().getEntityByComponentClass(RoomComponent.class);
 			
-			System.out.println(currentRoom.pathTo(positionComponent.getPosition(), playerPositionComponent.getPosition()));
-			Engine.getInstance().addHeadEvent(new NextTickTurnControllerEvent());
+			ArrayList<Pair<Integer, Integer>> path = currentRoom.pathTo(positionComponent.getPosition(), playerPositionComponent.getPosition());
+			if(path.size() > 2) {
+				System.out.println("move");
+				Pair<Integer, Integer> nextStep = path.get(1);
+				Engine.getInstance().addHeadEvent(new MoveActionEvent(skeleton, nextStep.key - positionComponent.getPosition().key, nextStep.value - positionComponent.getPosition().value));
+			}
+			else {
+				System.out.println("attack");
+				Engine.getInstance().addHeadEvent(new NextTickTurnControllerEvent());
+			}
 		}
 	}
 }

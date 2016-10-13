@@ -1,7 +1,5 @@
 package model;
 
-import java.util.List;
-
 import main.TinyRL;
 import model.animations.rain.RainComponent;
 import model.animations.rain.RainHandlerComponent;

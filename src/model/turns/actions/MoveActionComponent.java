@@ -20,8 +20,8 @@ public class MoveActionComponent implements Component {
 
 			Room room = (Room)Engine.getInstance().getEntityByComponentClass(RoomComponent.class);
 			
-			Entity player = Engine.getInstance().getEntityByComponent(this);
-			PositionComponent positionComponent = player.getComponentByClass(PositionComponent.class);
+			Entity entity = Engine.getInstance().getEntityByComponent(this);
+			PositionComponent positionComponent = entity.getComponentByClass(PositionComponent.class);
 			
 			Pair<Integer, Integer> positionPlayer = positionComponent.getPosition();
 			Pair<Integer, Integer> positionTarget = positionPlayer.clone();
@@ -31,13 +31,13 @@ public class MoveActionComponent implements Component {
 			
 			if(room.getCell(positionTarget).getEntity() == null) {
 				room.getCell(positionPlayer).setEntity(null);
-				room.getCell(positionTarget).setEntity(player);
+				room.getCell(positionTarget).setEntity(entity);
 				
 				Engine.getInstance().addHeadEvent(new NextTickTurnControllerEvent());
-				Engine.getInstance().addHeadEvent(new ChangePositionEvent(player, positionTarget));
+				Engine.getInstance().addHeadEvent(new ChangePositionEvent(entity, positionTarget));
 			}
 			else {
-				Engine.getInstance().addHeadEvent(new NextActionEvent(player, moveActionEvent));
+				Engine.getInstance().addHeadEvent(new NextActionEvent(entity, moveActionEvent));
 			}
 		}
 	}

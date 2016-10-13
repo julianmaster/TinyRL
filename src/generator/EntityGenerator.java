@@ -214,6 +214,7 @@ public class EntityGenerator {
 		skeleton.add(new EntityTileComponent(Tile.SKELETON));
 		skeleton.add(new AttributesComponent(5, 5, 5));
 		skeleton.add(new SkeletonTurnComponent(100));
+		skeleton.add(new MoveActionComponent());
 		
 		return skeleton;
 	}
