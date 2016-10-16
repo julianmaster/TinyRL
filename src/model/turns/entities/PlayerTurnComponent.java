@@ -6,6 +6,8 @@ import main.TinyRL;
 import model.PositionComponent;
 import model.Room;
 import model.RoomComponent;
+import model.entities.ResolveTurnEvent;
+import model.turns.NextTickTurnControllerEvent;
 import model.turns.TurnComponent;
 import model.turns.actions.ChangeRoomActionComponent;
 import model.turns.actions.ChangeRoomActionEvent;
@@ -39,17 +41,38 @@ public class PlayerTurnComponent extends TurnComponent {
 			if(event != null) {
 				int dx = 0;
 				int dy = 0;
-				if(event.getKeyCode() == KeyEvent.VK_UP) {
+				if(event.getKeyCode() == KeyEvent.VK_NUMPAD8) {
 					dy = -1;
 				}
-				if(event.getKeyCode() == KeyEvent.VK_DOWN) {
+				else if(event.getKeyCode() == KeyEvent.VK_NUMPAD2) {
 					dy = 1;
 				}
-				if(event.getKeyCode() == KeyEvent.VK_LEFT) {
+				else if(event.getKeyCode() == KeyEvent.VK_NUMPAD4) {
 					dx = -1;
 				}
-				if(event.getKeyCode() == KeyEvent.VK_RIGHT) {
+				else if(event.getKeyCode() == KeyEvent.VK_NUMPAD6) {
 					dx = 1;
+				}
+				else if(event.getKeyCode() == KeyEvent.VK_NUMPAD1) {
+					dy = 1;
+					dx = -1;
+				}
+				else if(event.getKeyCode() == KeyEvent.VK_NUMPAD3) {
+					dy = 1;
+					dx = 1;
+				}
+				else if(event.getKeyCode() == KeyEvent.VK_NUMPAD7) {
+					dy = -1;
+					dx = -1;
+				}
+				else if(event.getKeyCode() == KeyEvent.VK_NUMPAD9) {
+					dy = -1;
+					dx = 1;
+				}
+				else if(event.getKeyCode() == KeyEvent.VK_NUMPAD5) {
+					// IDLE
+					Engine.getInstance().addHeadEvent(new NextTickTurnControllerEvent());
+					asciiTerminal.setEvent(null);
 				}
 				
 				if(nextActionEvent.getLastActionEvent() == null && (dx != 0 || dy != 0)) {

@@ -1,5 +1,7 @@
 package model;
 
-public class Item {
+import pattern.Entity;
+
+public class Item extends Entity {
 
 }

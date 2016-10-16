@@ -7,6 +7,8 @@ import model.Room;
 import model.RoomComponent;
 import model.turns.NextTickTurnControllerEvent;
 import model.turns.TurnComponent;
+import model.turns.actions.AttackActionComponent;
+import model.turns.actions.AttackActionEvent;
 import model.turns.actions.MoveActionEvent;
 import model.turns.actions.NextActionEvent;
 import pattern.Engine;
@@ -42,6 +44,7 @@ public class SkeletonTurnComponent extends TurnComponent {
 			else {
 				System.out.println("attack");
 				Engine.getInstance().addHeadEvent(new NextTickTurnControllerEvent());
+				Engine.getInstance().addHeadEvent(new AttackActionEvent(skeleton, player));
 			}
 		}
 	}

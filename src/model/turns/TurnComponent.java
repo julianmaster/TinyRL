@@ -1,5 +1,6 @@
 package model.turns;
 
+import model.entities.ResolveTurnEvent;
 import pattern.Component;
 import pattern.Engine;
 import pattern.Event;
@@ -20,11 +21,13 @@ public abstract class TurnComponent implements Component {
 	@Override
 	public void process(Event e, double deltaTime) {
 		if(e instanceof TickTurnEvent) {
+			TickTurnEvent tickTurnEvent = (TickTurnEvent)e;
 			energy++;
 			
 			if(energy >= energyNeedToAction - reduceEnergyNeedToAction) {
 				energy -= energyNeedToAction - reduceEnergyNeedToAction;
 				Engine.getInstance().addHeadEvent(new PerformTurnControllerEvent());
+				Engine.getInstance().addHeadEvent(new ResolveTurnEvent(tickTurnEvent.getEntity()));
 			}
 			else {
 				Engine.getInstance().addHeadEvent(new NextTickTurnControllerEvent());

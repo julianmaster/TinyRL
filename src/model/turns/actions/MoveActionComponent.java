@@ -20,7 +20,7 @@ public class MoveActionComponent implements Component {
 
 			Room room = (Room)Engine.getInstance().getEntityByComponentClass(RoomComponent.class);
 			
-			Entity entity = Engine.getInstance().getEntityByComponent(this);
+			Entity entity = moveActionEvent.getEntity();
 			PositionComponent positionComponent = entity.getComponentByClass(PositionComponent.class);
 			
 			Pair<Integer, Integer> positionPlayer = positionComponent.getPosition();

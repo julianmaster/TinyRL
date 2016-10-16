@@ -18,7 +18,6 @@ public class RainComponent implements Component {
 	private final static int FPS = 8;
 	private double elapseTime = 0;
 	private int life;
-	private int state = 1;
 	
 	public RainComponent(int life) {
 		this.life = life;

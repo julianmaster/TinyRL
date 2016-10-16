@@ -3,7 +3,6 @@ package generator;
 import java.util.ArrayList;
 import java.util.Random;
 
-import model.Cell;
 import model.Ground;
 import model.Room;
 import model.animations.rain.RainHandlerComponent.RainType;

@@ -16,10 +16,12 @@ public class OpenActionComponent implements Component {
 	@Override
 	public void process(Event e, double deltaTime) {
 		if(e instanceof OpenActionEvent) {
+			OpenActionEvent openActionEvent = (OpenActionEvent)e;
+			
 			open = true;
 			Engine.getInstance().addHeadEvent(new NextTickTurnControllerEvent());
 			
-			Entity entity = Engine.getInstance().getEntityByComponent(this);
+			Entity entity = openActionEvent.getEntity();
 			if(entity.getComponentByClass(DoorComponent.class) != null) {
 				Engine.getInstance().addHeadEvent(new ChangeEntityTileEvent(entity, Tile.OPEN_DOOR));
 			}

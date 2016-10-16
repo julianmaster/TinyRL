@@ -3,10 +3,12 @@ package generator;
 import java.util.Random;
 
 import model.Direction;
+import model.Item;
 import model.PositionComponent;
 import model.Room;
 import model.RoomComponent;
 import model.Tile;
+import model.WeaponComponent;
 import model.World;
 import model.WorldComponent;
 import model.WorldTickComponent;
@@ -20,6 +22,7 @@ import model.entities.AttributesComponent;
 import model.entities.DoorComponent;
 import model.entities.EntityTileComponent;
 import model.turns.TurnControllerComponent;
+import model.turns.actions.AttackActionComponent;
 import model.turns.actions.ChangeRoomActionComponent;
 import model.turns.actions.MoveActionComponent;
 import model.turns.actions.OpenActionComponent;
@@ -140,15 +143,18 @@ public class EntityGenerator {
 	
 	
 	
+	
+	
+	
 	/**
-	 * Model Entities
+	 * Entities
 	 */
 	
 	public static Entity newPlayer(Pair<Integer, Integer> position) {
 		Entity player = new Entity();
 		
 		player.add(new PositionComponent(position));
-		player.add(new AttributesComponent(5, 5, 5));
+		player.add(new AttributesComponent(5, 5, 5, EntityGenerator.newBasicPlayerWeapon()));
 		player.add(new EntityTileComponent(Tile.PLAYER));
 		player.add(new PlayerTurnComponent(60));
 		player.add(new MoveActionComponent());
@@ -212,10 +218,37 @@ public class EntityGenerator {
 		
 		skeleton.add(new PositionComponent(position));
 		skeleton.add(new EntityTileComponent(Tile.SKELETON));
-		skeleton.add(new AttributesComponent(5, 5, 5));
+		skeleton.add(new AttributesComponent(3, 3, 3, EntityGenerator.newBasicSkeletonWeapon()));
 		skeleton.add(new SkeletonTurnComponent(100));
 		skeleton.add(new MoveActionComponent());
+		skeleton.add(new AttackActionComponent());
 		
 		return skeleton;
+	}
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Weapons
+	 */
+	
+	public static Item newBasicPlayerWeapon() {
+		Item weapon = new Item();
+		
+		weapon.add(new WeaponComponent(5, 10));
+		
+		return weapon;
+	}
+	
+	public static Item newBasicSkeletonWeapon() {
+		Item weapon = new Item();
+		
+		weapon.add(new WeaponComponent(4, 6));
+		
+		return weapon;
 	}
 }

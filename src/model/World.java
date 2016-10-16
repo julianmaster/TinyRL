@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import generator.EntityGenerator;
@@ -24,16 +25,22 @@ public class World extends Entity {
 		createRoom(position);
 		Room room = getRoom(position);
 		
-		Engine.getInstance().addEntity(room);
-		Engine.getInstance().addEntities(room.getAnimationHandlers());
-		Engine.getInstance().addEntities(room.getAnimations());
-		Engine.getInstance().addEntities(room.getEntities());
-
 		Pair<Integer, Integer> playerPosition = new Pair<Integer, Integer>(4, 4);
 		Entity player = EntityGenerator.newPlayer(playerPosition);
 		room.getCell(playerPosition).setEntity(player);
-		Engine.getInstance().addEntity(player);
-		Engine.getInstance().addHeadEvent(new TurnControllerAddEntityEvent(player));
+		
+		Engine.getInstance().addEntity(room);
+		Engine.getInstance().addEntities(room.getAnimationHandlers());
+		Engine.getInstance().addEntities(room.getAnimations());
+		List<Entity> entities = room.getEntities();
+		Engine.getInstance().addEntities(entities);
+		for(Entity entity : room.getEntitiesWithTurn()) {
+			Engine.getInstance().addNextTurnEvent(new TurnControllerAddEntityEvent(entity));
+		}
+		
+		System.out.println(entities.size());
+//		Engine.getInstance().addEntity(player);
+//		Engine.getInstance().addHeadEvent(new TurnControllerAddEntityEvent(player));
 	}
 	
 	public boolean createRoom(Pair<Integer, Integer> position) {

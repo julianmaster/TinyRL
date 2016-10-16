@@ -1,9 +1,7 @@
 package generator;
 
-import model.Cell;
 import model.Ground;
 import model.Room;
-import util.Pair;
 
 public class EmptyRoom extends BaseRoom {
 
