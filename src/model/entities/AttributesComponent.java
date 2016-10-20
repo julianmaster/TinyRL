@@ -45,6 +45,7 @@ public class AttributesComponent implements Component {
 			for(int damage : takeDamageEvent.getDamages()) {
 				hp -= damage;
 			}
+			System.out.println("life: "+hp+"/"+getHpMax());
 		}
 		else if(e instanceof ResolveTurnEvent) {
 			hp += strength * 0.05f + hpBasicRegenRate;

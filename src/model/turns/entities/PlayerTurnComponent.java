@@ -6,9 +6,11 @@ import main.TinyRL;
 import model.PositionComponent;
 import model.Room;
 import model.RoomComponent;
+import model.entities.AttributesComponent;
 import model.entities.ResolveTurnEvent;
 import model.turns.NextTickTurnControllerEvent;
 import model.turns.TurnComponent;
+import model.turns.actions.AttackActionEvent;
 import model.turns.actions.ChangeRoomActionComponent;
 import model.turns.actions.ChangeRoomActionEvent;
 import model.turns.actions.MoveActionEvent;
@@ -104,6 +106,13 @@ public class PlayerTurnComponent extends TurnComponent {
 								Engine.getInstance().addTailEvent(new ChangeRoomActionEvent(entity, player));
 							}
 						}
+					}
+					
+					// Attack action
+					AttributesComponent enemyAttributesComponent = entity.getComponentByClass(AttributesComponent.class);
+					if(enemyAttributesComponent != null) {
+						Engine.getInstance().addHeadEvent(new NextTickTurnControllerEvent());
+						Engine.getInstance().addHeadEvent(new AttackActionEvent(moveActionEvent.getEntity(), entity));
 					}
 					
 					asciiTerminal.setEvent(null);

@@ -158,6 +158,7 @@ public class EntityGenerator {
 		player.add(new EntityTileComponent(Tile.PLAYER));
 		player.add(new PlayerTurnComponent(60));
 		player.add(new MoveActionComponent());
+		player.add(new AttackActionComponent());
 		
 		return player;
 	}

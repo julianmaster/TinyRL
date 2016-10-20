@@ -32,7 +32,9 @@ public class TurnControllerComponent implements Component {
 		// Management
 		else if(e instanceof TurnControllerAddEntityEvent) {
 			TurnControllerAddEntityEvent turnControllerAddEntityEvent = (TurnControllerAddEntityEvent)e;
-			entities.add(turnControllerAddEntityEvent.getEntity());
+			if(turnControllerAddEntityEvent.getEntity().getComponentByClass(TurnComponent.class) != null) {
+				entities.add(turnControllerAddEntityEvent.getEntity());
+			}
 		}
 		else if(e instanceof TurnControllerClearEntitiesEvent) {
 			position = 0;
