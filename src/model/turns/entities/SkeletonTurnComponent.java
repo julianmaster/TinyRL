@@ -2,9 +2,11 @@ package model.turns.entities;
 
 import java.util.ArrayList;
 
+import main.TinyRL;
 import model.PositionComponent;
 import model.Room;
 import model.RoomComponent;
+import model.entities.KillEvent;
 import model.turns.NextTickTurnControllerEvent;
 import model.turns.TurnComponent;
 import model.turns.actions.AttackActionComponent;
@@ -37,12 +39,12 @@ public class SkeletonTurnComponent extends TurnComponent {
 			
 			ArrayList<Pair<Integer, Integer>> path = currentRoom.pathTo(positionComponent.getPosition(), playerPositionComponent.getPosition());
 			if(path.size() > 2) {
-				System.out.println("move");
+				System.out.println("SkeletonTurnComponent: move");
 				Pair<Integer, Integer> nextStep = path.get(1);
 				Engine.getInstance().addHeadEvent(new MoveActionEvent(skeleton, nextStep.key - positionComponent.getPosition().key, nextStep.value - positionComponent.getPosition().value));
 			}
 			else {
-				System.out.println("attack");
+				System.out.println("SkeletonTurnComponent: attack");
 				Engine.getInstance().addHeadEvent(new NextTickTurnControllerEvent());
 				Engine.getInstance().addHeadEvent(new AttackActionEvent(skeleton, player));
 			}

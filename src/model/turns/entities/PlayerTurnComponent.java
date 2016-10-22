@@ -7,6 +7,7 @@ import model.PositionComponent;
 import model.Room;
 import model.RoomComponent;
 import model.entities.AttributesComponent;
+import model.entities.KillEvent;
 import model.entities.ResolveTurnEvent;
 import model.turns.NextTickTurnControllerEvent;
 import model.turns.TurnComponent;

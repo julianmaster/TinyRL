@@ -40,6 +40,10 @@ public class TurnControllerComponent implements Component {
 			position = 0;
 			entities.clear();
 		}
+		else if(e instanceof TurnControllerRemoveEntityEvent) {
+			TurnControllerRemoveEntityEvent turnControllerRemoveEntityEvent = (TurnControllerRemoveEntityEvent)e;
+			entities.remove(turnControllerRemoveEntityEvent.getEntityToRemove());
+		}
 	}
 	
 	private void nextTickTurn() {

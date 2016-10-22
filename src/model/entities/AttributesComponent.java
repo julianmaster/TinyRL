@@ -6,27 +6,30 @@ import java.util.List;
 import model.Item;
 import model.WeaponComponent;
 import pattern.Component;
+import pattern.Engine;
 import pattern.Event;
 import util.Pair;
 
 public class AttributesComponent implements Component {
-	protected float hp = 0f;
-	protected int hpBasic = 50;
-	protected float hpBasicRegenRate = 1.0f;
+	private boolean dead = false;
 	
-	protected float mana = 0f;
-	protected float manaBasicRegenRate = 1.0f;
+	private float hp = 0f;
+	private int hpBasic = 50;
+	private float hpBasicRegenRate = 1.0f;
 	
-	protected int basicArmor = 5;
+	private float mana = 0f;
+	private float manaBasicRegenRate = 1.0f;
 	
-	protected int strength = 0; // hpMax = strength * 25f + hpBasic, hpRegenRate = strength * 0.05f + hpBasicRegenRate
-	protected int agility = 0; // maxArmor = agility * 0.3f + basicArmor, reduceEnergy = agility
-	protected int intelligence = 0; // manaMax = intelligence * 15f, manaRegenRate = intelligence * 0.05f + manaBasicRegenRate
+	private int basicArmor = 5;
 	
-	protected Item basicWeapon = null;
+	private int strength = 0; // hpMax = strength * 25f + hpBasic, hpRegenRate = strength * 0.05f + hpBasicRegenRate
+	private int agility = 0; // maxArmor = agility * 0.3f + basicArmor, reduceEnergy = agility
+	private int intelligence = 0; // manaMax = intelligence * 15f, manaRegenRate = intelligence * 0.05f + manaBasicRegenRate
 	
-	protected Item weapon;
-	protected Item[] artifact = new Item[5];
+	private Item basicWeapon = null;
+	
+	private Item weapon;
+	private Item[] artifact = new Item[5];
 	
 	public AttributesComponent(int strength, int agility, int intelligence, Item basicWeapon) {
 		this.strength = strength;
@@ -45,11 +48,16 @@ public class AttributesComponent implements Component {
 			for(int damage : takeDamageEvent.getDamages()) {
 				hp -= damage;
 			}
-			System.out.println("life: "+hp+"/"+getHpMax());
+			if(hp <= 0) {
+				dead = true;
+				Engine.getInstance().addHeadEvent(new KillEvent(takeDamageEvent.getEntity()));
+			}
 		}
 		else if(e instanceof ResolveTurnEvent) {
-			hp += strength * 0.05f + hpBasicRegenRate;
-			hp = Math.min(hp, strength * 25f + hpBasic);
+			if(!dead) {
+				hp += strength * 0.05f + hpBasicRegenRate;
+				hp = Math.min(hp, strength * 25f + hpBasic);
+			}
 		}
 	}
 

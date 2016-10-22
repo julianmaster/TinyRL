@@ -20,7 +20,9 @@ import model.animations.rain.RainHandlerComponent;
 import model.animations.rain.RainHandlerComponent.RainType;
 import model.entities.AttributesComponent;
 import model.entities.DoorComponent;
+import model.entities.EnemyDeadComponent;
 import model.entities.EntityTileComponent;
+import model.entities.PlayerDeadComponent;
 import model.turns.TurnControllerComponent;
 import model.turns.actions.AttackActionComponent;
 import model.turns.actions.ChangeRoomActionComponent;
@@ -159,6 +161,7 @@ public class EntityGenerator {
 		player.add(new PlayerTurnComponent(60));
 		player.add(new MoveActionComponent());
 		player.add(new AttackActionComponent());
+		player.add(new PlayerDeadComponent());
 		
 		return player;
 	}
@@ -223,6 +226,7 @@ public class EntityGenerator {
 		skeleton.add(new SkeletonTurnComponent(100));
 		skeleton.add(new MoveActionComponent());
 		skeleton.add(new AttackActionComponent());
+		skeleton.add(new EnemyDeadComponent());
 		
 		return skeleton;
 	}
