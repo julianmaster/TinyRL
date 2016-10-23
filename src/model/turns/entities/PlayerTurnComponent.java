@@ -6,6 +6,7 @@ import main.TinyRL;
 import model.PositionComponent;
 import model.Room;
 import model.RoomComponent;
+import model.animations.attack.AddAttackAnimationEvent;
 import model.entities.AttributesComponent;
 import model.entities.KillEvent;
 import model.entities.ResolveTurnEvent;
@@ -93,7 +94,8 @@ public class PlayerTurnComponent extends TurnComponent {
 					
 					PositionComponent positionComponent = player.getComponentByClass(PositionComponent.class);
 
-					Entity entity = room.getCell(new Pair<Integer, Integer>(positionComponent.getPosition().key + moveActionEvent.getDx(), positionComponent.getPosition().value + moveActionEvent.getDy())).getEntity();
+					Pair<Integer, Integer> entityPosition = new Pair<Integer, Integer>(positionComponent.getPosition().key + moveActionEvent.getDx(), positionComponent.getPosition().value + moveActionEvent.getDy());
+					Entity entity = room.getCell(entityPosition).getEntity();
 
 					// Open action
 					OpenActionComponent openActionComponent = entity.getComponentByClass(OpenActionComponent.class);
@@ -112,8 +114,10 @@ public class PlayerTurnComponent extends TurnComponent {
 					// Attack action
 					AttributesComponent enemyAttributesComponent = entity.getComponentByClass(AttributesComponent.class);
 					if(enemyAttributesComponent != null) {
+						
 						Engine.getInstance().addHeadEvent(new NextTickTurnControllerEvent());
 						Engine.getInstance().addHeadEvent(new AttackActionEvent(moveActionEvent.getEntity(), entity));
+						Engine.getInstance().addHeadEvent(new AddAttackAnimationEvent(entity));
 					}
 					
 					asciiTerminal.setEvent(null);

@@ -25,7 +25,7 @@ public class RainComponent implements Component {
 
 	@Override
 	public void process(Event e, double deltaTime) {
-		if(e instanceof RainEvent) {
+		if(e instanceof TickRainEvent) {
 			elapseTime += deltaTime;
 			if(elapseTime >= 60 / FPS) {
 				Animation rain = (Animation)Engine.getInstance().getEntityByComponent(this);

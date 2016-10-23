@@ -10,7 +10,7 @@ import util.Pair;
 
 public class LandRoom extends BaseRoom {
 
-	Random rand = new Random();
+	private Random rand = new Random();
 	private static ArrayList<Ground> grounds = new ArrayList<Ground>() {{
 		add(Ground.GRASS1);
 		add(Ground.GRASS2);

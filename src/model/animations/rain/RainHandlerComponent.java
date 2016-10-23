@@ -55,7 +55,7 @@ public class RainHandlerComponent implements Component {
 				}
 			}
 			
-			Engine.getInstance().addTailEvent(new RainEvent());
+			Engine.getInstance().addTailEvent(new TickRainEvent());
 		}
 	}
 }

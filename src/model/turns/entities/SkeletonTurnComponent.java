@@ -6,6 +6,7 @@ import main.TinyRL;
 import model.PositionComponent;
 import model.Room;
 import model.RoomComponent;
+import model.animations.attack.AddAttackAnimationEvent;
 import model.entities.KillEvent;
 import model.turns.NextTickTurnControllerEvent;
 import model.turns.TurnComponent;
@@ -38,6 +39,11 @@ public class SkeletonTurnComponent extends TurnComponent {
 			Room currentRoom = (Room)Engine.getInstance().getEntityByComponentClass(RoomComponent.class);
 			
 			ArrayList<Pair<Integer, Integer>> path = currentRoom.pathTo(positionComponent.getPosition(), playerPositionComponent.getPosition());
+			
+			if(path == null) {
+				return;
+			}
+			
 			if(path.size() > 2) {
 				System.out.println("SkeletonTurnComponent: move");
 				Pair<Integer, Integer> nextStep = path.get(1);
@@ -47,6 +53,7 @@ public class SkeletonTurnComponent extends TurnComponent {
 				System.out.println("SkeletonTurnComponent: attack");
 				Engine.getInstance().addHeadEvent(new NextTickTurnControllerEvent());
 				Engine.getInstance().addHeadEvent(new AttackActionEvent(skeleton, player));
+				Engine.getInstance().addHeadEvent(new AddAttackAnimationEvent(player));
 			}
 		}
 	}

@@ -14,6 +14,11 @@ import model.WorldComponent;
 import model.WorldTickComponent;
 import model.animations.Animation;
 import model.animations.AnimationLevelComponent;
+import model.animations.AnimationTile;
+import model.animations.AnimationTileComponent;
+import model.animations.attack.AttackAnimationComponent;
+import model.animations.attack.AttackAnimationHandlerComponent;
+import model.animations.attack.AttackAnimationTileComponent;
 import model.animations.rain.RainAnimationTileComponent;
 import model.animations.rain.RainComponent;
 import model.animations.rain.RainHandlerComponent;
@@ -31,6 +36,7 @@ import model.turns.actions.OpenActionComponent;
 import model.turns.entities.PlayerTurnComponent;
 import model.turns.entities.SkeletonTurnComponent;
 import pattern.Entity;
+import pattern.Event;
 import screens.PlayScreenComponent;
 import util.Pair;
 
@@ -49,6 +55,7 @@ public class EntityGenerator {
 		
 		world.add(new WorldComponent());
 		world.add(new WorldTickComponent());
+		world.add(new AttackAnimationHandlerComponent());
 		
 		return world;
 	}
@@ -141,6 +148,17 @@ public class EntityGenerator {
 		rain.add(new AnimationLevelComponent(rainLife));
 		
 		return rain;
+	}
+	
+	public static Animation newAttackAnimation(Pair<Integer, Integer> position, char tile) {
+		Animation attackAnimation = new Animation();
+		
+		attackAnimation.add(new AttackAnimationTileComponent(AnimationTile.ATTACK, tile));
+		attackAnimation.add(new AttackAnimationComponent());
+		attackAnimation.add(new PositionComponent(position));
+		attackAnimation.add(new AnimationLevelComponent(0));
+		
+		return attackAnimation;
 	}
 	
 	

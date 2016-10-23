@@ -2,9 +2,9 @@ package model.animations.rain;
 
 import pattern.ComponentEvent;
 
-public class RainEvent extends ComponentEvent {
+public class TickRainEvent extends ComponentEvent {
 
-	public RainEvent() {
+	public TickRainEvent() {
 		super(RainComponent.class);
 	}
 }

@@ -14,6 +14,7 @@ public class RoomGenerator {
 		add(new EmptyRoom());
 		add(new LandRoom());
 		add(new ForestRoom());
+		add(new SkeletonRoom());
 	}};
 	
 	public static Room generateRoom(Pair<Integer, Integer> position) {
@@ -26,9 +27,6 @@ public class RoomGenerator {
 	
 	public static void addExtraArchitecture(Room room) {
 		Entity extraEntity = rand.nextFloat() < 0.15 ? EntityGenerator.newRandomTree() : EntityGenerator.newWall();
-		
-		Pair<Integer, Integer> skeletonPosition = new Pair<Integer, Integer>(rand.nextInt(Room.ROOM_SIZE-2)+1, rand.nextInt(Room.ROOM_SIZE-2)+1);
-		room.getCell(skeletonPosition).setEntity(EntityGenerator.newSkeleton(skeletonPosition));
 		
 		// North
 		if(rand.nextFloat() < 0.1) {

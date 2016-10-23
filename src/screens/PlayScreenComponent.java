@@ -39,24 +39,6 @@ public class PlayScreenComponent implements Component {
 					
 					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
 				}
-//				else if(event.getKeyCode() == KeyEvent.VK_A) {
-//					Room currentRoom = TinyRL.getInstance().getWorld().getCurrentRoom();
-//					Pair<Integer, Integer> playerPosition = currentRoom.getPositionOfEntityType(Player.class).get(0);
-//					Player player = (Player) currentRoom.getCell(playerPosition).getEntity();
-//					
-//					player.setHp(player.getHp()+1);
-//					
-//					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
-//				}
-//				else if(event.getKeyCode() == KeyEvent.VK_Z) {
-//					Room currentRoom = TinyRL.getInstance().getWorld().getCurrentRoom();
-//					Pair<Integer, Integer> playerPosition = currentRoom.getPositionOfEntityType(Player.class).get(0);
-//					Player player = (Player) currentRoom.getCell(playerPosition).getEntity();
-//					
-//					player.setHp(player.getHp()+1);
-//					
-//					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
-//				}
 			}
 			
 			KeyEvent otherEvent = TinyRL.getInstance().getAsciiTerminal().getOtherEvent();

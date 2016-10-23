@@ -4,17 +4,19 @@ import java.awt.Color;
 
 import ui.CustomColor;
 
-public enum AnimationTile {
-	RAIN1('|', CustomColor.VIKING),
-	RAIN2((char)249, CustomColor.VIKING),
-	RAIN3('o', CustomColor.VIKING),
-	RAIN4((char)248, CustomColor.VIKING),
-	RAIN5((char)250, CustomColor.VIKING);
+public class AnimationTile {
+	public final static AnimationTile RAIN1 = new AnimationTile('|', CustomColor.VIKING);
+	public final static AnimationTile RAIN2 = new AnimationTile((char)249, CustomColor.VIKING);
+	public final static AnimationTile RAIN3 = new AnimationTile('o', CustomColor.VIKING);
+	public final static AnimationTile RAIN4 = new AnimationTile((char)248, CustomColor.VIKING);
+	public final static AnimationTile RAIN5 = new AnimationTile((char)250, CustomColor.VIKING);
+	
+	public final static AnimationTile ATTACK = new AnimationTile(' ', CustomColor.BROWN);
 	
 	public char tile;
 	public Color color;
 
-	private AnimationTile(char tile, Color color) {
+	public AnimationTile(char tile, Color color) {
 		this.tile = tile;
 		this.color = color;
 	}
