@@ -1,6 +1,7 @@
 package pattern;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Entity extends ArrayList<Component> {
@@ -13,6 +14,17 @@ public class Entity extends ArrayList<Component> {
 		}
 		
 		return null;
+	}
+	
+	public <E extends Component> List<E> getComponentsByClass(Class<E> componentClass) {
+		List<E> components = new ArrayList<>();
+		for(Component component : this) {
+			if(componentClass.isAssignableFrom(component.getClass())) {
+				components.add((E) component);
+			}
+		}
+		
+		return components;
 	}
 	
 	public <E extends Component> boolean asComponentOfClass(Class<E> componentClass) {

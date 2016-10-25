@@ -274,4 +274,26 @@ public class EntityGenerator {
 		
 		return weapon;
 	}
+	
+	public static final float MAGIC_ITEM_DROP = 0.3f;
+	public static final float RARE_ITEM_DROP = 0.05f;
+	public static final float CHARGED_ITEM_DROP = 0.05f;
+	
+	public static Item newRandomItem() {
+		Item item = new Item();
+
+		// White item
+		int extra = 0;
+		
+		// Rare item
+		if(rand.nextFloat() < 0.05) {
+			
+		}
+		
+		if(rand.nextFloat() < 0.2) {
+//			item.add(new WeaponComponent(minDamage, maxDamage))
+		}
+		
+		return item;
+	}
 }
