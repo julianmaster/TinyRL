@@ -18,7 +18,8 @@ public class PlayScreenComponent implements Component {
 	
 	public static final String HP = String.valueOf((char)3);
 	public static final String MANA = String.valueOf((char)247);
-	public static final String ARMOR = String.valueOf((char)31);
+	public static final String PHYSICAL_ARMOR = String.valueOf((char)31);
+	public static final String MAGICAL_ARMOR = String.valueOf((char)31);
 	
 	boolean pause = false;
 	boolean info = false;
@@ -83,7 +84,8 @@ public class PlayScreenComponent implements Component {
 			else if(info) {
 				asciiPanel.writeString(10, 1, HP + " HP", CustomColor.BROWN);
 				asciiPanel.writeString(10, 2, MANA + " MANA", CustomColor.ROYAL_BLUE);
-				asciiPanel.writeString(10, 3, ARMOR + " ARMOR", CustomColor.GOLDEN_FIZZ);
+				asciiPanel.writeString(10, 3, PHYSICAL_ARMOR + " PH ARMOR", CustomColor.GOLDEN_FIZZ);
+				asciiPanel.writeString(10, 4, MAGICAL_ARMOR + " MA ARMOR", CustomColor.VIKING);
 			}
 			// Paint player info
 			else{
@@ -92,7 +94,8 @@ public class PlayScreenComponent implements Component {
 				
 				asciiPanel.writeString(10, 1, HP + String.format(" %3.0f",attributesComponent.getHp()) + "/" + String.format("%.0f",attributesComponent.getHpMax()), CustomColor.BROWN);
 				asciiPanel.writeString(10, 2, MANA + String.format(" %3.0f",attributesComponent.getMana()) + "/" + String.format("%.0f",attributesComponent.getManaMax()), CustomColor.ROYAL_BLUE);
-				asciiPanel.writeString(10, 3, ARMOR + String.format(" %3s",attributesComponent.getArmor()), CustomColor.GOLDEN_FIZZ);
+				asciiPanel.writeString(10, 3, PHYSICAL_ARMOR + String.format(" %3s",attributesComponent.getPhysicalArmor()), CustomColor.GOLDEN_FIZZ);
+				asciiPanel.writeString(10, 4, MAGICAL_ARMOR + String.format(" %3s",attributesComponent.getMagicalArmor()), CustomColor.VIKING);
 				asciiPanel.writeString(10, 8, "P:INV", CustomColor.WHITE);
 				asciiPanel.writeString(19, 8, "?", CustomColor.WHITE);
 			}

@@ -20,11 +20,12 @@ public class AttributesComponent implements Component {
 	private float mana = 0f;
 	private float manaBasicRegenRate = 1.0f;
 	
-	private int basicArmor = 5;
+	private int basicPhysicalArmor = 5;
+	private int basicMagicalArmor = 5;
 	
 	private int strength = 0; // hpMax = strength * 25f + hpBasic, hpRegenRate = strength * 0.05f + hpBasicRegenRate
-	private int agility = 0; // maxArmor = agility * 0.3f + basicArmor, reduceEnergy = agility
-	private int intelligence = 0; // manaMax = intelligence * 15f, manaRegenRate = intelligence * 0.05f + manaBasicRegenRate
+	private int agility = 0; // maxPhysicalArmor = agility * 0.3f + basicPhysicalArmor, reduceEnergy = agility
+	private int intelligence = 0; // manaMax = intelligence * 15f, manaRegenRate = intelligence * 0.05f + manaBasicRegenRate, maxMagicalArmor = intelligence * 0.3f + basicMagicalArmor
 	
 	private Item basicWeapon = null;
 	
@@ -77,8 +78,12 @@ public class AttributesComponent implements Component {
 		return intelligence * 15f;
 	}
 	
-	public int getArmor() {
-		return (int)(agility * 0.3f + basicArmor);
+	public int getPhysicalArmor() {
+		return (int)(agility * 0.3f + basicPhysicalArmor);
+	}
+	
+	public int getMagicalArmor() {
+		return (int)(intelligence * 0.3f + basicMagicalArmor);
 	}
 	
 	public List<Pair<Integer, Integer>> damages() {
