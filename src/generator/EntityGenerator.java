@@ -4,6 +4,7 @@ import java.util.Random;
 
 import model.Direction;
 import model.Item;
+import model.ItemComponent;
 import model.PositionComponent;
 import model.Room;
 import model.RoomComponent;
@@ -255,6 +256,38 @@ public class EntityGenerator {
 	
 	
 	
+	
+	
+	/**
+	 * Items
+	 */
+	
+	public static Item newWhiteBasicItem() {
+		Item item = new Item();
+		
+		int extraPhysicalDamage = 0;
+		int extraMagicalDamage = 0;
+		if(rand.nextBoolean()) {
+			extraPhysicalDamage++;
+		}
+		else {
+			extraMagicalDamage++;
+		}
+		
+		item.add(new ItemComponent(extraPhysicalDamage, extraMagicalDamage));
+		
+		return item;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Weapons
 	 */
@@ -279,7 +312,7 @@ public class EntityGenerator {
 	public static final float RARE_ITEM_DROP = 0.05f;
 	public static final float CHARGED_ITEM_DROP = 0.05f;
 	
-	public static Item newRandomItem() {
+	public static Item newRandomWeapon() {
 		Item item = new Item();
 
 		// White item
