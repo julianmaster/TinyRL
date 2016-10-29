@@ -3,13 +3,10 @@ package generator;
 import java.util.Random;
 
 import model.Direction;
-import model.Item;
-import model.ItemComponent;
 import model.PositionComponent;
 import model.Room;
 import model.RoomComponent;
 import model.Tile;
-import model.WeaponComponent;
 import model.World;
 import model.WorldComponent;
 import model.WorldTickComponent;
@@ -29,6 +26,11 @@ import model.entities.DoorComponent;
 import model.entities.EnemyDeadComponent;
 import model.entities.EntityTileComponent;
 import model.entities.PlayerDeadComponent;
+import model.items.Item;
+import model.items.ItemComponent;
+import model.items.ItemName;
+import model.items.NameComponent;
+import model.items.WeaponComponent;
 import model.turns.TurnControllerComponent;
 import model.turns.actions.AttackActionComponent;
 import model.turns.actions.ChangeRoomActionComponent;
@@ -247,6 +249,14 @@ public class EntityGenerator {
 		skeleton.add(new AttackActionComponent());
 		skeleton.add(new EnemyDeadComponent());
 		
+		if(rand.nextInt() < 0.3) {
+			skeleton.getComponentByClass(AttributesComponent.class).addItem(EntityGenerator.newWhiteBasicItem());
+			
+			if(rand.nextInt() < 0.1) {
+				skeleton.getComponentByClass(AttributesComponent.class).addItem(EntityGenerator.newWhiteBasicItem());
+			}
+		}
+		
 		return skeleton;
 	}
 	
@@ -264,6 +274,9 @@ public class EntityGenerator {
 	
 	public static Item newWhiteBasicItem() {
 		Item item = new Item();
+		
+		ItemName itemName = ItemName.getList()[rand.nextInt(ItemName.getList().length)];
+		item.add(new NameComponent(itemName.name));
 		
 		int extraPhysicalDamage = 0;
 		int extraMagicalDamage = 0;

@@ -1,4 +1,4 @@
-package model;
+package model.items;
 
 import pattern.Component;
 import pattern.Event;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.animations.Animation;
+import model.items.Item;
 import pattern.Entity;
 
 public class Cell {
