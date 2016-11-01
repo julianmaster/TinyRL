@@ -5,7 +5,7 @@ import java.util.Random;
 
 import model.Ground;
 import model.Room;
-import model.Tile;
+import model.entities.EntityTile;
 import pattern.Entity;
 import util.Pair;
 
@@ -19,10 +19,10 @@ public class ForestRoom extends BaseRoom {
 		add(Ground.HIGH_GRASS2);
 	}};
 	
-	private static ArrayList<Tile> trees = new ArrayList<Tile>() {{
-		add(Tile.TREE1);
-		add(Tile.TREE2);
-		add(Tile.TREE3);
+	private static ArrayList<EntityTile> trees = new ArrayList<EntityTile>() {{
+		add(EntityTile.TREE1);
+		add(EntityTile.TREE2);
+		add(EntityTile.TREE3);
 	}};
 
 	@Override
@@ -39,7 +39,7 @@ public class ForestRoom extends BaseRoom {
 				
 				if(x > 1 && x < Room.ROOM_SIZE - 2 && y > 1 && y < Room.ROOM_SIZE - 2) {
 					if(rand.nextBoolean()) {
-						Tile treeTile = trees.get(rand.nextInt(trees.size()));
+						EntityTile treeTile = trees.get(rand.nextInt(trees.size()));
 						Entity tree = EntityGenerator.newTree(treeTile);
 						room.getCell(position).setEntity(tree);
 					}

@@ -6,14 +6,12 @@ import model.Direction;
 import model.PositionComponent;
 import model.Room;
 import model.RoomComponent;
-import model.Tile;
 import model.World;
 import model.WorldComponent;
 import model.WorldTickComponent;
 import model.animations.Animation;
 import model.animations.AnimationLevelComponent;
 import model.animations.AnimationTile;
-import model.animations.AnimationTileComponent;
 import model.animations.attack.AttackAnimationComponent;
 import model.animations.attack.AttackAnimationHandlerComponent;
 import model.animations.attack.AttackAnimationTileComponent;
@@ -23,12 +21,18 @@ import model.animations.rain.RainHandlerComponent;
 import model.animations.rain.RainHandlerComponent.RainType;
 import model.entities.AttributesComponent;
 import model.entities.DoorComponent;
-import model.entities.EnemyDeadComponent;
+import model.entities.EntityTile;
 import model.entities.EntityTileComponent;
-import model.entities.PlayerDeadComponent;
+import model.entities.dead.EnemyDeadComponent;
+import model.entities.dead.PlayerDeadComponent;
+import model.entities.dead.SkeletonDeadComponent;
 import model.items.Item;
 import model.items.ItemComponent;
 import model.items.ItemName;
+import model.items.ItemRarity;
+import model.items.ItemRarityComponent;
+import model.items.ItemTile;
+import model.items.ItemTileComponent;
 import model.items.NameComponent;
 import model.items.WeaponComponent;
 import model.turns.TurnControllerComponent;
@@ -39,7 +43,6 @@ import model.turns.actions.OpenActionComponent;
 import model.turns.entities.PlayerTurnComponent;
 import model.turns.entities.SkeletonTurnComponent;
 import pattern.Entity;
-import pattern.Event;
 import screens.PlayScreenComponent;
 import util.Pair;
 
@@ -178,7 +181,7 @@ public class EntityGenerator {
 		
 		player.add(new PositionComponent(position));
 		player.add(new AttributesComponent(5, 5, 5, EntityGenerator.newBasicPlayerWeapon()));
-		player.add(new EntityTileComponent(Tile.PLAYER));
+		player.add(new EntityTileComponent(EntityTile.PLAYER));
 		player.add(new PlayerTurnComponent(60));
 		player.add(new MoveActionComponent());
 		player.add(new AttackActionComponent());
@@ -192,7 +195,7 @@ public class EntityGenerator {
 		
 		door.add(new DoorComponent());
 		door.add(new PositionComponent(position));
-		door.add(new EntityTileComponent(Tile.CLOSE_DOOR));
+		door.add(new EntityTileComponent(EntityTile.CLOSE_DOOR));
 		door.add(new OpenActionComponent());
 		door.add(new ChangeRoomActionComponent(nextRoom, direction));
 		
@@ -202,15 +205,15 @@ public class EntityGenerator {
 	public static Entity newWall() {
 		Entity wall = new Entity();
 		
-		wall.add(new EntityTileComponent(Tile.WALL));
+		wall.add(new EntityTileComponent(EntityTile.WALL));
 		
 		return wall;
 	}
 	
-	public static Entity newTree(Tile tile) {
+	public static Entity newTree(EntityTile entityTile) {
 		Entity tree = new Entity();
 		
-		tree.add(new EntityTileComponent(tile));
+		tree.add(new EntityTileComponent(entityTile));
 		
 		return tree;
 	}
@@ -218,18 +221,18 @@ public class EntityGenerator {
 	public static Entity newRandomTree() {
 		Entity tree = new Entity();
 		
-		Tile tile = null;
+		EntityTile tile = null;
 		switch (rand.nextInt(3)) {
 			case 0:
-			tile = Tile.TREE1;
+			tile = EntityTile.TREE1;
 			break;
 			
 			case 1:
-			tile = Tile.TREE2;
+			tile = EntityTile.TREE2;
 			break;
 			
 			case 2:
-			tile = Tile.TREE3;
+			tile = EntityTile.TREE3;
 			break;
 		}
 		
@@ -242,18 +245,18 @@ public class EntityGenerator {
 		Entity skeleton = new Entity();
 		
 		skeleton.add(new PositionComponent(position));
-		skeleton.add(new EntityTileComponent(Tile.SKELETON));
+		skeleton.add(new EntityTileComponent(EntityTile.SKELETON));
 		skeleton.add(new AttributesComponent(3, 3, 3, EntityGenerator.newBasicSkeletonWeapon()));
 		skeleton.add(new SkeletonTurnComponent(100));
 		skeleton.add(new MoveActionComponent());
 		skeleton.add(new AttackActionComponent());
-		skeleton.add(new EnemyDeadComponent());
+		skeleton.add(new SkeletonDeadComponent());
 		
 		if(rand.nextInt() < 0.3) {
-			skeleton.getComponentByClass(AttributesComponent.class).addItem(EntityGenerator.newWhiteBasicItem());
+			skeleton.getComponentByClass(AttributesComponent.class).addItem(EntityGenerator.newRandomWhiteItem());
 			
 			if(rand.nextInt() < 0.1) {
-				skeleton.getComponentByClass(AttributesComponent.class).addItem(EntityGenerator.newWhiteBasicItem());
+				skeleton.getComponentByClass(AttributesComponent.class).addItem(EntityGenerator.newRandomWhiteItem());
 			}
 		}
 		
@@ -272,7 +275,18 @@ public class EntityGenerator {
 	 * Items
 	 */
 	
-	public static Item newWhiteBasicItem() {
+	public static Item newGrayItem(String name, ItemTile itemTile) {
+		Item item = new Item();
+		
+		item.add(new NameComponent(name));
+		item.add(new ItemTileComponent(itemTile));
+		item.add(new ItemRarityComponent(ItemRarity.USELESS_ITEM));
+		
+		return item;
+	}
+	
+	
+	public static Item newRandomWhiteItem() {
 		Item item = new Item();
 		
 		ItemName itemName = ItemName.getList()[rand.nextInt(ItemName.getList().length)];
@@ -288,6 +302,8 @@ public class EntityGenerator {
 		}
 		
 		item.add(new ItemComponent(extraPhysicalDamage, extraMagicalDamage));
+		item.add(new ItemTileComponent(ItemTile.COMMUN_ITEM));
+		item.add(new ItemRarityComponent(ItemRarity.COMMUN_ITEM));
 		
 		return item;
 	}

@@ -23,7 +23,7 @@ public class AttackAnimationHandlerComponent implements Component {
 			
 			Room room = (Room)Engine.getInstance().getEntityByComponentClass(RoomComponent.class);
 			
-			Animation animation = EntityGenerator.newAttackAnimation(positionComponent.getPosition(), tileEntity.getTile().tile);
+			Animation animation = EntityGenerator.newAttackAnimation(positionComponent.getPosition(), tileEntity.getEntityTile().tile);
 			Engine.getInstance().addEntity(animation);
 			room.getCell(positionComponent.getPosition()).getAnimations().add(animation);
 		}

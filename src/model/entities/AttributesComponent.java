@@ -1,6 +1,7 @@
 package model.entities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import model.items.Item;
@@ -18,17 +19,15 @@ public class AttributesComponent implements Component {
 	
 	private float hp = 0f;
 	private int hpBasic = 50;
-	private float hpBasicRegenRate = 1.0f;
 	
 	private float mana = 0f;
-	private float manaBasicRegenRate = 1.0f;
 	
 	private int basicPhysicalArmor = 1;
 	private int basicMagicalArmor = 1;
 	
-	private int strength = 0; // hpMax = strength * 5f + hpBasic, hpRegenRate = strength * 0.05f + hpBasicRegenRate
-	private int agility = 0; // maxPhysicalArmor = agility * 0.3f + basicPhysicalArmor, reduceEnergy = agility
-	private int intelligence = 0; // manaMax = intelligence * 5f, manaRegenRate = intelligence * 0.05f + manaBasicRegenRate, maxMagicalArmor = intelligence * 0.3f + basicMagicalArmor
+	private int strength = 0; // hpMax = strength * 5f + hpBasic
+	private int agility = 0; // reduceEnergy = agility, maxPhysicalArmor = agility * 0.3f + basicPhysicalArmor
+	private int intelligence = 0; // manaMax = intelligence * 5f, maxMagicalArmor = intelligence * 0.3f + basicMagicalArmor
 	
 	private Item basicWeapon = null;
 	
@@ -64,10 +63,7 @@ public class AttributesComponent implements Component {
 			}
 		}
 		else if(e instanceof ResolveTurnEvent) {
-			if(!dead) {
-				hp += strength * 0.05f + hpBasicRegenRate;
-				hp = Math.min(hp, strength * 5f + hpBasic);
-			}
+			// Resolve effects (potions, bonus, malus,...)
 		}
 	}
 
@@ -123,5 +119,13 @@ public class AttributesComponent implements Component {
 		else {
 			return false;
 		}
+	}
+	
+	public List<Item> getAllItems() {
+		return new ArrayList<>(items);
+	}
+	
+	public void clearItems() {
+		items.clear();
 	}
 }

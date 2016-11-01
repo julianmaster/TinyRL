@@ -114,7 +114,7 @@ public class PlayerTurnComponent extends TurnComponent {
 					// Attack action
 					AttributesComponent enemyAttributesComponent = entity.getComponentByClass(AttributesComponent.class);
 					if(enemyAttributesComponent != null) {
-						
+						System.out.println("PlayerTurnComponent: attack");
 						Engine.getInstance().addHeadEvent(new NextTickTurnControllerEvent());
 						Engine.getInstance().addHeadEvent(new AttackActionEvent(moveActionEvent.getEntity(), entity));
 						Engine.getInstance().addHeadEvent(new AddAttackAnimationEvent(entity));

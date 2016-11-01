@@ -1,8 +1,8 @@
 package model.turns.actions;
 
-import model.Tile;
 import model.entities.ChangeEntityTileEvent;
 import model.entities.DoorComponent;
+import model.entities.EntityTile;
 import model.turns.NextTickTurnControllerEvent;
 import pattern.Component;
 import pattern.Engine;
@@ -23,7 +23,7 @@ public class OpenActionComponent implements Component {
 			
 			Entity entity = openActionEvent.getEntity();
 			if(entity.getComponentByClass(DoorComponent.class) != null) {
-				Engine.getInstance().addHeadEvent(new ChangeEntityTileEvent(entity, Tile.OPEN_DOOR));
+				Engine.getInstance().addHeadEvent(new ChangeEntityTileEvent(entity, EntityTile.OPEN_DOOR));
 			}
 		}
 	}

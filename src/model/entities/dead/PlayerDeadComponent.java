@@ -1,5 +1,6 @@
-package model.entities;
+package model.entities.dead;
 
+import model.entities.KillEvent;
 import pattern.Event;
 
 public class PlayerDeadComponent extends DeadComponent {

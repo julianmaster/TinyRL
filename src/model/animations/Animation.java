@@ -1,17 +1,13 @@
 package model.animations;
 
-import pattern.Component;
 import pattern.Entity;
 
 public class Animation extends Entity implements Comparable<Animation> {
 	@Override
 	public int compareTo(Animation o) {
-		for(Component c : this) {
-			if(c instanceof AnimationLevelComponent) {
-				return ((AnimationLevelComponent)c).getLevel();
-			}
-		}
+		AnimationLevelComponent animationLevelComponent = this.getComponentByClass(AnimationLevelComponent.class);
+		AnimationLevelComponent otherAnimationLevelComponent = o.getComponentByClass(AnimationLevelComponent.class);
 		
-		return 0;
+		return animationLevelComponent.getLevel() - otherAnimationLevelComponent.getLevel();
 	}
 }

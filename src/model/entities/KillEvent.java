@@ -1,5 +1,6 @@
 package model.entities;
 
+import model.entities.dead.DeadComponent;
 import pattern.Entity;
 import pattern.EntityComponentEvent;
 

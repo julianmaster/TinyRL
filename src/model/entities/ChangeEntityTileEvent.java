@@ -1,19 +1,18 @@
 package model.entities;
 
-import model.Tile;
 import pattern.Entity;
 import pattern.EntityComponentEvent;
 
 public class ChangeEntityTileEvent extends EntityComponentEvent {
 
-	private Tile newTile;
+	private EntityTile newEntityTile;
 
-	public ChangeEntityTileEvent(Entity entity, Tile newTile) {
+	public ChangeEntityTileEvent(Entity entity, EntityTile newEntityTile) {
 		super(EntityTileComponent.class, entity);
-		this.newTile = newTile;
+		this.newEntityTile = newEntityTile;
 	}
-	
-	public Tile getNewTile() {
-		return newTile;
+
+	public EntityTile getNewEntityTile() {
+		return newEntityTile;
 	}
 }

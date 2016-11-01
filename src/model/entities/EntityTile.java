@@ -1,10 +1,10 @@
-package model;
+package model.entities;
 
 import java.awt.Color;
 
 import ui.CustomColor;
 
-public enum Tile {
+public enum EntityTile {
 	WALL('#', "A wall", CustomColor.TOPAZ),
 	TREE1((char)6, "A tree", CustomColor.ATLANTIS),
 	TREE2((char)6, "A tree", CustomColor.CHRISTI),
@@ -21,7 +21,7 @@ public enum Tile {
 	public String name;
 	public Color color;
 	
-	private Tile(char tile, String name, Color color) {
+	private EntityTile(char tile, String name, Color color) {
 		this.tile = tile;
 		this.name = name;
 		this.color = color;

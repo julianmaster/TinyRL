@@ -1,15 +1,14 @@
 package model.entities;
 
-import model.Tile;
 import pattern.Component;
 import pattern.Event;
 
 public class EntityTileComponent implements Component {
 	
-	private Tile tile;
+	private EntityTile entityTile;
 	
-	public EntityTileComponent(Tile tile) {
-		this.tile = tile;
+	public EntityTileComponent(EntityTile entityTile) {
+		this.entityTile = entityTile;
 	}
 
 	@Override
@@ -17,11 +16,11 @@ public class EntityTileComponent implements Component {
 		if(e instanceof ChangeEntityTileEvent) {
 			ChangeEntityTileEvent changeEntityTileEvent = (ChangeEntityTileEvent)e;
 			
-			tile = changeEntityTileEvent.getNewTile();
+			entityTile = changeEntityTileEvent.getNewEntityTile();
 		}
 	}
-	
-	public Tile getTile() {
-		return tile;
+
+	public EntityTile getEntityTile() {
+		return entityTile;
 	}
 }

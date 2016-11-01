@@ -111,6 +111,9 @@ public class Engine implements Component {
 	
 	@Override
 	public void process(Event event, double deltaTime) {
+		if(DEBUG) {
+			System.out.println("---");
+		}
 		updateListsEngine();
 		for(Event e : eventsToProcessNextTurn) {
 			eventsToProcess.addFirst(e);

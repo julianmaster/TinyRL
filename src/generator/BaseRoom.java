@@ -1,9 +1,12 @@
 package generator;
 
+import java.util.ArrayList;
+
 import model.Cell;
 import model.Direction;
 import model.Ground;
 import model.Room;
+import model.items.Item;
 import pattern.Entity;
 import util.Pair;
 
@@ -13,7 +16,7 @@ public abstract class BaseRoom {
 	public void initRoom(Room room, Ground ground) {
 		for(int x = 0; x < Room.ROOM_SIZE; x++) {
 			for(int y = 0; y < Room.ROOM_SIZE; y++) {
-				Cell cell = new Cell(null, null, ground);
+				Cell cell = new Cell(null, new ArrayList<Item>(), ground);
 				room.setCell(new Pair<Integer, Integer>(x, y), cell);
 			}
 		}

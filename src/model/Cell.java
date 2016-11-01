@@ -10,12 +10,12 @@ import pattern.Entity;
 public class Cell {
 	private List<Animation> animations = new ArrayList<>();
 	private Entity entity;
-	private Item item;
+	private List<Item> items;
 	private Ground ground;
 
-	public Cell(Entity entity, Item item, Ground ground) {
+	public Cell(Entity entity, List<Item> items, Ground ground) {
 		this.entity = entity;
-		this.item = item;
+		this.items = items;
 		this.ground = ground;
 	}
 
@@ -35,14 +35,14 @@ public class Cell {
 		this.entity = entity;
 	}
 
-	public Item getItem() {
-		return item;
+	public List<Item> getItems() {
+		return items;
 	}
-
-	public void setItem(Item item) {
-		this.item = item;
+	
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
-
+	
 	public Ground getGround() {
 		return ground;
 	}

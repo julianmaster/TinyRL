@@ -1,7 +1,5 @@
 package model.items;
 
-import java.util.List;
-
 public enum ItemName {
 	
 	FLUTE("Flute"),
