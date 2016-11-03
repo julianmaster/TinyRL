@@ -4,6 +4,7 @@ import main.TinyRL;
 import model.animations.rain.RainComponent;
 import model.animations.rain.RainHandlerComponent;
 import model.entities.EntityTileComponent;
+import model.items.ItemRarityComponent;
 import model.turns.TurnControllerAddEntityEvent;
 import model.turns.TurnControllerClearEntitiesEvent;
 import pattern.Component;
@@ -22,6 +23,7 @@ public class WorldComponent implements Component {
 			Engine.getInstance().removeEntitiesByComponentClass(RainHandlerComponent.class);
 			Engine.getInstance().removeEntitiesByComponentClass(RainComponent.class);
 			Engine.getInstance().removeEntitiesByComponentClass(EntityTileComponent.class);
+			Engine.getInstance().removeEntitiesByComponentClass(ItemRarityComponent.class);
 			
 			Room room = TinyRL.getInstance().getWorld().getRoom(changeCurrentRoomEvent.getNextRoom());
 			
@@ -29,6 +31,7 @@ public class WorldComponent implements Component {
 			Engine.getInstance().addEntities(room.getAnimationHandlers());
 			Engine.getInstance().addEntities(room.getAnimations());
 			Engine.getInstance().addEntities(room.getEntities());
+			Engine.getInstance().addEntities(room.getItems());
 			
 			for(Entity entity : room.getEntitiesWithTurn()) {
 				Engine.getInstance().addHeadEvent(new TurnControllerAddEntityEvent(entity));

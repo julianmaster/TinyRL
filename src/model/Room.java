@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import model.animations.Animation;
+import model.items.Item;
 import model.turns.TurnComponent;
 import pattern.Entity;
 import util.Pair;
@@ -120,6 +121,16 @@ public class Room extends Entity {
 			}
 		}
 		return entities;
+	}
+	
+	public List<Item> getItems() {
+		List<Item> items = new ArrayList<>();
+		for(int x = 0; x < ROOM_SIZE; x++) {
+			for(int y = 0; y < ROOM_SIZE; y++) {
+				items.addAll(cells[x][y].getItems());
+			}
+		}
+		return items;
 	}
 	
 	public ArrayList<Pair<Integer, Integer>> pathTo(final Pair<Integer, Integer> start, final Pair<Integer, Integer> goal) {

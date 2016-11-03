@@ -26,6 +26,8 @@ public class EnemyDeadComponent extends DeadComponent {
 			AttributesComponent attributesComponent = killEvent.getEntity().getComponentByClass(AttributesComponent.class);
 			List<Item> items = attributesComponent.getAllItems();
 			
+			Engine.getInstance().addEntities(items);
+			
 			for(Item item : items) {
 				room.getCell(positionEntity).getItems().add(item);
 			}
