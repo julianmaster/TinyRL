@@ -34,6 +34,7 @@ import model.items.ItemRarityComponent;
 import model.items.ItemTile;
 import model.items.ItemTileComponent;
 import model.items.NameComponent;
+import model.items.RainbowColorControllerComponent;
 import model.items.WeaponComponent;
 import model.turns.TurnControllerComponent;
 import model.turns.actions.AttackActionComponent;
@@ -62,6 +63,7 @@ public class EntityGenerator {
 		world.add(new WorldComponent());
 		world.add(new WorldTickComponent());
 		world.add(new AttackAnimationHandlerComponent());
+		world.add(new RainbowColorControllerComponent());
 		
 		return world;
 	}
@@ -252,13 +254,13 @@ public class EntityGenerator {
 		skeleton.add(new AttackActionComponent());
 		skeleton.add(new SkeletonDeadComponent());
 		
-		if(rand.nextInt() < 0.3) {
+//		if(rand.nextFloat() < 0.3) {
 			skeleton.getComponentByClass(AttributesComponent.class).addItem(EntityGenerator.newRandomWhiteItem());
 			
-			if(rand.nextInt() < 0.1) {
+			if(rand.nextFloat() < 0.1) {
 				skeleton.getComponentByClass(AttributesComponent.class).addItem(EntityGenerator.newRandomWhiteItem());
 			}
-		}
+//		}
 		
 		return skeleton;
 	}
@@ -303,7 +305,8 @@ public class EntityGenerator {
 		
 		item.add(new ItemComponent(extraPhysicalDamage, extraMagicalDamage));
 		item.add(new ItemTileComponent(ItemTile.COMMUN_ITEM));
-		item.add(new ItemRarityComponent(ItemRarity.COMMUN_ITEM));
+//		item.add(new ItemRarityComponent(ItemRarity.COMMUN_ITEM));
+		item.add(new ItemRarityComponent(ItemRarity.RARE_ITEM));
 		
 		return item;
 	}

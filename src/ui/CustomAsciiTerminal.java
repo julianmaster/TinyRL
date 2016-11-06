@@ -19,8 +19,8 @@ public class CustomAsciiTerminal extends AsciiTerminal {
 	private KeyEvent event;
 	private KeyEvent otherEvent;
 	
-	public CustomAsciiTerminal(String title, Dimension dimension, String tilesetFile, int characterWidth, int characterHeight, String frameIconPath) {
-		super(title, dimension, tilesetFile, characterWidth, characterHeight);
+	public CustomAsciiTerminal(String title, Dimension dimension, String tilesetFile, int characterWidth, int characterHeight, int scale, String frameIconPath, boolean customWindow) {
+		super(title, dimension, tilesetFile, characterWidth, characterHeight, scale, customWindow);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		try {
 			this.setIconImage(ImageIO.read(getClass().getResource(frameIconPath)));

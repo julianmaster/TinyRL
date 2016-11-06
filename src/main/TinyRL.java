@@ -18,10 +18,31 @@ public class TinyRL {
 	public static final String TITLE = "TinyRL";
 	public static final int WINDOW_WIDTH = 20;
 	public static final int WINDOW_HEIGHT = 9;
-	public static final String TILESET_FILE = "/assets/wanderlust.png";
 	public static final String ICON_FILE = "/assets/icon.png";
+	
+	//*
+	public static final String TILESET_FILE = "/assets/wanderlust.png";
 	public static final int CHARACTER_WIDTH = 12;
 	public static final int CHARACTER_HEIGHT = 12;
+	//*/
+	/*
+	public static final String TILESET_FILE = "/assets/Kein.png";
+	public static final int CHARACTER_WIDTH = 5;
+	public static final int CHARACTER_HEIGHT = 5;
+	//*/
+	/*
+	public static final String TILESET_FILE = "/assets/taffer_original.png";
+	public static final int CHARACTER_WIDTH = 10;
+	public static final int CHARACTER_HEIGHT = 10;
+	//*/
+	/*
+	public static final String TILESET_FILE = "/assets/taffer_blackletter.png";
+	public static final int CHARACTER_WIDTH = 10;
+	public static final int CHARACTER_HEIGHT = 10;
+	//*/
+
+	public static final int SCALE = 2;
+	public static final boolean CUSTOM_WINDOW = true;
 	
 	public static final int TARGET_FPS = 60;
 	public static final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
@@ -35,7 +56,7 @@ public class TinyRL {
 	private Event currentEvent;
 	
 	private TinyRL() {
-		asciiTerminal = new CustomAsciiTerminal(TITLE, new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT), TILESET_FILE, CHARACTER_WIDTH, CHARACTER_HEIGHT, ICON_FILE);
+		asciiTerminal = new CustomAsciiTerminal(TITLE, new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT), TILESET_FILE, CHARACTER_WIDTH, CHARACTER_HEIGHT, SCALE, ICON_FILE, CUSTOM_WINDOW);
 		asciiPanel = asciiTerminal.getAsciiPanel();
 		asciiPanel.setDefaultCharacterBackgroundColor(CustomColor.BLACK);
 		asciiPanel.setDefaultCharacterColor(CustomColor.WHITE);

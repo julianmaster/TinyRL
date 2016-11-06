@@ -4,17 +4,30 @@ import java.awt.Color;
 
 import ui.CustomColor;
 
-public enum ItemRarity {
-	USELESS_ITEM(0, CustomColor.HEATHER),
-	COMMUN_ITEM(1, CustomColor.WHITE),
-	MAGIC_ITEM(2, CustomColor.HEATHER),
-	RARE_ITEM(3, CustomColor.HEATHER);
+public class ItemRarity {
+	public static final ItemRarity USELESS_ITEM = new ItemRarity(0, CustomColor.HEATHER);
+	public static final ItemRarity COMMUN_ITEM = new ItemRarity(1, CustomColor.WHITE);
+	public static final ItemRarity MAGIC_ITEM = new ItemRarity(2, CustomColor.HEATHER);
+	public static final ItemRarity RARE_ITEM = new ItemRarity(3, Color.RED, true);
 
 	public int level;
 	public Color color;
+	private boolean changeColor = false;
 
 	private ItemRarity(int level, Color color) {
 		this.level = level;
 		this.color = color;
+	}
+
+	private ItemRarity(int level, Color color, boolean changeColor) {
+		this.level = level;
+		this.color = color;
+		this.changeColor = changeColor;
+	}
+	
+	public void setColor(Color color) {
+		if(changeColor) {
+			this.color = color;
+		}
 	}
 }
