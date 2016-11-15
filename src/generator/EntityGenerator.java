@@ -23,7 +23,6 @@ import model.entities.AttributesComponent;
 import model.entities.DoorComponent;
 import model.entities.EntityTile;
 import model.entities.EntityTileComponent;
-import model.entities.dead.EnemyDeadComponent;
 import model.entities.dead.PlayerDeadComponent;
 import model.entities.dead.SkeletonDeadComponent;
 import model.items.Item;
@@ -36,6 +35,8 @@ import model.items.ItemTileComponent;
 import model.items.NameComponent;
 import model.items.RainbowColorControllerComponent;
 import model.items.WeaponComponent;
+import model.particles.ParticleComponent;
+import model.particles.ParticleHandlerComponent;
 import model.turns.TurnControllerComponent;
 import model.turns.actions.AttackActionComponent;
 import model.turns.actions.ChangeRoomActionComponent;
@@ -52,6 +53,22 @@ public class EntityGenerator {
 	private static Random rand = new Random();
 
 	
+	public static Entity newParticleManager() {
+		Entity entity = new Entity();
+		
+		entity.add(new ParticleHandlerComponent());
+		
+		return entity;
+	}
+	
+	public static Entity newParticle(Pair<Integer, Integer> position, Pair<Float, Float> velocity, float lifeLength) {
+		Entity entity = new Entity();
+		
+		entity.add(new PositionComponent(position));
+		entity.add(new ParticleComponent(new Pair<>(position.key.floatValue(), position.value.floatValue()), velocity, lifeLength));
+		
+		return entity;
+	}
 	
 	/**
 	 * World 
