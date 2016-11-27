@@ -2,9 +2,9 @@ package model.particles;
 
 import pattern.ComponentEvent;
 
-public class TickParticleEvent extends ComponentEvent {
+public class UpdateParticleEvent extends ComponentEvent {
 
-	public TickParticleEvent() {
+	public UpdateParticleEvent() {
 		super(ParticleComponent.class);
 	}
 }

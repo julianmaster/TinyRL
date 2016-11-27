@@ -105,6 +105,8 @@ public class TinyRL {
 		Entity playScreen = EntityGenerator.newPlayScreen();
 		Engine.getInstance().addEntity(playScreen);
 		
+		Engine.getInstance().addEntity(EntityGenerator.newParticleManager());
+		
 		currentEvent = new PlayScreenEvent();
 	}
 	

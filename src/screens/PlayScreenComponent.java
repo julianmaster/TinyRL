@@ -2,10 +2,14 @@ package screens;
 
 import java.awt.event.KeyEvent;
 
+import generator.EntityGenerator;
 import main.TinyRL;
 import model.RenderRoomEvent;
 import model.WorldTickEvent;
 import model.entities.AttributesComponent;
+import model.particles.AddParticleEvent;
+import model.particles.Particle;
+import model.particles.TickParticleHandlerEvent;
 import model.turns.entities.PlayerTurnComponent;
 import pattern.Component;
 import pattern.Engine;
@@ -13,6 +17,7 @@ import pattern.Entity;
 import pattern.Event;
 import ui.AsciiPanel;
 import ui.CustomColor;
+import util.Pair;
 
 public class PlayScreenComponent implements Component {
 	
@@ -30,6 +35,12 @@ public class PlayScreenComponent implements Component {
 			/**
 			 * UPDATE
 			 */
+			Pair<Integer, Integer> position = new Pair<Integer, Integer>(TinyRL.WINDOW_WIDTH/2, TinyRL.WINDOW_HEIGHT/2);
+			Pair<Float, Float> velocity = new Pair<Float, Float>((EntityGenerator.rand.nextFloat()*2f-1)/10, (EntityGenerator.rand.nextFloat()*2f-1)/10);
+			Particle particle = EntityGenerator.newParticle(position, velocity, 40);
+			Engine.getInstance().addHeadEvent(new AddParticleEvent(particle));
+			
+			
 			
 			// TODO Adding the animation blocking turn system.
 			
@@ -72,6 +83,7 @@ public class PlayScreenComponent implements Component {
 //			Room currentRoom = TinyRL.getInstance().getWorld().getCurrentRoom();
 //			currentRoom.draw();
 			Engine.getInstance().addTailEvent(new RenderRoomEvent());
+			Engine.getInstance().addTailEvent(new TickParticleHandlerEvent());
 			
 			AsciiPanel asciiPanel = TinyRL.getInstance().getAsciiPanel();
 			asciiPanel.clear();

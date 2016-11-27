@@ -35,6 +35,7 @@ import model.items.ItemTileComponent;
 import model.items.NameComponent;
 import model.items.RainbowColorControllerComponent;
 import model.items.WeaponComponent;
+import model.particles.Particle;
 import model.particles.ParticleComponent;
 import model.particles.ParticleHandlerComponent;
 import model.turns.TurnControllerComponent;
@@ -50,8 +51,16 @@ import util.Pair;
 
 public class EntityGenerator {
 	
-	private static Random rand = new Random();
+	public static Random rand = new Random();
 
+	
+	
+	
+	
+	
+	/**
+	 * Particles
+	 */
 	
 	public static Entity newParticleManager() {
 		Entity entity = new Entity();
@@ -61,14 +70,24 @@ public class EntityGenerator {
 		return entity;
 	}
 	
-	public static Entity newParticle(Pair<Integer, Integer> position, Pair<Float, Float> velocity, float lifeLength) {
-		Entity entity = new Entity();
+	public static Particle newParticle(Pair<Integer, Integer> position, Pair<Float, Float> velocity, float lifeLength) {
+		Particle particle = new Particle();
 		
-		entity.add(new PositionComponent(position));
-		entity.add(new ParticleComponent(new Pair<>(position.key.floatValue(), position.value.floatValue()), velocity, lifeLength));
+		particle.add(new PositionComponent(position));
+		particle.add(new ParticleComponent(new Pair<>(position.key.floatValue(), position.value.floatValue()), velocity, lifeLength));
 		
-		return entity;
+		return particle;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * World 
@@ -84,6 +103,8 @@ public class EntityGenerator {
 		
 		return world;
 	}
+	
+	
 	
 	
 	

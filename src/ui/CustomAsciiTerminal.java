@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import main.TinyRL;
-import model.WindowCloseHandler;
 
 public class CustomAsciiTerminal extends AsciiTerminal {
 

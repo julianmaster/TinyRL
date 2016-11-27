@@ -1,10 +1,10 @@
 package model.particles;
 
-import main.TinyRL;
-import model.PositionComponent;
+import java.awt.Color;
+
+import model.ChangePositionEvent;
 import pattern.Component;
 import pattern.Engine;
-import pattern.Entity;
 import pattern.Event;
 import util.Pair;
 
@@ -12,6 +12,7 @@ public class ParticleComponent implements Component {
 	private Pair<Float, Float> position;
 	private Pair<Float, Float> velocity;
 	private float lifeLength;
+	private Color color = Color.WHITE;
 	
 	private float elapsedTime = 0;
 	
@@ -23,25 +24,38 @@ public class ParticleComponent implements Component {
 
 	@Override
 	public void process(Event e, double deltaTime) {
-		if(e instanceof TickParticleEvent) {
-			Entity particle = Engine.getInstance().getEntityByComponent(this);
-			PositionComponent positionComponent = particle.getComponentByClass(PositionComponent.class);
+		if(e instanceof UpdateParticleEvent) {
+			Particle particle = (Particle)Engine.getInstance().getEntityByComponent(this);
+			
+			elapsedTime += deltaTime;
+			if(elapsedTime >= lifeLength) {
+				Engine.getInstance().addHeadEvent(new RemoveParticleEvent(particle));
+				Engine.getInstance().removeEntity(particle);
+			}
+			
+			Pair<Integer, Integer> oldPosition = new Pair<Integer, Integer>(position.key.intValue(), position.value.intValue());
 			
 			Pair<Float, Float> change = new Pair<Float, Float>(velocity.key, velocity.value);
 			change.key *= (float)deltaTime;
 			change.value *= (float)deltaTime;
 			position.key += change.key;
 			position.value += change.value;
-			
-			elapsedTime += deltaTime;
-			if(elapsedTime >= lifeLength) {
-				
-				Engine.getInstance().removeEntity(particle);
+			if(oldPosition.key != position.key.intValue() || oldPosition.value != position.value.intValue()) {
+				Engine.getInstance().addHeadEvent(new MoveParticleEvent(oldPosition, particle));
+				Engine.getInstance().addHeadEvent(new ChangePositionEvent(particle, position.key.intValue(), position.value.intValue()));
 			}
 		}
 	}
 	
 	public float getLevel() {
 		return elapsedTime / lifeLength;
+	}
+	
+	public Color getColor() {
+		int r = (int)(color.getRed() * (lifeLength - elapsedTime) / lifeLength);
+		int v = (int)(color.getGreen() * (lifeLength - elapsedTime) / lifeLength);
+		int b = (int)(color.getBlue() * (lifeLength - elapsedTime) / lifeLength);
+		
+		return new Color(r,v,b);
 	}
 }
