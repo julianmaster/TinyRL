@@ -48,7 +48,7 @@ public class ParticleComponent implements Component {
 	}
 	
 	public float getLevel() {
-		return elapsedTime / lifeLength;
+		return (lifeLength - elapsedTime) / lifeLength;
 	}
 	
 	public Color getColor() {
