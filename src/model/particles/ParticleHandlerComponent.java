@@ -30,13 +30,6 @@ public class ParticleHandlerComponent implements Component {
 	public void process(Event e, double deltaTime) {
 		if(e instanceof TickParticleHandlerEvent) {
 			Engine.getInstance().addTailEvent(new UpdateParticleEvent());
-			Engine.getInstance().addTailEvent(new RenderParticlesEvent());
-		}
-		else if(e instanceof RemoveParticleEvent) {
-			Particle particle = ((RemoveParticleEvent) e).getParticleToRemove();
-			PositionComponent positionComponent = particle.getComponentByClass(PositionComponent.class);
-			Pair<Integer, Integer> position = positionComponent.getPosition();
-			particles[position.key][position.value].remove(particle);
 		}
 		else if(e instanceof RenderParticlesEvent) {
 			for(int i = 0; i < TinyRL.WINDOW_WIDTH; i++) {
@@ -52,6 +45,12 @@ public class ParticleHandlerComponent implements Component {
 					}
 				}
 			}
+		}
+		else if(e instanceof RemoveParticleEvent) {
+			Particle particle = ((RemoveParticleEvent) e).getParticleToRemove();
+			PositionComponent positionComponent = particle.getComponentByClass(PositionComponent.class);
+			Pair<Integer, Integer> position = positionComponent.getPosition();
+			particles[position.key][position.value].remove(particle);
 		}
 		else if(e instanceof AddParticleEvent) {
 			AddParticleEvent addParticleEvent = (AddParticleEvent)e;

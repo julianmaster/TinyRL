@@ -9,7 +9,9 @@ import model.WorldTickEvent;
 import model.entities.AttributesComponent;
 import model.particles.AddParticleEvent;
 import model.particles.Particle;
+import model.particles.RenderParticlesEvent;
 import model.particles.TickParticleHandlerEvent;
+import model.particles.UpdateParticleEvent;
 import model.turns.entities.PlayerTurnComponent;
 import pattern.Component;
 import pattern.Engine;
@@ -32,9 +34,7 @@ public class PlayScreenComponent implements Component {
 	@Override
 	public void process(Event e, double deltaTime) {
 		if(e instanceof PlayScreenEvent) {
-			/**
-			 * UPDATE
-			 */
+			
 			Pair<Integer, Integer> position = new Pair<Integer, Integer>(TinyRL.WINDOW_WIDTH/2, TinyRL.WINDOW_HEIGHT/2);
 			Pair<Float, Float> velocity = new Pair<Float, Float>((EntityGenerator.rand.nextFloat()*2f-1)/10, (EntityGenerator.rand.nextFloat()*2f-1)/10);
 			Particle particle = EntityGenerator.newParticle(position, velocity, 40);
@@ -43,6 +43,10 @@ public class PlayScreenComponent implements Component {
 			
 			
 			// TODO Adding the animation blocking turn system.
+			
+			/**
+			 * UPDATE
+			 */
 			
 			KeyEvent event = TinyRL.getInstance().getAsciiTerminal().getEvent();
 			if(event != null) {
@@ -71,6 +75,7 @@ public class PlayScreenComponent implements Component {
 			if(!pause) {
 				// Animation update
 				Engine.getInstance().addTailEvent(new WorldTickEvent());
+				Engine.getInstance().addTailEvent(new TickParticleHandlerEvent());
 			}
 			
 			
@@ -80,10 +85,8 @@ public class PlayScreenComponent implements Component {
 			 * DRAW
 			 */
 			
-//			Room currentRoom = TinyRL.getInstance().getWorld().getCurrentRoom();
-//			currentRoom.draw();
 			Engine.getInstance().addTailEvent(new RenderRoomEvent());
-			Engine.getInstance().addTailEvent(new TickParticleHandlerEvent());
+			Engine.getInstance().addTailEvent(new RenderParticlesEvent());
 			
 			AsciiPanel asciiPanel = TinyRL.getInstance().getAsciiPanel();
 			asciiPanel.clear();
