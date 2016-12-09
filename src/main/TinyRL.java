@@ -55,8 +55,6 @@ public class TinyRL {
 	
 	private Event currentEvent;
 	
-	public static GameProfiler gameProfiler = new GameProfiler();
-	
 	private TinyRL() {
 		asciiTerminal = new CustomAsciiTerminal(TITLE, new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT), TILESET_FILE, CHARACTER_WIDTH, CHARACTER_HEIGHT, SCALE, ICON_FILE, CUSTOM_WINDOW);
 		asciiPanel = asciiTerminal.getAsciiPanel();
@@ -116,24 +114,15 @@ public class TinyRL {
 		long lastLoopTime = System.nanoTime();
 		
 		while(true) {
-			gameProfiler.endSleep();
 			long now = System.nanoTime();
 			double updateLength = now - lastLoopTime;
 			lastLoopTime = now;
 			double delta = updateLength / TinyRL.OPTIMAL_TIME;
 			
-			gameProfiler.startScript();
 			Engine.getInstance().addTailEvent(currentEvent);
 			Engine.getInstance().process(null, delta);
-			gameProfiler.endScript();
 			
-			gameProfiler.startRender();
 			asciiTerminal.repaint();
-			gameProfiler.endRender();
-			
-			gameProfiler.render();
-			
-			gameProfiler.startSleep();
 			try {
 				long value = (lastLoopTime - System.nanoTime() + TinyRL.OPTIMAL_TIME) / 1000000;
 				if(value > 0) {
@@ -164,7 +153,6 @@ public class TinyRL {
 	}
 	
 	public static void main(String[] args) {
-		gameProfiler.startSleep();
 		TinyRL tinyRL = TinyRL.getInstance();
 		tinyRL.run();
 	}
