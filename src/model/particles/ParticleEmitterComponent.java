@@ -1,5 +1,7 @@
 package model.particles;
 
+import java.awt.Color;
+
 import generator.EntityGenerator;
 import main.TinyRL;
 import model.PositionComponent;
@@ -11,20 +13,21 @@ import util.Pair;
 
 public class ParticleEmitterComponent implements Component {
 	
-	public float duration;
-	public float particlesPerSecond;
-	public float speed;
-	public float lifeLength;
+	private float duration;
+	private float particlesPerSecond;
+	private float speed;
+	private float lifeLength;
+	private Color color;
 	
 	private float elapsedTime = 0f;
 	private float partialParticle = 0f;
 	
-	public ParticleEmitterComponent(float duration, float particlesPerSecond, float speed, float lifeLength) {
-		super();
+	public ParticleEmitterComponent(float duration, float particlesPerSecond, float speed, float lifeLength, Color color) {
 		this.duration = duration;
 		this.particlesPerSecond = particlesPerSecond;
 		this.speed = speed;
 		this.lifeLength = lifeLength;
+		this.color = color;
 	}
 
 	@Override
@@ -48,7 +51,7 @@ public class ParticleEmitterComponent implements Component {
 				Float dirY = (EntityGenerator.rand.nextFloat() * 2f - 1f) * speed;
 				
 				Pair<Float, Float> velocity = new Pair<Float, Float>(dirX, dirY);
-				Particle particle = EntityGenerator.newParticle(positionComponent.getPosition(), velocity, lifeLength);
+				Particle particle = EntityGenerator.newParticle(positionComponent.getPosition(), velocity, lifeLength, color);
 				Engine.getInstance().addHeadEvent(new AddParticleEvent(particle));
 			}
 		}

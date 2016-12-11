@@ -1,5 +1,6 @@
 package generator;
 
+import java.awt.Color;
 import java.util.Random;
 
 import model.Direction;
@@ -71,20 +72,20 @@ public class EntityGenerator {
 		return entity;
 	}
 	
-	public static Particle newParticle(Pair<Integer, Integer> position, Pair<Float, Float> velocity, float lifeLength) {
+	public static Particle newParticle(Pair<Integer, Integer> position, Pair<Float, Float> velocity, float lifeLength, Color color) {
 		Particle particle = new Particle();
 		
 		particle.add(new PositionComponent(position));
-		particle.add(new ParticleComponent(new Pair<>(position.key.floatValue(), position.value.floatValue()), velocity, lifeLength));
+		particle.add(new ParticleComponent(new Pair<>(position.key.floatValue(), position.value.floatValue()), velocity, lifeLength, color));
 		
 		return particle;
 	}
 	
-	public static Entity newParticleEmitter(Pair<Integer, Integer> position, float duration, float particlesPerSecond, float speed, float lifeLength) {
+	public static Entity newParticleEmitter(Pair<Integer, Integer> position, float duration, float particlesPerSecond, float speed, float lifeLength, Color color) {
 		Entity particleEmitter = new Entity();
 		
 		particleEmitter.add(new PositionComponent(position));
-		particleEmitter.add(new ParticleEmitterComponent(duration, particlesPerSecond, speed, lifeLength));
+		particleEmitter.add(new ParticleEmitterComponent(duration, particlesPerSecond, speed, lifeLength, color));
 		
 		return particleEmitter;
 	}
