@@ -35,13 +35,6 @@ public class PlayScreenComponent implements Component {
 	public void process(Event e, double deltaTime) {
 		if(e instanceof PlayScreenEvent) {
 			
-			Pair<Integer, Integer> position = new Pair<Integer, Integer>(TinyRL.WINDOW_WIDTH/2, TinyRL.WINDOW_HEIGHT/2);
-			Pair<Float, Float> velocity = new Pair<Float, Float>((EntityGenerator.rand.nextFloat()*2f-1)/10, (EntityGenerator.rand.nextFloat()*2f-1)/10);
-			Particle particle = EntityGenerator.newParticle(position, velocity, 40);
-			Engine.getInstance().addHeadEvent(new AddParticleEvent(particle));
-			
-			
-			
 			// TODO Adding the animation blocking turn system.
 			
 			/**
@@ -52,6 +45,14 @@ public class PlayScreenComponent implements Component {
 			if(event != null) {
 				if(event.getKeyCode() == KeyEvent.VK_SPACE) {
 					pause = !pause;
+					
+					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
+				}
+				
+				if(event.getKeyCode() == KeyEvent.VK_P) {
+					Pair<Integer, Integer> position = new Pair<Integer, Integer>(EntityGenerator.rand.nextInt(TinyRL.WINDOW_WIDTH), EntityGenerator.rand.nextInt(TinyRL.WINDOW_HEIGHT));
+					Entity particleEmitter = EntityGenerator.newParticleEmitter(position, 0.02f, 10000, 0.5f, 30);
+					Engine.getInstance().addEntity(particleEmitter);
 					
 					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
 				}

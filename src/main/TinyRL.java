@@ -41,7 +41,7 @@ public class TinyRL {
 	public static final int CHARACTER_HEIGHT = 10;
 	//*/
 
-	public static final int SCALE = 2;
+	public static final int SCALE = 3;
 	public static final boolean CUSTOM_WINDOW = true;
 	
 	public static final int TARGET_FPS = 60;

@@ -12,7 +12,7 @@ public class ParticleComponent implements Component {
 	private Pair<Float, Float> position;
 	private Pair<Float, Float> velocity;
 	private float lifeLength;
-	private Color color = Color.WHITE;
+	private Color color = Color.CYAN;
 	
 	private float elapsedTime = 0;
 	

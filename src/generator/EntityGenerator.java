@@ -37,6 +37,7 @@ import model.items.RainbowColorControllerComponent;
 import model.items.WeaponComponent;
 import model.particles.Particle;
 import model.particles.ParticleComponent;
+import model.particles.ParticleEmitterComponent;
 import model.particles.ParticleHandlerComponent;
 import model.turns.TurnControllerComponent;
 import model.turns.actions.AttackActionComponent;
@@ -79,6 +80,14 @@ public class EntityGenerator {
 		return particle;
 	}
 	
+	public static Entity newParticleEmitter(Pair<Integer, Integer> position, float duration, float particlesPerSecond, float speed, float lifeLength) {
+		Entity particleEmitter = new Entity();
+		
+		particleEmitter.add(new PositionComponent(position));
+		particleEmitter.add(new ParticleEmitterComponent(duration, particlesPerSecond, speed, lifeLength));
+		
+		return particleEmitter;
+	}
 	
 	
 	

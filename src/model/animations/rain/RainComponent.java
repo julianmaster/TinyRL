@@ -1,5 +1,6 @@
 package model.animations.rain;
 
+import main.TinyRL;
 import model.ChangePositionEvent;
 import model.PositionComponent;
 import model.Room;
@@ -27,7 +28,7 @@ public class RainComponent implements Component {
 	public void process(Event e, double deltaTime) {
 		if(e instanceof TickRainEvent) {
 			elapseTime += deltaTime;
-			if(elapseTime >= 60 / FPS) {
+			if(elapseTime >= TinyRL.TARGET_FPS / FPS) {
 				Animation rain = (Animation)Engine.getInstance().getEntityByComponent(this);
 				PositionComponent positionComponent = rain.getComponentByClass(PositionComponent.class);
 				AnimationTileComponent animationTileComponent = rain.getComponentByClass(AnimationTileComponent.class);

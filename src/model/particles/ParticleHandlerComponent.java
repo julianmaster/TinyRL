@@ -29,6 +29,7 @@ public class ParticleHandlerComponent implements Component {
 	@Override
 	public void process(Event e, double deltaTime) {
 		if(e instanceof TickParticleHandlerEvent) {
+			Engine.getInstance().addTailEvent(new UpdateParticleEmitterEvent());
 			Engine.getInstance().addTailEvent(new UpdateParticleEvent());
 		}
 		else if(e instanceof RenderParticlesEvent) {
@@ -50,7 +51,9 @@ public class ParticleHandlerComponent implements Component {
 			Particle particle = ((RemoveParticleEvent) e).getParticleToRemove();
 			PositionComponent positionComponent = particle.getComponentByClass(PositionComponent.class);
 			Pair<Integer, Integer> position = positionComponent.getPosition();
-			particles[position.key][position.value].remove(particle);
+			if(position.key >= 0 && position.key < TinyRL.WINDOW_WIDTH && position.value >= 0 && position.value < TinyRL.WINDOW_HEIGHT) {
+				particles[position.key][position.value].remove(particle);
+			}
 		}
 		else if(e instanceof AddParticleEvent) {
 			AddParticleEvent addParticleEvent = (AddParticleEvent)e;
@@ -58,7 +61,9 @@ public class ParticleHandlerComponent implements Component {
 			PositionComponent positionComponent = particle.getComponentByClass(PositionComponent.class);
 			Pair<Integer, Integer> position = positionComponent.getPosition();
 			
-			particles[position.key][position.value].add(particle);
+			if(position.key >= 0 && position.key < TinyRL.WINDOW_WIDTH && position.value >= 0 && position.value < TinyRL.WINDOW_HEIGHT) {
+				particles[position.key][position.value].add(particle);
+			}
 			Engine.getInstance().addEntity(particle);
 		}
 		else if(e instanceof MoveParticleEvent) {
@@ -68,8 +73,12 @@ public class ParticleHandlerComponent implements Component {
 			PositionComponent positionComponent = particle.getComponentByClass(PositionComponent.class);
 			Pair<Integer, Integer> position = positionComponent.getPosition();
 			
-			particles[oldPosition.key][oldPosition.value].remove(particle);
-			particles[position.key][position.value].add(particle);
+			if(oldPosition.key >= 0 && oldPosition.key < TinyRL.WINDOW_WIDTH && oldPosition.value >= 0 && oldPosition.value < TinyRL.WINDOW_HEIGHT) {
+				particles[oldPosition.key][oldPosition.value].remove(particle);
+			}
+			if(position.key >= 0 && position.key < TinyRL.WINDOW_WIDTH && position.value >= 0 && position.value < TinyRL.WINDOW_HEIGHT) {
+				particles[position.key][position.value].add(particle);
+			}
 		}
 	}
 }
