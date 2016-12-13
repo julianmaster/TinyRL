@@ -37,7 +37,6 @@ public class ParticleEmitterComponent implements Component {
 			
 			elapsedTime += deltaTime;
 			if(elapsedTime >= TinyRL.TARGET_FPS * duration) {
-				System.out.println(elapsedTime);
 				Engine.getInstance().removeEntity(particleEmitter);
 			}
 			
@@ -47,8 +46,8 @@ public class ParticleEmitterComponent implements Component {
 			int count = (int)partialParticle;
 			partialParticle %= 1;
 			for(int i = 0; i < count; i++) {
-				Float dirX = (EntityGenerator.rand.nextFloat() * 2f - 1f) * speed;
-				Float dirY = (EntityGenerator.rand.nextFloat() * 2f - 1f) * speed;
+				Float dirX = (EntityGenerator.rand.nextFloat() * 0.2f - 0.1f) * speed;
+				Float dirY = (EntityGenerator.rand.nextFloat() * 0.2f - 0.1f) * speed;
 				
 				Pair<Float, Float> velocity = new Pair<Float, Float>(dirX, dirY);
 				Particle particle = EntityGenerator.newParticle(positionComponent.getPosition(), velocity, lifeLength, color);

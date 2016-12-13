@@ -2,6 +2,7 @@ package model.particles;
 
 import java.awt.Color;
 
+import main.TinyRL;
 import model.ChangePositionEvent;
 import pattern.Component;
 import pattern.Engine;
@@ -42,8 +43,14 @@ public class ParticleComponent implements Component {
 			position.key += change.key;
 			position.value += change.value;
 			if(oldPosition.key != position.key.intValue() || oldPosition.value != position.value.intValue()) {
-				Engine.getInstance().addHeadEvent(new MoveParticleEvent(oldPosition, particle));
-				Engine.getInstance().addHeadEvent(new ChangePositionEvent(particle, position.key.intValue(), position.value.intValue()));
+				if(position.key >= 0 && position.key < TinyRL.WINDOW_WIDTH && position.value >= 0 && position.value < TinyRL.WINDOW_HEIGHT) {
+					Engine.getInstance().addHeadEvent(new MoveParticleEvent(oldPosition, particle));
+					Engine.getInstance().addHeadEvent(new ChangePositionEvent(particle, position.key.intValue(), position.value.intValue()));
+				}
+				else {
+					Engine.getInstance().addHeadEvent(new RemoveParticleEvent(particle));
+					Engine.getInstance().removeEntity(particle);
+				}
 			}
 		}
 	}

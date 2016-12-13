@@ -51,9 +51,9 @@ public class PlayScreenComponent implements Component {
 				}
 				
 				if(event.getKeyCode() == KeyEvent.VK_P) {
-					Pair<Integer, Integer> position = new Pair<Integer, Integer>(EntityGenerator.rand.nextInt(TinyRL.WINDOW_WIDTH), EntityGenerator.rand.nextInt(TinyRL.WINDOW_HEIGHT));
+					Pair<Integer, Integer> position = new Pair<Integer, Integer>(EntityGenerator.rand.nextInt(TinyRL.WINDOW_WIDTH-5)+5, EntityGenerator.rand.nextInt(TinyRL.WINDOW_HEIGHT-3)+3);
 					Color color = new Color(EntityGenerator.rand.nextInt(155)+100, EntityGenerator.rand.nextInt(155)+100, EntityGenerator.rand.nextInt(155)+100);
-					Entity particleEmitter = EntityGenerator.newParticleEmitter(position, 0.02f, 10000, 0.5f, 30, color);
+					Entity particleEmitter = EntityGenerator.newParticleEmitter(position, 0.02f, 2000, 5f, 30, color);
 					Engine.getInstance().addEntity(particleEmitter);
 					
 					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
