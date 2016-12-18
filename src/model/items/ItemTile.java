@@ -1,8 +1,9 @@
 package model.items;
 
 public enum ItemTile {
+	POTIONS('¡'),
 	PILE_OF_BONES('%'),
-	COMMUN_ITEM('&');
+	BASIC_ITEM('&');
 	
 	public char tile;
 	

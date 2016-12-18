@@ -5,11 +5,12 @@ import pattern.Event;
 
 public class ItemComponent implements Component {
 	
+	private int regenerateHp;
 	private int extraPhysicalDamage;
 	private int extraMagicalDamage;
 	
-	public ItemComponent(int extraPhysicalDamage, int extraMagicalDamage) {
-		super();
+	public ItemComponent(int regenerateHp, int extraPhysicalDamage, int extraMagicalDamage) {
+		this.regenerateHp = regenerateHp;
 		this.extraPhysicalDamage = extraPhysicalDamage;
 		this.extraMagicalDamage = extraMagicalDamage;
 	}
@@ -18,11 +19,15 @@ public class ItemComponent implements Component {
 	public void process(Event e, double deltaTime) {
 		
 	}
-	
+
+	public int getRegenerateHp() {
+		return regenerateHp;
+	}
+
 	public int getExtraPhysicalDamage() {
 		return extraPhysicalDamage;
 	}
-	
+
 	public int getExtraMagicalDamage() {
 		return extraMagicalDamage;
 	}

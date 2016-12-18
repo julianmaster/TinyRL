@@ -48,6 +48,7 @@ import model.turns.actions.OpenActionComponent;
 import model.turns.entities.PlayerTurnComponent;
 import model.turns.entities.SkeletonTurnComponent;
 import pattern.Entity;
+import screens.InventoryScreenComponent;
 import screens.PlayScreenComponent;
 import util.Pair;
 
@@ -128,6 +129,14 @@ public class EntityGenerator {
 		Entity entity = new Entity();
 		
 		entity.add(new PlayScreenComponent());
+		
+		return entity;
+	}
+	
+	public static Entity newInventoryScreen() {
+		Entity entity = new Entity();
+		
+		entity.add(new InventoryScreenComponent());
 		
 		return entity;
 	}
@@ -302,13 +311,13 @@ public class EntityGenerator {
 		skeleton.add(new AttackActionComponent());
 		skeleton.add(new SkeletonDeadComponent());
 		
-//		if(rand.nextFloat() < 0.3) {
+		if(rand.nextFloat() < 0.05) {
 			skeleton.getComponentByClass(AttributesComponent.class).addItem(EntityGenerator.newRandomWhiteItem());
 			
-			if(rand.nextFloat() < 0.1) {
+			if(rand.nextFloat() < 0.05) {
 				skeleton.getComponentByClass(AttributesComponent.class).addItem(EntityGenerator.newRandomWhiteItem());
 			}
-//		}
+		}
 		
 		return skeleton;
 	}
@@ -335,6 +344,17 @@ public class EntityGenerator {
 		return item;
 	}
 	
+	public static Item newPotionItem(String name, ItemTile itemTile) {
+		Item item = new Item();
+		
+		item.add(new NameComponent(name));
+		item.add(new ItemTileComponent(itemTile));
+		item.add(new ItemRarityComponent(ItemRarity.POTION_ITEM));
+		int regenerateHp = rand.nextInt(25)+25;
+		item.add(new ItemComponent(regenerateHp, 0, 0));
+		
+		return item;
+	}
 	
 	public static Item newRandomWhiteItem() {
 		Item item = new Item();
@@ -351,10 +371,9 @@ public class EntityGenerator {
 			extraMagicalDamage++;
 		}
 		
-		item.add(new ItemComponent(extraPhysicalDamage, extraMagicalDamage));
-		item.add(new ItemTileComponent(ItemTile.COMMUN_ITEM));
-//		item.add(new ItemRarityComponent(ItemRarity.COMMUN_ITEM));
-		item.add(new ItemRarityComponent(ItemRarity.RARE_ITEM));
+		item.add(new ItemComponent(0, extraPhysicalDamage, extraMagicalDamage));
+		item.add(new ItemTileComponent(ItemTile.BASIC_ITEM));
+		item.add(new ItemRarityComponent(ItemRarity.COMMON_ITEM));
 		
 		return item;
 	}

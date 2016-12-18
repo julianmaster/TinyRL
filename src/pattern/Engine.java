@@ -139,7 +139,7 @@ public class Engine implements Component {
 				ComponentEvent nextComponentEvent = (ComponentEvent)nextEvent;
 				
 				for(Entry<Class<? extends Component>, List<Component>> entry : components.entrySet()) {
-					if(entry.getKey().isAssignableFrom(nextComponentEvent.getComponent())) {
+					if(nextComponentEvent.getComponent().isAssignableFrom(entry.getKey())) {
 						for(Component c : entry.getValue()) {
 							c.process(nextComponentEvent, deltaTime);
 						}

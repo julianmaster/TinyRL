@@ -75,7 +75,6 @@ public class ChangeRoomActionComponent implements Component {
 					break;
 			}
 			
-			Engine.getInstance().addHeadEvent(new NextTickTurnControllerEvent());
 			Engine.getInstance().addNextTurnEvent(new OpenActionEvent(door));
 		}
 	}

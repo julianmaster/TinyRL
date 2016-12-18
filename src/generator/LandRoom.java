@@ -42,7 +42,6 @@ public class LandRoom extends BaseRoom {
 					rainType = RainType.BIG_RAIN;
 					break;
 			}
-			System.out.println("RainType: "+rainType);
 			room.getAnimationHandlers().add(EntityGenerator.newRainHandler(rainType));
 		}
 	}

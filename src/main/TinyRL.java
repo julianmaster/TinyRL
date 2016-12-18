@@ -7,7 +7,7 @@ import model.World;
 import pattern.Engine;
 import pattern.Entity;
 import pattern.Event;
-import screens.PlayScreenEvent;
+import screens.ScreenEvent;
 import ui.AsciiPanel;
 import ui.CustomAsciiTerminal;
 import ui.CustomColor;
@@ -53,7 +53,7 @@ public class TinyRL {
 	private AsciiPanel asciiPanel;
 	private World world;
 	
-	private Event currentEvent;
+	private Event screenEvent;
 	
 	private TinyRL() {
 		asciiTerminal = new CustomAsciiTerminal(TITLE, new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT), TILESET_FILE, CHARACTER_WIDTH, CHARACTER_HEIGHT, SCALE, ICON_FILE, CUSTOM_WINDOW);
@@ -107,7 +107,7 @@ public class TinyRL {
 		
 		Engine.getInstance().addEntity(EntityGenerator.newParticleManager());
 		
-		currentEvent = new PlayScreenEvent();
+		screenEvent = new ScreenEvent();
 	}
 	
 	public void run() {
@@ -119,7 +119,7 @@ public class TinyRL {
 			lastLoopTime = now;
 			double delta = updateLength / TinyRL.OPTIMAL_TIME;
 			
-			Engine.getInstance().addTailEvent(currentEvent);
+			Engine.getInstance().addTailEvent(screenEvent);
 			Engine.getInstance().process(null, delta);
 			
 			asciiTerminal.repaint();

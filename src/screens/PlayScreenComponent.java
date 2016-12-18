@@ -22,7 +22,7 @@ import ui.AsciiPanel;
 import ui.CustomColor;
 import util.Pair;
 
-public class PlayScreenComponent implements Component {
+public class PlayScreenComponent extends ScreenComponent {
 	
 	public static final String HP = String.valueOf((char)3);
 	public static final String MANA = String.valueOf((char)247);
@@ -34,7 +34,8 @@ public class PlayScreenComponent implements Component {
 
 	@Override
 	public void process(Event e, double deltaTime) {
-		if(e instanceof PlayScreenEvent) {
+		if(e instanceof ScreenEvent) {
+			Entity playScreen = Engine.getInstance().getEntityByComponent(this);
 			
 			// TODO Adding the animation blocking turn system.
 			
@@ -44,9 +45,13 @@ public class PlayScreenComponent implements Component {
 			
 			KeyEvent event = TinyRL.getInstance().getAsciiTerminal().getEvent();
 			if(event != null) {
+				if(event.getKeyCode() == KeyEvent.VK_I) {
+					Engine.getInstance().removeEntity(playScreen);
+					Engine.getInstance().addEntity(EntityGenerator.newInventoryScreen());
+					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
+				}
 				if(event.getKeyCode() == KeyEvent.VK_SPACE) {
 					pause = !pause;
-					
 					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
 				}
 				
@@ -88,11 +93,11 @@ public class PlayScreenComponent implements Component {
 			 * DRAW
 			 */
 			
-			Engine.getInstance().addTailEvent(new RenderRoomEvent());
-			Engine.getInstance().addTailEvent(new RenderParticlesEvent());
-			
 			AsciiPanel asciiPanel = TinyRL.getInstance().getAsciiPanel();
 			asciiPanel.clear();
+			
+			Engine.getInstance().addTailEvent(new RenderParticlesEvent());
+			Engine.getInstance().addTailEvent(new RenderRoomEvent());
 			
 			// Paint pause
 			if(pause) {
@@ -114,7 +119,7 @@ public class PlayScreenComponent implements Component {
 				asciiPanel.writeString(10, 2, MANA + String.format(" %3.0f",attributesComponent.getMana()) + "/" + String.format("%.0f",attributesComponent.getManaMax()), CustomColor.ROYAL_BLUE);
 				asciiPanel.writeString(10, 3, PHYSICAL_ARMOR + String.format(" %2s",attributesComponent.getPhysicalArmor()), CustomColor.GOLDEN_FIZZ);
 				asciiPanel.writeString(10, 4, MAGICAL_ARMOR + String.format(" %2s",attributesComponent.getMagicalArmor()), CustomColor.VIKING);
-				asciiPanel.writeString(10, 8, "P:INV", CustomColor.WHITE);
+				asciiPanel.writeString(10, 8, "I:INV", CustomColor.WHITE);
 				asciiPanel.writeString(19, 8, "?", CustomColor.WHITE);
 			}
 		}
