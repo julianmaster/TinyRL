@@ -9,7 +9,7 @@ import pattern.Event;
 
 public class RainbowColorControllerComponent implements Component {
 	
-	public static final int TIME_CHANGE_COLOR = 1;
+	public static final int TIME_CHANGE_COLOR = 4;
 	
 	private List<Color> colors = new LinkedList<Color>() {{
 		add(Color.RED);
