@@ -119,7 +119,7 @@ public class PlayScreenComponent extends ScreenComponent {
 				asciiPanel.writeString(10, 2, MANA + String.format(" %3.0f",attributesComponent.getMana()) + "/" + String.format("%.0f",attributesComponent.getManaMax()), CustomColor.ROYAL_BLUE);
 				asciiPanel.writeString(10, 3, PHYSICAL_ARMOR + String.format(" %2s",attributesComponent.getPhysicalArmor()), CustomColor.GOLDEN_FIZZ);
 				asciiPanel.writeString(10, 4, MAGICAL_ARMOR + String.format(" %2s",attributesComponent.getMagicalArmor()), CustomColor.VIKING);
-				asciiPanel.writeString(10, 8, "I:INV", CustomColor.WHITE);
+				asciiPanel.writeString(10, 8, "I:Inv", CustomColor.WHITE);
 				asciiPanel.writeString(19, 8, "?", CustomColor.WHITE);
 			}
 		}

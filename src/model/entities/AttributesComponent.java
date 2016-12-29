@@ -111,6 +111,10 @@ public class AttributesComponent implements Component {
 		
 		return damages;
 	}
+
+	public Item getWeapon() {
+		return weapon;
+	}
 	
 	public boolean addItem(Item item) {
 		if(items.size() < MAX_ITEMS) {
