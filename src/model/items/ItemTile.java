@@ -3,7 +3,8 @@ package model.items;
 public enum ItemTile {
 	POTIONS('¡'),
 	PILE_OF_BONES('%'),
-	BASIC_ITEM('&');
+	ITEM('&'),
+	WEAPON('/');
 	
 	public char tile;
 	

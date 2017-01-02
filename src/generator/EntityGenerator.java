@@ -235,20 +235,6 @@ public class EntityGenerator {
 	 * Entities
 	 */
 	
-	public static Entity newPlayer(Pair<Integer, Integer> position) {
-		Entity player = new Entity();
-		
-		player.add(new PositionComponent(position));
-		player.add(new AttributesComponent(5, 5, 5, EntityGenerator.newBasicPlayerWeapon()));
-		player.add(new EntityTileComponent(EntityTile.PLAYER));
-		player.add(new PlayerTurnComponent(60));
-		player.add(new MoveActionComponent());
-		player.add(new AttackActionComponent());
-		player.add(new PlayerDeadComponent());
-		
-		return player;
-	}
-	
 	public static Entity newDoor(Pair<Integer, Integer> position, Pair<Integer, Integer> nextRoom, Direction direction) {
 		Entity door = new Entity();
 		
@@ -298,6 +284,20 @@ public class EntityGenerator {
 		tree.add(new EntityTileComponent(tile));
 		
 		return tree;
+	}
+	
+	public static Entity newPlayer(Pair<Integer, Integer> position) {
+		Entity player = new Entity();
+		
+		player.add(new PositionComponent(position));
+		player.add(new AttributesComponent(5, 5, 5, EntityGenerator.newBasicPlayerWeapon()));
+		player.add(new EntityTileComponent(EntityTile.PLAYER));
+		player.add(new PlayerTurnComponent(60));
+		player.add(new MoveActionComponent());
+		player.add(new AttackActionComponent());
+		player.add(new PlayerDeadComponent());
+		
+		return player;
 	}
 	
 	public static Entity newSkeleton(Pair<Integer, Integer> position) {
@@ -372,7 +372,7 @@ public class EntityGenerator {
 		}
 		
 		item.add(new ItemComponent(0, extraPhysicalDamage, extraMagicalDamage));
-		item.add(new ItemTileComponent(ItemTile.BASIC_ITEM));
+		item.add(new ItemTileComponent(ItemTile.ITEM));
 		item.add(new ItemRarityComponent(ItemRarity.COMMON_ITEM));
 		
 		return item;
@@ -395,6 +395,8 @@ public class EntityGenerator {
 		Item weapon = new Item();
 		
 		weapon.add(new WeaponComponent(5, 10));
+		weapon.add(new ItemRarityComponent(ItemRarity.USELESS_ITEM));
+		weapon.add(new ItemTileComponent(ItemTile.WEAPON));
 		
 		return weapon;
 	}
@@ -403,6 +405,8 @@ public class EntityGenerator {
 		Item weapon = new Item();
 		
 		weapon.add(new WeaponComponent(4, 6));
+		weapon.add(new ItemRarityComponent(ItemRarity.USELESS_ITEM));
+		weapon.add(new ItemTileComponent(ItemTile.WEAPON));
 		
 		return weapon;
 	}

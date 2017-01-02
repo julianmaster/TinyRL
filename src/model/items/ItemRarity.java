@@ -9,7 +9,7 @@ public class ItemRarity {
 	public static final ItemRarity POTION_ITEM = new ItemRarity(1, CustomColor.ROYAL_BLUE);
 	public static final ItemRarity COMMON_ITEM = new ItemRarity(1, CustomColor.WHITE);
 	public static final ItemRarity UNCOMMON_ITEM = new ItemRarity(2, CustomColor.CHRISTI);
-	public static final ItemRarity MAGIC_ITEM = new ItemRarity(2, CustomColor.CHRISTI);
+//	public static final ItemRarity MAGIC_ITEM = new ItemRarity(2, CustomColor.CHRISTI);
 	public static final ItemRarity RARE_ITEM = new ItemRarity(3, Color.RED, true);
 
 	public int level;

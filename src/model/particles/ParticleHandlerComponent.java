@@ -29,8 +29,8 @@ public class ParticleHandlerComponent implements Component {
 	@Override
 	public void process(Event e, double deltaTime) {
 		if(e instanceof TickParticleHandlerEvent) {
-			Engine.getInstance().addTailEvent(new UpdateParticleEmitterEvent());
-			Engine.getInstance().addTailEvent(new UpdateParticleEvent());
+			Engine.getInstance().addHeadEvent(new UpdateParticleEvent());
+			Engine.getInstance().addHeadEvent(new UpdateParticleEmitterEvent());
 		}
 		else if(e instanceof RenderParticlesEvent) {
 			for(int i = 0; i < TinyRL.WINDOW_WIDTH; i++) {

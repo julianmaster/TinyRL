@@ -113,7 +113,12 @@ public class AttributesComponent implements Component {
 	}
 
 	public Item getWeapon() {
-		return weapon;
+		if(weapon != null) {
+			return weapon;
+		}
+		else {
+			return basicWeapon;
+		}
 	}
 	
 	public boolean addItem(Item item) {

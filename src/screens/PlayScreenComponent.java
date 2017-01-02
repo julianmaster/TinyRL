@@ -96,8 +96,8 @@ public class PlayScreenComponent extends ScreenComponent {
 			AsciiPanel asciiPanel = TinyRL.getInstance().getAsciiPanel();
 			asciiPanel.clear();
 			
-			Engine.getInstance().addTailEvent(new RenderParticlesEvent());
 			Engine.getInstance().addTailEvent(new RenderRoomEvent());
+			Engine.getInstance().addTailEvent(new RenderParticlesEvent());
 			
 			// Paint pause
 			if(pause) {

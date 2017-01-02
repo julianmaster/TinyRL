@@ -10,7 +10,7 @@ public enum EntityTile {
 	TREE2((char)6, "A tree", CustomColor.CHRISTI),
 	TREE3((char)6, "A tree", CustomColor.RAIN_FOREST),
 	CLOSE_DOOR('+', "A close door", CustomColor.OILED_CEDAR),
-	OPEN_DOOR('/', "A open door", CustomColor.LOULOU),
+	OPEN_DOOR('+', "A open door", CustomColor.VALHALLA),
 	
 	PLAYER('@', "You", CustomColor.WHITE),
 	SKELETON('s', "A skeleton", CustomColor.WHITE),

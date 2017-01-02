@@ -6,7 +6,10 @@ import java.awt.event.KeyEvent;
 import generator.EntityGenerator;
 import main.TinyRL;
 import model.entities.AttributesComponent;
+import model.items.Item;
 import model.items.ItemRarity;
+import model.items.ItemRarityComponent;
+import model.items.ItemTileComponent;
 import model.items.RainbowColorControllerEvent;
 import model.turns.entities.PlayerTurnComponent;
 import pattern.Engine;
@@ -55,11 +58,11 @@ public class InventoryScreenComponent extends ScreenComponent {
 			asciiPanel.write(4, 2, (char)203, CustomColor.OILED_CEDAR);
 			asciiPanel.write(2, 4, (char)204, CustomColor.OILED_CEDAR);
 			
-			if(attributesComponent.getWeapon() != null) {
-//				asciiPanel.w
-			}
+			Item weapon = attributesComponent.getWeapon();
+			ItemTileComponent weaponTileComponent = weapon.getComponentByClass(ItemTileComponent.class);
+			ItemRarityComponent weaponRarityComponent = weapon.getComponentByClass(ItemRarityComponent.class);
+			asciiPanel.write(3, 3, weaponTileComponent.getItemTile().tile, weaponRarityComponent.getItemRarity().color, CustomColor.STINGER);
 			
-			asciiPanel.write(3, 3, 'D', ItemRarity.RARE_ITEM.color, CustomColor.STINGER);
 			asciiPanel.write(5, 3, ' ', CustomColor.WHITE, CustomColor.VALHALLA);
 			asciiPanel.write(5, 4, ' ', CustomColor.WHITE, CustomColor.VALHALLA);
 			asciiPanel.write(5, 5, ' ', CustomColor.WHITE, CustomColor.VALHALLA);
