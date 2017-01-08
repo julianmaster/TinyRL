@@ -67,7 +67,6 @@ public class PlayScreenComponent extends ScreenComponent {
 			
 			KeyEvent otherEvent = TinyRL.getInstance().getAsciiTerminal().getOtherEvent();
 			if(otherEvent != null) {
-				
 				// Show help info
 				if(otherEvent.getKeyCode() == KeyEvent.VK_COMMA && otherEvent.getID() == KeyEvent.KEY_PRESSED && info == false) {
 					info = true;

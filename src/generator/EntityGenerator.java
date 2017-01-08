@@ -305,7 +305,7 @@ public class EntityGenerator {
 		
 		skeleton.add(new PositionComponent(position));
 		skeleton.add(new EntityTileComponent(EntityTile.SKELETON));
-		skeleton.add(new AttributesComponent(3, 3, 3, EntityGenerator.newBasicSkeletonWeapon()));
+		skeleton.add(new AttributesComponent(2, 2, 2, EntityGenerator.newBasicSkeletonWeapon()));
 		skeleton.add(new SkeletonTurnComponent(100));
 		skeleton.add(new MoveActionComponent());
 		skeleton.add(new AttackActionComponent());
@@ -404,7 +404,7 @@ public class EntityGenerator {
 	public static Item newBasicSkeletonWeapon() {
 		Item weapon = new Item();
 		
-		weapon.add(new WeaponComponent(4, 6));
+		weapon.add(new WeaponComponent(3, 5));
 		weapon.add(new ItemRarityComponent(ItemRarity.USELESS_ITEM));
 		weapon.add(new ItemTileComponent(ItemTile.WEAPON));
 		

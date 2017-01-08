@@ -19,6 +19,8 @@ import ui.AsciiPanel;
 import ui.CustomColor;
 
 public class InventoryScreenComponent extends ScreenComponent {
+	
+	private int selected = 0;
 
 	@Override
 	public void process(Event e, double deltaTime) {
@@ -37,12 +39,23 @@ public class InventoryScreenComponent extends ScreenComponent {
 					Engine.getInstance().addEntity(EntityGenerator.newPlayScreen());
 					TinyRL.getInstance().getAsciiTerminal().setEvent(null);
 				}
+				if(event.getKeyCode() == KeyEvent.VK_UP) {
+					if(selected == 4 || selected == 5) {
+						selected = 0;
+					}
+					else if(selected == 3) {
+						selected--;
+					}
+					else if(selected == 2) {
+						selected--;
+					}
+				}
 			}
 			
 			KeyEvent otherEvent = TinyRL.getInstance().getAsciiTerminal().getOtherEvent();
 			if(otherEvent != null) {
-				
 			}
+			TinyRL.getInstance().getAsciiTerminal().setEvent(null);
 			
 			/**
 			 * DRAW
